@@ -10,6 +10,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     socket =
       assign(socket,
         chart: %{
+          debug_mode: true,
           chart_dimensions: chart_dimensions
         }
       )
@@ -27,6 +28,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       height={"#{@chart.chart_dimensions.viewbox_height}"}
       xmlns="http://www.w3.org/2000/svg"
     >
+      <!-- start debug mode, use rectangles to outline the elements of your chart -->
+      <rect :if={@chart.debug_mode} width="100%" height="100%" fill="none" stroke="black" />
+      <!-- end debug mode -->
     </svg>
     """
   end
