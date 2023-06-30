@@ -4,7 +4,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   def mount(_params, _session, socket) do
     dimensions = %{
       viewbox_height: 210,
-      viewbox_width: 800
+      viewbox_width: 800,
+      y_label_width: 70
     }
 
     socket =
@@ -30,6 +31,15 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     >
       <!-- start debug mode, use rectangles to outline the elements of your chart -->
       <rect :if={@chart.debug_mode} width="100%" height="100%" fill="none" stroke="black" />
+      <rect
+        :if={@chart.debug_mode}
+        x="0"
+        y="0"
+        width={@chart.dimensions.y_label_width}
+        height={@chart.dimensions.viewbox_height}
+        fill="none"
+        stroke="blue"
+      />
       <!-- end debug mode -->
     </svg>
     """
