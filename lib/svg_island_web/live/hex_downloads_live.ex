@@ -2,6 +2,16 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   use Phoenix.LiveView
 
   def mount(_params, _session, socket) do
+    style = %{
+      y_label_class: "fill-grey-500 stroke-white text-xs [stroke-width:10]"
+    }
+
+    range_of_downloads()
+    |> Enum.map(fn step ->
+      %{value: step, label: step, y_label_class: style.y_label_class}
+    end)
+    |> dbg()
+
     dimensions = %{
       viewbox_height: 210,
       viewbox_width: 800,
@@ -66,5 +76,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       </svg>
     </div>
     """
+  end
+
+  defp range_of_downloads() do
+    Enum.to_list(0..64000//16000)
   end
 end
