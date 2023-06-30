@@ -5,7 +5,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     dimensions = %{
       viewbox_height: 210,
       viewbox_width: 800,
-      y_label_width: 70
+      y_label_width: 70,
+      header_height: 25
     }
 
     socket =
@@ -40,6 +41,15 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           height={@chart.dimensions.viewbox_height}
           fill="none"
           stroke="blue"
+        />
+        <rect
+          :if={@chart.debug_mode}
+          x="0"
+          y="0"
+          width={@chart.dimensions.viewbox_width}
+          height={@chart.dimensions.header_height}
+          fill="none"
+          stroke="red"
         />
         <!-- end debug mode -->
       </svg>
