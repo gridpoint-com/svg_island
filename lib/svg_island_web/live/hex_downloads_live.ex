@@ -21,27 +21,29 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
   def render(assigns) do
     ~H"""
-    <h1>Hex Downloads</h1>
+    <div class="m-16">
+      <h1>Hex Downloads</h1>
 
-    <svg
-      viewBox={"0 0 #{@chart.dimensions.viewbox_width} #{@chart.dimensions.viewbox_height}"}
-      width={"#{@chart.dimensions.viewbox_width}"}
-      height={"#{@chart.dimensions.viewbox_height}"}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <!-- start debug mode, use rectangles to outline the elements of your chart -->
-      <rect :if={@chart.debug_mode} width="100%" height="100%" fill="none" stroke="black" />
-      <rect
-        :if={@chart.debug_mode}
-        x="0"
-        y="0"
-        width={@chart.dimensions.y_label_width}
-        height={@chart.dimensions.viewbox_height}
-        fill="none"
-        stroke="blue"
-      />
-      <!-- end debug mode -->
-    </svg>
+      <svg
+        viewBox={"0 0 #{@chart.dimensions.viewbox_width} #{@chart.dimensions.viewbox_height}"}
+        width={"#{@chart.dimensions.viewbox_width}"}
+        height={"#{@chart.dimensions.viewbox_height}"}
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <!-- start debug mode, use rectangles to outline the elements of your chart -->
+        <rect :if={@chart.debug_mode} width="100%" height="100%" fill="none" stroke="black" />
+        <rect
+          :if={@chart.debug_mode}
+          x="0"
+          y="0"
+          width={@chart.dimensions.y_label_width}
+          height={@chart.dimensions.viewbox_height}
+          fill="none"
+          stroke="blue"
+        />
+        <!-- end debug mode -->
+      </svg>
+    </div>
     """
   end
 end
