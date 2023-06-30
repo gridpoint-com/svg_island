@@ -17,7 +17,7 @@ defmodule SvgIslandWeb.Router do
   scope "/", SvgIslandWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/", HexDownloadsLive, :home
   end
 
   # Other scopes may use custom stacks.
