@@ -1,5 +1,11 @@
+defmodule SvgIsland.Chart do
+  defstruct debug_mode: false, dimensions: %{}, dataset: []
+end
+
 defmodule SvgIslandWeb.HexDownloadsLive do
   use Phoenix.LiveView
+
+  alias SvgIsland.Chart
 
   def mount(_params, _session, socket) do
     dimensions = %{
@@ -11,15 +17,94 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       chart_width: 800
     }
 
-    socket =
-      assign(socket,
-        chart: %{
-          debug_mode: true,
-          dimensions: dimensions
-        }
-      )
+    downloads = jason_downloads()
+
+    chart =
+      %Chart{}
+      |> Map.put(:dimensions, dimensions)
+      |> Map.put(:dataset, downloads)
+      |> put_chart_line_coordinates()
+
+    socket = assign(socket, chart: chart)
 
     {:ok, socket}
+  end
+
+  defp put_chart_line_coordinates(%Chart{dataset: _dataset, dimensions: _dimensions} = chart) do
+    line_coordinates =
+      chart.dataset
+      # |> Enum.take(1)
+      |> Enum.reduce([], &calculate_line_coordinate(&1, &2, chart))
+
+    Map.put(chart, :line_coordinates, line_coordinates)
+  end
+
+  # draw the very first line of the chart
+  defp calculate_line_coordinate(number_of_downloads, [], %Chart{
+         dataset: downloads,
+         dimensions: dimensions
+       }) do
+    # scale x value
+    number_of_datapoints = Enum.count(downloads)
+    line_width = dimensions.chart_width / number_of_datapoints
+
+    # scale y value
+    percent_of_total_downloads = number_of_downloads / Enum.max(downloads)
+    line_length = percent_of_total_downloads * dimensions.chart_height
+
+    first_line_start_x = 0
+    first_line_start_y = dimensions.chart_height
+
+    first_line_end_x = line_width
+    first_line_end_y = line_length
+
+    [
+      %{
+        line_start: %{
+          x: first_line_start_x,
+          y: first_line_start_y
+        },
+        line_end: %{
+          x: first_line_end_x,
+          y: first_line_end_y
+        }
+      }
+    ]
+  end
+
+  # draw the remaining lines of the chart
+  defp calculate_line_coordinate(
+         number_of_downloads,
+         [previous_line | _] = line_coordinates,
+         %Chart{dataset: downloads, dimensions: dimensions}
+       ) do
+    # scale x value
+    number_of_datapoints = Enum.count(downloads)
+    line_width = dimensions.chart_width / number_of_datapoints
+
+    # scale y value
+    percent_of_total_downloads = number_of_downloads / Enum.max(downloads)
+    line_length = percent_of_total_downloads * dimensions.chart_height
+
+    current_line_start_x = previous_line.line_end.x
+    current_line_start_y = previous_line.line_end.y
+
+    current_line_end_x = current_line_start_x + line_width
+    current_line_end_y = dimensions.chart_height - line_length
+
+    [
+      %{
+        line_start: %{
+          x: current_line_start_x,
+          y: current_line_start_y
+        },
+        line_end: %{
+          x: current_line_end_x,
+          y: current_line_end_y
+        }
+      }
+      | line_coordinates
+    ]
   end
 
   def render(assigns) do
@@ -63,8 +148,51 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="green"
         />
         <!-- end debug mode -->
+        <%= for %{line_start: line_start, line_end: line_end} <- @chart.line_coordinates do %>
+          <polyline
+            points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
+            fill="none"
+            stroke="black"
+          />
+        <% end %>
       </svg>
     </div>
     """
+  end
+
+  defp jason_downloads() do
+    [
+      18_000,
+      63_000,
+      72_000,
+      71_000,
+      66_000,
+      60_000,
+      18_000,
+      18_000,
+      54_000,
+      72_000,
+      71_000,
+      70_000,
+      55_000,
+      18_000,
+      18_000,
+      69_000,
+      71_000,
+      66_000,
+      60_000,
+      54_000,
+      18_000,
+      18_000,
+      52_000,
+      45_000,
+      55_000,
+      59_000,
+      62_000,
+      18_000,
+      18_000,
+      75_000,
+      73_000
+    ]
   end
 end
