@@ -6,6 +6,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   use Phoenix.LiveView
 
   alias SvgIsland.Chart
+  alias Phoenix.LiveView.JS
 
   def mount(_params, _session, socket) do
     dimensions = %{
@@ -25,9 +26,26 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       |> Map.put(:dataset, downloads)
       |> put_chart_line_coordinates()
 
-    socket = assign(socket, chart: chart)
+    socket =
+      socket
+      |> assign(:chart, chart)
+      |> assign(:tooltip, nil)
 
     {:ok, socket}
+  end
+
+  def handle_event("show-tooltip", params, socket) do
+    tooltip = %{
+      x: params["line_start"]["x"],
+      y: params["line_start"]["y"],
+      value: params["value"]
+    }
+
+    {:noreply, assign(socket, :tooltip, tooltip)}
+  end
+
+  def handle_event("dismiss-tooltip", _params, socket) do
+    {:noreply, assign(socket, :tooltip, nil)}
   end
 
   defp put_chart_line_coordinates(%Chart{dataset: _dataset, dimensions: _dimensions} = chart) do
@@ -67,7 +85,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
         line_end: %{
           x: first_line_end_x,
           y: first_line_end_y
-        }
+        },
+        value: number_of_downloads
       }
     ]
   end
@@ -101,7 +120,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
         line_end: %{
           x: current_line_end_x,
           y: current_line_end_y
-        }
+        },
+        value: number_of_downloads
       }
       | line_coordinates
     ]
@@ -148,13 +168,18 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="green"
         />
         <!-- end debug mode -->
-        <%= for %{line_start: line_start, line_end: line_end} <- @chart.line_coordinates do %>
+        <%= for %{line_start: line_start, line_end: line_end} = line_coordinate <- @chart.line_coordinates do %>
           <polyline
             points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
             fill="none"
             stroke="black"
+            phx-click={JS.push("show-tooltip", value: line_coordinate)}
+            phx-click-away="dismiss-tooltip"
           />
         <% end %>
+        <text :if={@tooltip} x={@tooltip.x} y={@tooltip.y}>
+          <%= @tooltip.value %>
+        </text>
       </svg>
     </div>
     """
