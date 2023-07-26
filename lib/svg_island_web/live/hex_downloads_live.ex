@@ -35,9 +35,12 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   end
 
   def handle_event("show-tooltip", params, socket) do
+    x_coor = (params["line_start"]["x"] + params["line_end"]["x"]) / 2
+    y_coor = (params["line_start"]["y"] + params["line_end"]["y"]) / 2
+
     tooltip = %{
-      x: params["line_start"]["x"],
-      y: params["line_start"]["y"],
+      x: x_coor,
+      y: y_coor,
       value: params["value"]
     }
 
