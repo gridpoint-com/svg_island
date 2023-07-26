@@ -41,15 +41,15 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
   # draw the very first line of the chart
   defp calculate_line_coordinate(number_of_downloads, [], %Chart{
-         dataset: downloads,
+         dataset: all_downloads,
          dimensions: dimensions
        }) do
     # scale x value
-    number_of_datapoints = Enum.count(downloads)
+    number_of_datapoints = Enum.count(all_downloads)
     line_width = dimensions.chart_width / number_of_datapoints
 
     # scale y value
-    percent_of_total_downloads = number_of_downloads / Enum.max(downloads)
+    percent_of_total_downloads = number_of_downloads / Enum.max(all_downloads)
     line_length = percent_of_total_downloads * dimensions.chart_height
 
     first_line_start_x = 0
