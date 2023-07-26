@@ -121,9 +121,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
     color =
       cond do
-        percent_of_lines_drawn < 0.33 -> "stroke-indigo-700"
-        percent_of_lines_drawn >= 0.33 && percent_of_lines_drawn < 0.66 -> "stroke-purple-700"
-        true -> "stroke-fuchsia-700"
+        percent_of_lines_drawn < 0.2 -> "stroke-indigo-600"
+        percent_of_lines_drawn >= 0.2 && percent_of_lines_drawn < 0.4 -> "stroke-violet-600"
+        percent_of_lines_drawn >= 0.4 && percent_of_lines_drawn < 0.6 -> "stroke-purple-600"
+        percent_of_lines_drawn >= 0.6 && percent_of_lines_drawn < 0.8 -> "stroke-fuchsia-600"
+        true -> "stroke-pink-600"
       end
 
     [
