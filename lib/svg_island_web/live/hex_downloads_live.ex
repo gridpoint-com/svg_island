@@ -246,7 +246,16 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             phx-click-away="dismiss-tooltip"
           />
         <% end %>
-        <text :if={@tooltip} x={@tooltip.x} y={@tooltip.y}>
+        <rect
+          :if={@tooltip}
+          x={@tooltip.x - 6}
+          y={@tooltip.y - 15}
+          width="60px"
+          height="20px"
+          rx={5}
+          class="fill-slate-100"
+        />
+        <text :if={@tooltip} x={@tooltip.x} y={@tooltip.y} class="fill-zinc-800 text-sm font-semibold">
           <%= @tooltip.value %>
         </text>
       </svg>
