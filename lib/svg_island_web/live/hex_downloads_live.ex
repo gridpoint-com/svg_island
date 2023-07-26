@@ -86,7 +86,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           x: first_line_end_x,
           y: first_line_end_y
         },
-        value: number_of_downloads
+        value: number_of_downloads,
+        class: "stroke-indigo-700 [stroke-width:3] [stroke-linecap:round] hover:cursor-pointer"
       }
     ]
   end
@@ -111,6 +112,15 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     current_line_end_x = current_line_start_x + line_width
     current_line_end_y = dimensions.chart_height - line_length
 
+    percent_of_lines_drawn = Enum.count(line_coordinates) / Enum.count(downloads)
+
+    color =
+      cond do
+        percent_of_lines_drawn < 0.33 -> "stroke-indigo-700"
+        percent_of_lines_drawn >= 0.33 && percent_of_lines_drawn < 0.66 -> "stroke-purple-700"
+        true -> "stroke-fuchsia-700"
+      end
+
     [
       %{
         line_start: %{
@@ -121,7 +131,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           x: current_line_end_x,
           y: current_line_end_y
         },
-        value: number_of_downloads
+        value: number_of_downloads,
+        class: "#{color} [stroke-width:3] [stroke-linecap:round] hover:cursor-pointer"
       }
       | line_coordinates
     ]
@@ -168,12 +179,13 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="green"
         />
         <!-- end debug mode -->
-        <%= for %{line_start: line_start, line_end: line_end} = line_coordinate <- @chart.line_coordinates do %>
+        <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
           <polyline
             points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
             fill="none"
             stroke="black"
-            phx-click={JS.push("show-tooltip", value: line_coordinate)}
+            class={line.class}
+            phx-click={JS.push("show-tooltip", value: line)}
             phx-click-away="dismiss-tooltip"
           />
         <% end %>
