@@ -1,5 +1,5 @@
 defmodule SvgIsland.Chart do
-  defstruct debug_mode: false, dimensions: %{}, dataset: []
+  defstruct debug_mode: false, dimensions: %{}, dataset: [], y_label_values: []
 end
 
 defmodule SvgIslandWeb.HexDownloadsLive do
@@ -24,7 +24,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       %Chart{}
       |> Map.put(:dimensions, dimensions)
       |> Map.put(:dataset, downloads)
+      |> Map.put(:y_label_values, y_label_values())
       |> put_chart_line_coordinates()
+      |> put_y_label_coordinates()
 
     socket =
       socket
@@ -141,6 +143,51 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     ]
   end
 
+  defp put_y_label_coordinates(
+         %Chart{y_label_values: _y_label_values, dimensions: _dimensions} = chart
+       ) do
+    y_label_coordinates =
+      chart.y_label_values
+      # |> Enum.take(1)
+      |> Enum.reduce([], &calculate_y_label_coordinate(&1, &2, chart))
+
+    Map.put(chart, :y_label_coordinates, y_label_coordinates)
+  end
+
+  defp calculate_y_label_coordinate(y_label_value, [], %Chart{
+         y_label_values: y_label_values,
+         dimensions: dimensions
+       }) do
+    step = dimensions.chart_height / Enum.count(y_label_values)
+
+    [
+      %{
+        x: 0,
+        y: step,
+        value: y_label_value,
+        class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+      }
+    ]
+  end
+
+  defp calculate_y_label_coordinate(y_label_value, [previous_label | _] = y_labels, %Chart{
+         y_label_values: y_label_values,
+         dimensions: dimensions
+       }) do
+    step = dimensions.chart_height / Enum.count(y_label_values)
+    y = previous_label.y + step
+
+    [
+      %{
+        x: 0,
+        y: y,
+        value: y_label_value,
+        class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+      }
+      | y_labels
+    ]
+  end
+
   def render(assigns) do
     ~H"""
     <div class="m-16">
@@ -182,6 +229,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="green"
         />
         <!-- end debug mode -->
+        <%= for %{x: x, y: y} = label <- @chart.y_label_coordinates do %>
+          <text x={x} y={y} class={label.class}>
+            <%= label.value %>
+          </text>
+        <% end %>
         <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
           <polyline
             points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
@@ -234,5 +286,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       75_000,
       73_000
     ]
+  end
+
+  defp y_label_values() do
+    [72_000, 54_000, 36_000, 18_000, 0]
   end
 end
