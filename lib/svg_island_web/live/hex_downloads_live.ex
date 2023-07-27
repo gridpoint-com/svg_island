@@ -76,7 +76,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     line_length = percent_of_total_downloads * dimensions.chart_height
 
     first_line_start_x = 0
-    first_line_start_y = dimensions.chart_height
+    first_line_start_y = dimensions.chart_height - line_length
 
     first_line_end_x = line_width
     first_line_end_y = line_length
@@ -150,41 +150,86 @@ defmodule SvgIslandWeb.HexDownloadsLive do
        ) do
     y_label_coordinates =
       chart.y_label_values
-      # |> Enum.take(1)
+      # |> Enum.take(2)
       |> Enum.reduce([], &calculate_y_label_coordinate(&1, &2, chart))
 
     Map.put(chart, :y_label_coordinates, y_label_coordinates)
   end
 
+  # draw the very first line of the chart
   defp calculate_y_label_coordinate(y_label_value, [], %Chart{
          y_label_values: y_label_values,
          dimensions: dimensions
        }) do
     step = dimensions.chart_height / Enum.count(y_label_values)
 
+    label_x = 0
+    label_y = step
+
+    background_line_start_x = label_x
+    background_line_start_y = label_y
+
+    background_line_end_x = dimensions.chart_width
+    background_line_end_y = step
+
     [
       %{
-        x: 0,
-        y: step,
-        value: y_label_value,
-        class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+        label: %{
+          x: label_x,
+          y: label_y,
+          value: y_label_value,
+          class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+        },
+        background_line: %{
+          line_start: %{
+            x: background_line_start_x,
+            y: background_line_start_y
+          },
+          line_end: %{
+            x: background_line_end_x,
+            y: background_line_end_y
+          },
+          class: "[stroke-width:1] stroke-slate-300"
+        }
       }
     ]
   end
 
+  # draw the remaining lines of the chart
   defp calculate_y_label_coordinate(y_label_value, [previous_label | _] = y_labels, %Chart{
          y_label_values: y_label_values,
          dimensions: dimensions
        }) do
     step = dimensions.chart_height / Enum.count(y_label_values)
-    y = previous_label.y + step
+
+    label_x = 0
+    label_y = previous_label.label.y + step
+
+    background_line_start_x = label_x
+    background_line_start_y = label_y
+
+    background_line_end_x = dimensions.chart_width
+    background_line_end_y = label_y
 
     [
       %{
-        x: 0,
-        y: y,
-        value: y_label_value,
-        class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+        label: %{
+          x: label_x,
+          y: label_y,
+          value: y_label_value,
+          class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+        },
+        background_line: %{
+          line_start: %{
+            x: background_line_start_x,
+            y: background_line_start_y
+          },
+          line_end: %{
+            x: background_line_end_x,
+            y: background_line_end_y
+          },
+          class: "[stroke-width:1] stroke-slate-300"
+        }
       }
       | y_labels
     ]
@@ -193,7 +238,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   def render(assigns) do
     ~H"""
     <div class="m-16">
-      <h1>Hex Downloads</h1>
+      <h1>Downloads</h1>
 
       <svg
         viewBox={"0 0 #{@chart.dimensions.viewbox_width} #{@chart.dimensions.viewbox_height}"}
@@ -231,16 +276,18 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="green"
         />
         <!-- end debug mode -->
-        <%= for %{x: x, y: y} = label <- @chart.y_label_coordinates do %>
-          <text x={x} y={y} class={label.class}>
+        <%= for %{label: label, background_line: background_line} <- @chart.y_label_coordinates do %>
+          <text x={label.x} y={label.y} class={label.class}>
             <%= label.value %>
           </text>
+          <polyline
+            points={"#{background_line.line_start.x},#{background_line.line_start.y} #{background_line.line_end.x},#{background_line.line_end.y}"}
+            class={background_line.class}
+          />
         <% end %>
         <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
           <polyline
             points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
-            fill="none"
-            stroke="black"
             class={line.class}
             phx-click={JS.push("show-tooltip", value: line)}
             phx-click-away="dismiss-tooltip"
