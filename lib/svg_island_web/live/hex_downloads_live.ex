@@ -245,19 +245,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             phx-click={JS.push("show-tooltip", value: line)}
             phx-click-away="dismiss-tooltip"
           />
+          <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
         <% end %>
-        <rect
-          :if={@tooltip}
-          x={@tooltip.x - 6}
-          y={@tooltip.y - 15}
-          width="60px"
-          height="20px"
-          rx={5}
-          class="fill-slate-100"
-        />
-        <text :if={@tooltip} x={@tooltip.x} y={@tooltip.y} class="fill-zinc-800 text-sm font-semibold">
-          <%= @tooltip.value %>
-        </text>
       </svg>
     </div>
     """
@@ -301,5 +290,32 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
   defp y_label_values() do
     [72_000, 54_000, 36_000, 18_000, 0]
+  end
+
+  attr :x, :integer, required: true
+  attr :y, :integer, required: true
+  attr :value, :string, required: true
+  attr :text_class, :string, default: "fill-zinc-600 text-sm font-semibold"
+  attr :x_offset, :integer, default: 6
+  attr :y_offset, :integer, default: 15
+  attr :rect_class, :string, default: "fill-slate-100"
+  attr :rx, :integer, default: 5
+  attr :width, :string, default: "60px"
+  attr :height, :string, default: "20px"
+
+  defp tooltip(assigns) do
+    ~H"""
+    <rect
+      x={@x - @x_offset}
+      y={@y - @y_offset}
+      width={@width}
+      height={@height}
+      rx={@rx}
+      class={@rect_class}
+    />
+    <text x={@x} y={@y} class={@text_class}>
+      <%= @value %>
+    </text>
+    """
   end
 end
