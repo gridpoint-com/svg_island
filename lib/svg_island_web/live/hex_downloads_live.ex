@@ -121,9 +121,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
     color =
       cond do
-        percent_of_lines_drawn < 0.33 -> "stroke-indigo-700"
-        percent_of_lines_drawn >= 0.33 && percent_of_lines_drawn < 0.66 -> "stroke-purple-700"
-        true -> "stroke-fuchsia-700"
+        percent_of_lines_drawn < 0.2 -> "stroke-indigo-600"
+        percent_of_lines_drawn >= 0.2 && percent_of_lines_drawn < 0.4 -> "stroke-violet-600"
+        percent_of_lines_drawn >= 0.4 && percent_of_lines_drawn < 0.6 -> "stroke-purple-600"
+        percent_of_lines_drawn >= 0.6 && percent_of_lines_drawn < 0.8 -> "stroke-fuchsia-600"
+        true -> "stroke-pink-600"
       end
 
     [
@@ -243,10 +245,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             phx-click={JS.push("show-tooltip", value: line)}
             phx-click-away="dismiss-tooltip"
           />
+          <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
         <% end %>
-        <text :if={@tooltip} x={@tooltip.x} y={@tooltip.y}>
-          <%= @tooltip.value %>
-        </text>
       </svg>
     </div>
     """
@@ -290,5 +290,32 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
   defp y_label_values() do
     [72_000, 54_000, 36_000, 18_000, 0]
+  end
+
+  attr :x, :integer, required: true
+  attr :y, :integer, required: true
+  attr :value, :string, required: true
+  attr :text_class, :string, default: "fill-zinc-600 text-sm font-semibold"
+  attr :x_offset, :integer, default: 6
+  attr :y_offset, :integer, default: 15
+  attr :rect_class, :string, default: "fill-slate-100"
+  attr :rx, :integer, default: 5
+  attr :width, :string, default: "60px"
+  attr :height, :string, default: "20px"
+
+  defp tooltip(assigns) do
+    ~H"""
+    <rect
+      x={@x - @x_offset}
+      y={@y - @y_offset}
+      width={@width}
+      height={@height}
+      rx={@rx}
+      class={@rect_class}
+    />
+    <text x={@x} y={@y} class={@text_class}>
+      <%= @value %>
+    </text>
+    """
   end
 end
