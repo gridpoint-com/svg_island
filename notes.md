@@ -376,20 +376,21 @@ then draw the line until to the point that presents the data point in our datase
 
 
 
-Outline of back half of presentation
+# Outline of back half of presentation
 
 
 
 Starting at Let's build a line chart
 
 
-draw a straight line
+meks
+### draw a straight line
 
-draw an M
+### draw an M
 
-draw a line chart
+### draw a line chart
 
-bring up our two main points
+### bring up our two main points
 
 show a complete line chart of jason downloads
 
