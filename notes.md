@@ -414,3 +414,16 @@ then we need a live line chart and we figured out we could use
 liveview streams to append to the chart
 show a diff of how much work it took to switch a static chart to a live chart
 append to chart with phoenix streams
+
+
+
+
+
+
+
+
+
+Presentation built with obsidian + https://github.com/MSzturc/obsidian-advanced-slides
+https://obsidian.md/
+
+Chart component: https://github.com/gridpoint-com/phoenix/blob/main/lib/gridpoint_web/components/charts.ex
