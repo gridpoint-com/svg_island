@@ -189,7 +189,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     ]
   end
 
-  # draw the remaining lines of the chart
+  # draw the remaining labels for the chart
   defp calculate_y_label_coordinate(y_label_value, [previous_label | _] = y_labels, %Chart{
          y_label_values: y_label_values,
          dimensions: dimensions
