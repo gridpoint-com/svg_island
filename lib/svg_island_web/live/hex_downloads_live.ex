@@ -14,7 +14,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       viewbox_width: 800,
       y_label_width: 70,
       header_height: 25,
-      chart_height: 210,
+      footer_height: 25,
+      chart_height: 160,
       chart_width: 800
     }
 
@@ -24,7 +25,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       %Chart{}
       |> Map.put(:dimensions, dimensions)
       |> Map.put(:dataset, downloads)
-      |> Map.put(:y_label_values, y_label_values())
+      |> Map.put(:y_label_values, y_label_values(downloads))
       |> put_chart_line_coordinates()
       |> put_y_label_coordinates()
 
@@ -37,8 +38,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   end
 
   def handle_event("show-tooltip", params, socket) do
-    x_coor = (params["line_start"]["x"] + params["line_end"]["x"]) / 2
-    y_coor = (params["line_start"]["y"] + params["line_end"]["y"]) / 2
+    x_coor = params["line_end"]["x"]
+    y_coor = params["line_end"]["y"]
 
     tooltip = %{
       x: x_coor,
@@ -62,24 +63,12 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     Map.put(chart, :line_coordinates, line_coordinates)
   end
 
-  # draw the very first line of the chart
-  defp calculate_line_coordinate(number_of_downloads, [], %Chart{
-         dataset: all_downloads,
-         dimensions: dimensions
-       }) do
-    # scale x value
-    number_of_datapoints = Enum.count(all_downloads)
-    line_width = dimensions.chart_width / number_of_datapoints
-
-    # scale y value
-    percent_of_total_downloads = number_of_downloads / Enum.max(all_downloads)
-    line_length = percent_of_total_downloads * dimensions.chart_height
-
+  # draw the first line as a point as we only have one data point
+  defp calculate_line_coordinate(number_of_downloads, [], %Chart{} = chart) do
     first_line_start_x = 0
-    first_line_start_y = dimensions.chart_height - line_length
-
-    first_line_end_x = line_width
-    first_line_end_y = line_length
+    first_line_start_y = scale_y_line_value(number_of_downloads, chart)
+    first_line_end_x = 0
+    first_line_end_y = scale_y_line_value(number_of_downloads, chart)
 
     [
       %{
@@ -101,23 +90,15 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   defp calculate_line_coordinate(
          number_of_downloads,
          [previous_line | _] = line_coordinates,
-         %Chart{dataset: downloads, dimensions: dimensions}
+         %Chart{} = chart
        ) do
-    # scale x value
-    number_of_datapoints = Enum.count(downloads)
-    line_width = dimensions.chart_width / number_of_datapoints
-
-    # scale y value
-    percent_of_total_downloads = number_of_downloads / Enum.max(downloads)
-    line_length = percent_of_total_downloads * dimensions.chart_height
-
     current_line_start_x = previous_line.line_end.x
     current_line_start_y = previous_line.line_end.y
 
-    current_line_end_x = current_line_start_x + line_width
-    current_line_end_y = dimensions.chart_height - line_length
+    current_line_end_x = scale_x_line_value(previous_line, chart)
+    current_line_end_y = scale_y_line_value(number_of_downloads, chart)
 
-    percent_of_lines_drawn = Enum.count(line_coordinates) / Enum.count(downloads)
+    percent_of_lines_drawn = Enum.count(line_coordinates) / Enum.count(chart.dataset)
 
     color =
       cond do
@@ -145,6 +126,22 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     ]
   end
 
+  defp scale_x_line_value(previous_line, %Chart{dataset: dataset, dimensions: dimensions}) do
+    number_of_datapoints = Enum.count(dataset)
+    line_width = dimensions.chart_width / number_of_datapoints
+    previous_line.line_end.x + line_width
+  end
+
+  defp scale_y_line_value(value, %Chart{dataset: dataset, dimensions: dimensions}) do
+    chart_max = dimensions.header_height
+    chart_min = dimensions.header_height + dimensions.chart_height
+    chart_range = chart_min - chart_max
+
+    value_scale = value / Enum.max(dataset)
+    chart_scale = value_scale * chart_range
+    chart_max + (chart_range - chart_scale)
+  end
+
   defp put_y_label_coordinates(
          %Chart{y_label_values: _y_label_values, dimensions: _dimensions} = chart
        ) do
@@ -156,21 +153,18 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     Map.put(chart, :y_label_coordinates, y_label_coordinates)
   end
 
-  # draw the very first line of the chart
+  # draw the very first label of the chart
   defp calculate_y_label_coordinate(y_label_value, [], %Chart{
-         y_label_values: y_label_values,
          dimensions: dimensions
        }) do
-    step = dimensions.chart_height / Enum.count(y_label_values)
-
     label_x = 0
-    label_y = step
+    label_y = dimensions.header_height
 
     background_line_start_x = label_x
     background_line_start_y = label_y
 
     background_line_end_x = dimensions.chart_width
-    background_line_end_y = step
+    background_line_end_y = label_y
 
     [
       %{
@@ -195,12 +189,12 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     ]
   end
 
-  # draw the remaining lines of the chart
+  # draw the remaining labels for the chart
   defp calculate_y_label_coordinate(y_label_value, [previous_label | _] = y_labels, %Chart{
          y_label_values: y_label_values,
          dimensions: dimensions
        }) do
-    step = dimensions.chart_height / Enum.count(y_label_values)
+    step = (dimensions.header_height + dimensions.chart_height + 6) / Enum.count(y_label_values)
 
     label_x = 0
     label_y = previous_label.label.y + step
@@ -252,16 +246,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           :if={@chart.debug_mode}
           x="0"
           y="0"
-          width={@chart.dimensions.y_label_width}
-          height={@chart.dimensions.viewbox_height}
-          fill="none"
-          stroke="blue"
-        />
-        <rect
-          :if={@chart.debug_mode}
-          x="0"
-          y="0"
-          width={@chart.dimensions.viewbox_width}
+          width={@chart.dimensions.chart_width}
           height={@chart.dimensions.header_height}
           fill="none"
           stroke="red"
@@ -269,11 +254,23 @@ defmodule SvgIslandWeb.HexDownloadsLive do
         <rect
           :if={@chart.debug_mode}
           x="0"
-          y="0"
+          y={@chart.dimensions.header_height}
           width={@chart.dimensions.chart_width}
           height={@chart.dimensions.chart_height}
           fill="none"
           stroke="green"
+        />
+        <rect
+          :if={@chart.debug_mode}
+          x="0"
+          y={@chart.dimensions.header_height + @chart.dimensions.chart_height}
+          width={@chart.dimensions.chart_width}
+          height={
+            @chart.dimensions.header_height + @chart.dimensions.chart_height +
+              @chart.dimensions.footer_height
+          }
+          fill="none"
+          stroke="blue"
         />
         <!-- end debug mode -->
         <%= for %{label: label, background_line: background_line} <- @chart.y_label_coordinates do %>
@@ -341,8 +338,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       ]
   end
 
-  defp y_label_values() do
-    [72_000, 54_000, 36_000, 18_000, 0]
+  defp y_label_values(dataset, steps \\ 5) do
+    max_data_point = Enum.max(dataset)
+    step_by = trunc(max_data_point / steps)
+
+    Enum.to_list(max_data_point..0//-step_by)
   end
 
   attr :x, :integer, required: true
