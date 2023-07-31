@@ -376,53 +376,90 @@ then draw the line until to the point that presents the data point in our datase
 
 
 
-# Outline of back half of presentation
-
-
+# Outline for back half of presentation
 
 Starting at Let's build a line chart
 
+## basics of svgs (we have this)
 
 meks
-### draw a straight line
+## draw a straight line
 
-### draw an M
+## draw an M
 
-### draw a line chart
+## draw a line chart
 
-### bring up our two main points
+## bring up our two main points
 
-show a complete line chart of jason downloads
+## show a complete line chart of jason downloads
+- building chart using only two svg elements (polyline, text)
+- style with tailwind (chart structure, applying style to the elements)
+- click events on elements (how we add click events)
+- updating the chart using pubsub (demostart that entire chart is redrawn on new datapoint) 
+- appending to the chart using pubsub (demostrate that the chart was not redrawn but just appended)
 
-talk about the chart struct and how we put all the pieces together
-
-
-basics of svgs (we have this)
-
-building chart using only two svg elements (polyline, text)
-
-style with tailwind (chart structure, applying style to the elements)
-
-click events on elements (how we add click events)
 
 transition presentation from concepts to reality
-talk about bar chart component and what we would do differently
-talk about how we haven't figured out the perfect component
-use chart as phoenix componet ()
+## How did come up with this approach?
+
+Now that you know our approach, you're probably wondering how we came up with it
+
+Our first chart was a Bar Chart and we took a bottom up approach to building it
+
+By bottom up I mean we took a design and hand crafted an SVG to match it
+
+Once we had a styled hard coded SVG, we became to abstract the chart piece by piece 
+
+Generate the background lines, generate the labels, generate the bar lines
+
+After a while we had fully abstracted the bar chart and had a component we could pass data into
+
+The finished component looked something like this:
+
+<.bar_chart
+  id="savings-svg-chart"
+  phx_target={@myself}
+  viewbox_width={@chart_viewbox_width}
+  viewbox_height={@chart_viewbox_height}
+  chart_data={@chart_data}
+  chart_y_labels={@chart_y_labels}
+  chart_y_step_between_labels={@chart_y_step_between_labels}
+  chart_tooltip={@chart_tooltip}
+/>
+
+## What didn't go well with this approach?
+
+So we have build this component such that it accepted a certain set of data and abstracted away a lot of the complexity
+
+We did run into a few minor problems when we plugged real data into it
+
+The first issue was that we had to scale the data such lines were the proper length and didn't go outside the bounds of the chart
+
+The second issue we had was in regards to click events, when a user clicks on a line the coordinates of line are pushed to the LV
+
+When we went to display the tooltip we could only place the tooltip relative to the line that was clicked
+
+We were not able to place the tooltip where design wanted and it brought up a bigger issue with the overall component
+
+The coordinates were generated on render and were not stored or accessible to the user of component
+
+All aspects of the chart were drawn indepently, causing alignment issues among the various elements of the chart
+
+Finally there was a lot of small adjustments that had to be made to make things line up perfectly, a lot of "magic" numbers
+
+## What would we do differently?
+
+Start with a top down, data driven approach
+This would address some of the aligment issues and "magic" numbers
+
+Have the coordinates accessible in to the user of the component, stateful LV component
+This would allow us complete flexible when adding, changing, and reacting to events
+
+Expose a component that other teams could use, something similar to the bar_chart component
+but that address the issues previously mentioned
 
 
-then we need a live line chart and we figured out we could use
-liveview streams to append to the chart
-show a diff of how much work it took to switch a static chart to a live chart
-append to chart with phoenix streams
-
-
-
-
-
-
-
-
+## Resources / Q & A
 
 Presentation built with obsidian + https://github.com/MSzturc/obsidian-advanced-slides
 https://obsidian.md/
