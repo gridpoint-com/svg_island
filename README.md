@@ -223,13 +223,13 @@ Explain how we will use text element
 
 ---
 
-### How did come up with this approach?
+### How did we come up with this approach?
 
 * Bottom up approach
 * Hand crafted an SVG to match design
-* Abstracted chart piece by piece
+* Abstracted chart elements piece by piece
 
-![bar chart component](link to image)
+![bar_chart_component](https://github.com/gridpoint-com/svg_island/assets/5237832/1847c210-6476-4edc-a4f4-40266d68cc45)
 
 notes:
 Now that you know our approach, you're probably wondering how we came up with it
@@ -247,10 +247,10 @@ After all this we had a fully abstracted bar chart comonent that we could pass d
 ### What didn't go well with this approach?
 
 * Scaling the chart data
-* Access to coordinates
+* Access to the coordinates
 * Elements of the chart drawn independently
 
-![bar chart tooltip](link to image)
+![bar_chart_tooltip](https://github.com/gridpoint-com/svg_island/assets/5237832/35192551-e3b7-478b-885b-adba98275dbf)
 
 notes:
 So we have built this component such that it accepts a certain set of data and abstracted away a lot of the complexity
@@ -290,11 +290,11 @@ These SVG attributes can be applied the same way we apply tailwind clases
 
 ---
 
-### Would we recommended doing this?
+### Would we recommend doing this?
 
 * Learning SVG isn't too bad
 * We didn't introduce a JS dependency
-* Great power, great responibility
+* Great power, great responsibility
 
 notes:
 Learning SVG isn't too bad but you do need to understand the basics to be proficient.
@@ -312,4 +312,5 @@ such that they are maintainable and easy for other devs to understand will be an
 
 Slides / example project: https://github.com/gridpoint-com/svg_island
 
-![cast away svg](link to image)
+![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/7891fd00-aea4-4ce1-967d-bf4baea95a24)
+
