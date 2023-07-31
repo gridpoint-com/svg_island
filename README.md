@@ -219,359 +219,97 @@ Explain how we will use text element
 ---
 
 ### Now that we got the basics down :muscle:
-### Let's build a bar chart 🏗️ 
+### Let's build a line chart 🏗️ 
 
 ---
 
-### Our first function component
+### How did come up with this approach?
 
-```elixir
-  def draw_polyline(assigns) do
-    ~H"""
-    <polyline
-      points={"#{@x_min},#{@y_min} #{@x_max},#{@y_max}"}
-      class={@class}
-    />
-    """
-  end
-```
+* Bottom up approach
+* Hand crafted an SVG to match design
+* Abstracted chart piece by piece
 
-```elixir
-  def draw_polyline(%{on_click_event_name: event} = assigns) do
-    ~H"""
-    <polyline
-      phx-click={JS.push(@on_click_event_name, value: "stuff")}
-      points={"#{@x_min},#{@y_min} #{@x_max},#{@y_max}"}
-      class={@class}
-    />
-    """
-  end
-```
+![bar chart component](link to image)
 
 notes:
-meks
-consider replacing these with screenshots
+Now that you know our approach, you're probably wondering how we came up with it
+
+Our first chart was a Bar Chart and we took a bottom up approach to building it
+By bottom up I mean we had a design and hand crafted an SVG to match it
+
+Once we had a styled, hard coded SVG, we began to abstract the chart piece by piece 
+Abstract the background lines, abstract the labels, abstract the bar lines
+
+After all this we had a fully abstracted bar chart comonent that we could pass data into
 
 ---
 
-### Drawing the chart background: The Vertical Lines
+### What didn't go well with this approach?
 
-<img width="1144" alt="image" src="https://user-images.githubusercontent.com/60719697/219527685-73e6a245-7019-4898-ac47-0e1a2e5e18f9.png">
+* Scaling the chart data
+* Access to coordinates
+* Elements of the chart drawn independently
 
-```elixir
-{{81, 0}, {81, 371}}
-{{1174, 0}, {1174, 371}}
-```
+![bar chart tooltip](link to image)
 
 notes:
-meks
+So we have built this component such that it accepts a certain set of data and abstracted away a lot of the complexity
+We did run into a few minor problems when we plugged real data into it
+
+The first issue was that we had to scale the data such lines were the proper length 
+and didn't go outside the bounds of the chart
+
+The second issue we had was in regards to click events, 
+when a user clicks on a line the coordinates of line are pushed to the LV
+
+When we went to display the tooltip we could only place the tooltip relative to the line that was clicked
+We were not able to place the tooltip where design wanted and it brought up a bigger issue with the overall component
+The coordinates were generated on render and were not stored or accessible to the user of component
+
+All aspects of the chart were drawn indepently, causing alignment issues among the various elements of the chart
+fixing these alignment issues lead to a few "magic" numbers to get everything lined up perfectly
 
 ---
 
-### But how did we get here?
-```elixir
-  vertical_line_coordinates(
-    {0, 0}, 
-    {@viewbox_width, @viewbox_height}, 
-    @viewbox_width) 
-```
+### What would we do differently?
 
-```elixir
-  defp vertical_line_coordinates(
-    {x_min, y_min}, {x_max, y_max}, step) do
-    
-    for x <- x_min..x_max//step do
-      {{x, y_min}, {x, y_max}}
-    end
-  end
-```
+* Start top-down with the data
+* Stateful component with access to coordinates
+* Made use of SVG attributes for alignment
 
 notes:
-meks
+Start with a top down, data driven approach. 
+This way you build only what you need to display the data and nothing more
+
+Have the coordinates accessible to the user of the component, potentailly a stateful LV component
+This would allow you complete flexible when adding, changing, or reacting to events
+
+There are a few SVG attributes that solve a lot of the alignment issues we ran into.
+For example, move the positioning of a label relative to other elements
+These SVG attributes can be applied the same way we apply tailwind clases
 
 ---
 
-### Drawing the chart background: The Horizontal Lines
+### Would we recommended doing this?
 
-<img width="1157" alt="Screenshot 2023-02-07 at 10 58 51 AM" src="https://user-images.githubusercontent.com/60719697/217312205-7cb576e6-d738-4af4-82dc-da59a1fc3e7e.png" style="display:inline-block;height: 400px; width:600px;">
-
-```elixir
-{{81, 0}, {1174, 0}}
-{{81, 53}, {1174, 53}}
-{{81, 106}, {1174, 106}}
-{{81, 159}, {1174, 159}}
-{{81, 212}, {1174, 212}}
-{{81, 265}, {1174, 265}}
-{{81, 318}, {1174, 318}}
-{{81, 371}, {1174, 371}}
-```
+* Learning SVG isn't too bad
+* We didn't introduce a JS dependency
+* Great power, great responibility
 
 notes:
-meks
+Learning SVG isn't too bad but you do need to understand the basics to be proficient.
+The hardest part is learning to think and visualize upside down.
+
+We didn't have to add any new dependencies to our project and we're free to be creative
+with our solutions.
+
+We feel we can make our designers dreams come true but building these components in a way
+such that they are maintainable and easy for other devs to understand will be an ongoing effort
 
 ---
 
-### But how did we get here?
-```elixir
-  horizontal_line_coordinates(
-	{0, 0}, 
-	{@viewbox_width, @viewbox_height}, 
-	@background_line_step_interval)
+### That's all folks
 
-```
+Slides / example project: https://github.com/gridpoint-com/svg_island
 
-```elixir
-  defp horizontal_line_coordinates(
-    {x_min, y_min}, {x_max, y_max}, step) do
-    
-    for y <- y_min..y_max//step do
-      {{x_min, y}, {x_max, y}}
-    end
-  end
-```
-
-notes:
-meks
-
----
-
-### Bar Chart Background Complete!
-
-<img width="1137" alt="image" src="https://user-images.githubusercontent.com/60719697/217317622-14e4d9bf-e02f-4126-a9eb-32b80c6a4cfc.png">
-
-notes:
-meks
-
----
-
-![success_kid](https://user-images.githubusercontent.com/5237832/218855240-832a8182-b91a-4053-b400-674466f375b3.jpeg)
-
----
-
-### Our second (and last) function component
-```elixir
-  def draw_text(assigns) do
-    ~H"""
-    <text x={"#{@x}"} y={"#{@y}"} class={@class}><%= @label %></text>
-    """
-  end
-```
-
-```elixir
-  def draw_text(%{on_click_event_name: event} = assigns) do
-    ~H"""
-    <text
-      phx-click={JS.push(@on_click_event_name, value: "stuff")}
-      x={"#{@x}"}
-      y={"#{@y}"}
-      class={@class}
-    >
-      <%= @label %>
-    </text>
-    """
-  end
-```
-
-notes:
-mark
-
----
-
-### Draw X Axis Labels
-
-<img width="1140" alt="image" src="https://user-images.githubusercontent.com/60719697/217319374-a8767479-150f-4838-a0c4-7d04dfc42333.png">
-
-```elixir
-[
-  {{118, 406.5}, "Jan", "text-xs font-normal leading-4 fill-grey-1000"},
-  {{208, 406.5}, "Feb", "text-xs font-normal leading-4 fill-grey-1000"},
-  ...
-  {{478, 406.5}, "May", "text-xs font-normal leading-4 fill-grey-400"},
-  ...
-]
-```
-
-notes:
-mark
-
----
-
-### Wait...how did you do that?
-
-```elixir
-horizontal_label_coordinates(
-  {@y_label_width, 0}, 
-  {@chart_width, @chart_height}, 
-  @x_label_left_margin, 
-  @x_label_bottom_margin, 
-  @x_step_between_labels, 
-  @chart_data) 
-```
-
-```elixir
-  defp horizontal_label_coordinates(
-         {x_min, _y_min},
-         {_x_max, y_max},
-         x_label_left_margin,
-         x_label_bottom_margin,
-         x_step_between_labels,
-         data
-       ) do
-    origin = {x_min + x_label_left_margin, y_max - x_label_bottom_margin / 2}
-
-    data
-    |> Enum.reduce([], fn
-      %{"x_label" => label, "x_label_class" => class}, [] ->
-        [{origin, label, class}]
-
-      %{"x_label" => label, "x_label_class" => class},
-      [{{x, y}, _label, _class} | _] = coordinates ->
-        [{{x + x_step_between_labels, y}, label, class} | coordinates]
-    end)
-    |> Enum.reverse()
-  end
-```
-
-notes:
-mark
-
----
-
-### Draw Y Axis Labels
-
-<img width="1209" alt="image" src="https://user-images.githubusercontent.com/60719697/219532482-98438352-f9fb-4b0a-b289-0cb13f86b9f8.png">
-
-```elixir
-[ 
-  {{40, 57}, "$3,000", "text-xs font-normal leading-4 fill-grey-1000 [text-anchor:middle]"},
-  {{40, 110}, "$2,500", "text-xs font-normal leading-4 fill-grey-1000 [text-anchor:middle]"},
-  ...
-  {{40, 322}, "$500", "text-xs font-normal leading-4 fill-grey-1000 [text-anchor:middle]"},
-  {{40, 375}, "$0", "text-xs font-normal leading-4 fill-grey-1000 [text-anchor:start]"}
-]
-```
-notes: 
-mark
-meks: [text-anchor attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/text-anchor)
-
----
-
-### Now how did you do that one?
-
-```elixir
-vertical_label_coordinates(
-  {@y_label_left_margin, @y_label_top_margin}, 
-  {@chart_width, @chart_height}, 
-  @y_step_between_labels, 
-  @chart_y_labels)
-```
-
-```elixir
-  defp vertical_label_coordinates(
-         {x_min, y_min},
-         {_x_max, _y_max},
-         y_step_between_labels,
-         y_labels
-       ) do
-
-    y_labels
-    |> Enum.reduce([], fn
-      %{"y_label" => label, "y_label_class" => class}, [] ->
-        [{{x_min, y_min}, label, class}]
-
-      %{"y_label" => label, "y_label_class" => class},
-      [{{x, y}, _label, _class} | _] = coordinates ->
-        [{{x, y + y_step_between_labels}, label, class} | coordinates]
-    end)
-    |> Enum.reverse()
-  end
-```
-
-notes:
-mark
-
----
-### Bar Chart Labels Complete!
-<img width="1225" alt="Screenshot 2023-02-07 at 11 34 39 AM" src="https://user-images.githubusercontent.com/60719697/217321102-a782b5d7-9702-44fd-b8f1-8a761d583415.png">
-
-notes:
-mark
-
----
-
-![success_kid](https://user-images.githubusercontent.com/5237832/218855240-832a8182-b91a-4053-b400-674466f375b3.jpeg)
-
----
-
-### Input to Draw a Bar Line
-```elixir
-%{
-  "x_label" => "Jan",
-  "x_label_class" => "text-xs font-normal leading-4 fill-grey-1000",
-  "y_series" => [%{
-    "y" => 195, "class" => "stroke-grey-800 stroke-[4]"
-  }]
-},
-%{
-  "x_label" => "Feb",
-  "x_label_class" => "text-xs font-normal leading-4 fill-grey-400",
-  "y_series" => []
-}
-```
-<img alt="image" src="https://user-images.githubusercontent.com/60719697/217330109-d010d8ff-f5fb-4aac-a8ff-361e663c9642.png" style="width:600px;height:250px">
-notes:
-meks
-Show picture of bar line without any classes
-
----
-
-### Once more, with style
-
-```elixir
-%{
-  "x_label" => "Jan",
-  "x_label_class" => "text-xs font-normal leading-4 fill-grey-1000",
-  "y_series" => [%{
-    "y" => 195,
-	"class" => "stroke-vibrant-blue-400 stroke-[4] [stroke-linecap:round]"
-  }]
-}
-```
-<img alt="Screenshot 2023-02-07 at 12 24 23 PM" src="https://user-images.githubusercontent.com/60719697/217332761-87e0e345-12dc-419e-8def-cdd5b8d66ad8.png" style="width:800px;height:400px">
-
-notes:
-meks
-Show picture of bar line with list of tailwind classes applied
-
----
-
-### Hey look, a bar chart :sunglasses:
-<img width="1188" alt="Screenshot 2023-02-07 at 12 26 26 PM" src="https://user-images.githubusercontent.com/60719697/217333368-7f2eaeef-a3be-4cc6-a2f2-4730c2cade51.png">
-notes:
-mark
-
----
-
-### Summary of Features
-- Stateless Phoenix component
-- Uses only two SVG elements (polyline, text)
-- Coordinate generation and element drawing are "decoupled"
-- Each element can be styled individually
-- All styling via tailwind classes, no direct use of SVG attributes
-- Each element can have a click event
-- Chart can be redrawn by simply updating the assigns
-
-notes:
-mark
-
----
-
-### Thanks for attending
-
-Find the slides in GitHub discussions:
-https://github.com/gridpoint-com/phoenix/discussions/863
-
-<img width="600" alt="Screenshot 2023-02-07 at 12 24 23 PM" src="https://user-images.githubusercontent.com/5237832/218856202-453fe42c-1472-40df-93a6-3aba6b3616c2.png">
-
-notes:
-meks
+![cast away svg](link to image)
