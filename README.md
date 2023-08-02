@@ -223,6 +223,152 @@ Explain how we will use text element
 
 ---
 
+### Draw a straight line
+
+notes:
+Mark: Meks, I have a challenge for you.
+Meks: You do?
+Mark: Yeah.
+Meks: Ok. What is it?
+Mark: Explain to me how to draw a straight line. Pretend I am 5 years old, have
+never drawn a straight line before, and am using pen and paper.
+Meks: Really?
+Mark: It’ll make sense, trust me.
+Meks: Ok, one way that comes to mind is that you pick a point to start at.
+Press your pen to the paper, drag your pen horizontally across the paper, and
+lift up your pen from the paper when the line is as long as you want.
+
+---
+
+### Draw a straight line
+
+notes:
+gif of drawing a line.
+Mark: Like this?
+Meks: Yeah, that’s a straight line.
+Mark: Nice!
+
+---
+
+### Draw an “M”
+
+notes:
+Mark: I have another challenge.
+Meks: Bring it on.
+Mark: How would I draw a capital ”M“. Explain it to me like I’m 5,
+have only ever drawn a straight line before, and am using pen and paper.
+Meks: That’s a bit harder, but if we use the concept established with how we
+can draw a straight line, it’s not so bad.
+
+---
+
+### Draw an “M”
+
+notes:
+slow gif of drawing
+
+Meks: Pick a point to start at the bottom of the M. Extend the line to the
+height of the M with a slight slant to the right.
+From the end of the previous line, draw a line downwards that's half the height
+of the previous line.
+From the end of the previous line, draw a line that rises half the height of
+the letter M.
+From the end of the previous line, draw a line downwards that's the height of
+the letter M with a slight slant to the right.
+
+---
+
+### Draw an “M”
+
+notes:
+image of “M“
+Mark: Like that?
+Meks: Yup! Looks like an M do me. Did you pick M because both our names start
+with that letter?
+Mark: Moving on...
+
+---
+
+### Draw a line chart
+
+notes:
+Mark: I have a final challenge. Last one I promise. Explain to me how to draw a
+line chart. I’m 5 years old, have only drawn an M before, and I’m using pen and
+paper.
+
+---
+
+### Draw a line chart
+
+notes:
+slow gif drawing the line chart
+Meks: Let’s start the first line down where the 18k is. Put your pen to the
+paper at that point, and drag upward at a slight right angle and stop at around
+64k. Starting where you ended the previous line, draw a new line upwards and
+stop at 72k. Starting where you ended that line, draw another one down 64k. We
+would keep repeating this process for all the points we want to mark on the
+line chart.
+
+---
+
+### Draw a line chart
+
+notes:
+image of “line chart“
+Mark: Like so?
+Meks: Yup! That’s a line chart! I think I see where you are going with this.
+What we just described, is essentially an algorithm that we can use. We have
+established a repeatable pattern for how a chart is drawn, which means that we
+can translate that into Elixir code.
+
+---
+
+### What’s the point?
+
+* We have many points! And we connect them!
+
+notes:
+Meks: So what was the point of that exercise? Well we have many points, and we connect them!
+Mark: Really?
+Meks: Sorry, bad pun, I couldn’t help myself.
+
+---
+
+### Important Point 1 
+
+* Constrain polyline to only accept 2 points
+
+notes:
+code snippet: a polyline with 2 points
+image: that specific polyline
+Meks: The crux is that we have two points, the start and the end of the line.
+We connect those points to create a line. This is important for our use case
+because we constraint the use of the polyline to only accept two points, ie two
+sets of x and y coordinates. This means when we use polyline, we create two
+points and connect them together with a straight line. This was a conscious
+choice we made because then each line segment represents a piece of data that
+we can interact with.
+
+---
+
+### Important Point 2 
+
+* Side effect of point 1, constraining polyline to 2 points
+* Utilize last known location to keep drawing more lines
+
+notes:
+Mark: The second big take away of this exercise is that I use my last known
+location to keep drawing more lines. The end of the previous line becomes the
+start of the next line. This let’s us algorithmically calculate coordinates to
+draw lines based of the data points in the the dataset that we want to
+represent.
+
+---
+
+### Jason Downloads
+
+---
+
 ### How did we come up with this approach?
 
 * Bottom up approach
