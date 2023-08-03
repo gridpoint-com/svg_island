@@ -183,7 +183,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             x: background_line_end_x,
             y: background_line_end_y
           },
-          class: "[stroke-width:1] stroke-slate-300"
+          class: "stroke-slate-300 [stroke-width:1]"
         }
       }
     ]
@@ -222,7 +222,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             x: background_line_end_x,
             y: background_line_end_y
           },
-          class: "[stroke-width:1] stroke-slate-300"
+          class: "stroke-slate-300 [stroke-width:1]"
         }
       }
       | y_labels
@@ -232,7 +232,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   def render(assigns) do
     ~H"""
     <div class="m-16">
-      <h1>Downloads</h1>
+      <h1 class="text-xl font-bold text-slate-900">Downloads</h1>
 
       <svg
         viewBox={"0 0 #{@chart.dimensions.viewbox_width} #{@chart.dimensions.viewbox_height}"}
@@ -273,6 +273,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="blue"
         />
         <!-- end debug mode -->
+        <.chart_legend value="Last 30 days, all versions" x={@chart.dimensions.chart_width} y={0} />
         <%= for %{label: label, background_line: background_line} <- @chart.y_label_coordinates do %>
           <text x={label.x} y={label.y} class={label.class}>
             <%= label.value %>
@@ -345,6 +346,19 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     Enum.to_list(max_data_point..0//-step_by)
   end
 
+  attr :class, :string,
+    default: "fill-slate-500 text-sm font-semibold [dominant-baseline:hanging] [text-anchor:end]"
+
+  attr :x, :integer, required: true
+  attr :y, :integer, required: true
+  attr :value, :string, required: true
+
+  defp chart_legend(assigns) do
+    ~H"""
+    <text x={@x} y={@y} class={@class}><%= @value %></text>
+    """
+  end
+
   attr :x, :integer, required: true
   attr :y, :integer, required: true
   attr :value, :string, required: true
@@ -366,9 +380,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       rx={@rx}
       class={@rect_class}
     />
-    <text x={@x} y={@y} class={@text_class}>
-      <%= @value %>
-    </text>
+    <text x={@x} y={@y} class={@text_class}><%= @value %></text>
     """
   end
 end
