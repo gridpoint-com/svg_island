@@ -385,9 +385,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       rx={@rx}
       class={@rect_class}
     />
-    <text x={@x} y={@y} class={@text_class}>
-      <%= @value %>
-    </text>
+    <text x={@x} y={@y} class={@text_class}><%= @value %></text>
     """
   end
 end
