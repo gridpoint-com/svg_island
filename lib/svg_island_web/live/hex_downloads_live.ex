@@ -273,6 +273,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           stroke="blue"
         />
         <!-- end debug mode -->
+        <.chart_legend
+          value="Last 30 days, all versions"
+          x={@chart.dimensions.chart_width}
+          y={@chart.dimensions.header_height}
+        />
         <%= for %{label: label, background_line: background_line} <- @chart.y_label_coordinates do %>
           <text x={label.x} y={label.y} class={label.class}>
             <%= label.value %>
@@ -343,6 +348,20 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     step_by = trunc(max_data_point / steps)
 
     Enum.to_list(max_data_point..0//-step_by)
+  end
+
+  attr :class, :string, default: "fill-slate-500 text-sm font-semibold"
+
+  attr :x, :integer, required: true
+  attr :y, :integer, required: true
+  attr :value, :string, required: true
+  attr :x_offset, :integer, default: 180
+  attr :y_offset, :integer, default: 5
+
+  defp chart_legend(assigns) do
+    ~H"""
+    <text x={@x - @x_offset} y={@y - @y_offset} class={@class}><%= @value %></text>
+    """
   end
 
   attr :x, :integer, required: true
