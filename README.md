@@ -242,8 +242,11 @@ lift up your pen from the paper when the line is as long as you want.
 
 ### Draw a straight line
 
+![CleanShot 2023-08-02 at 18 00 19](https://github.com/gridpoint-com/svg_island/assets/60719697/21432ab7-09e6-4672-bb4d-e2da3316ef5d)
+
 notes:
 gif of drawing a line.
+
 Mark: Like this?
 Meks: Yeah, that’s a straight line.
 Mark: Nice!
