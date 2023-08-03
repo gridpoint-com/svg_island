@@ -307,8 +307,10 @@ paper.
 
 ### Draw a line chart
 
-notes:
-slow gif drawing the line chart
+![CleanShot 2023-08-02 at 18 22 41](https://github.com/gridpoint-com/svg_island/assets/60719697/d8ca3ea0-5b9c-4145-80fb-3889a10b1d2e)
+
+notes: slow gif drawing the line chart
+
 Meks: Let’s start the first line down where the 18k is. Put your pen to the
 paper at that point, and drag upward at a slight right angle and stop at around
 64k. Starting where you ended the previous line, draw a new line upwards and
@@ -320,8 +322,10 @@ line chart.
 
 ### Draw a line chart
 
-notes:
-image of “line chart“
+<img width="397" alt="CleanShot 2023-08-02 at 18 24 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/4a95a64e-65be-4739-8db1-e6527eb44851">
+
+notes: image of “line chart“
+
 Mark: Like so?
 Meks: Yup! That’s a line chart! I think I see where you are going with this.
 What we just described, is essentially an algorithm that we can use. We have
