@@ -400,6 +400,8 @@ points in the the dataset that we want to represent.
 
 ### Jason Downloads
 
+<img width="696" alt="CleanShot 2023-08-03 at 15 37 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b8d22084-2550-46cc-abea-c75093553c06">
+
 notes: Meks
 
 image of official Jason Downloads chart
@@ -409,6 +411,8 @@ Most of us are probably familiar with Hex packages and have seen their download 
 ---
 
 ### Jason Downloads
+
+<img width="846" alt="Screenshot 2023-08-03 at 11 37 58 AM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/ae7ce9f3-44ac-46f5-8616-aa9bcb296225">
 
 ```Elixir
 <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
@@ -428,6 +432,8 @@ What you see here on the screen is a hand built SVG replica. Every part was buil
 ---
 
 ### Jason Downloads
+
+<img width="831" alt="CleanShot 2023-08-03 at 15 40 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/30e3c631-ba10-41c4-82d2-6f169bdaba6e">
 
 ```HTML
 <polyline
@@ -472,6 +478,7 @@ The text elements for the y labels and the chart legend are similarly styled wit
 
 ### Jason Downloads
 
+![CleanShot 2023-08-03 at 15 50 58](https://github.com/gridpoint-com/svg_island/assets/60719697/0b60c0ad-1cc9-45a1-b968-05067ef39b6b)
 
 ```Elixir
 <polyline
