@@ -349,16 +349,27 @@ Meks: Sorry, bad pun, I couldn’t help myself.
 
 * Constrain polyline to only accept 2 points
 
+  ```HTML
+      <svg viewBox={"0 0 800 210}"} width="800" height="210" xmlns="http://www.w3.org/2000/svg" >
+        <rect width="100%" height="100%" fill="none" stroke="black" />
+        <polyline points="0,0 300,190" stroke="black" />
+      </svg>
+  ```
+
+  ![CleanShot 2023-08-02 at 18 42 53@2x](https://github.com/gridpoint-com/svg_island/assets/60719697/28bfe951-10f5-4642-b57a-849a07e59b9b)
+
 notes:
+
 code snippet: a polyline with 2 points
 image: that specific polyline
 Meks: The crux is that we have two points, the start and the end of the line.
 We connect those points to create a line. This is important for our use case
 because we constraint the use of the polyline to only accept two points, ie two
 sets of x and y coordinates. This means when we use polyline, we create two
-points and connect them together with a straight line. This was a conscious
-choice we made because then each line segment represents a piece of data that
-we can interact with.
+points and connect them together with a straight line. In this example, the
+polyline starts at 0,0 and ends at 300x and 190y. This was a conscious choice 
+we made because then each line segment represents a piece of data that we can 
+interact with.
 
 ---
 
@@ -367,12 +378,23 @@ we can interact with.
 * Side effect of point 1, constraining polyline to 2 points
 * Utilize last known location to keep drawing more lines
 
+```HTML
+      <svg viewBox={"0 0 800 210}"} width="800" height="210" xmlns="http://www.w3.org/2000/svg" >
+        <rect width="100%" height="100%" fill="none" stroke="black" />
+        <polyline points="0,0 300,190" stroke="black" />
+        <polyline points="300,190 500,80" stroke="green" />
+      </svg>
+```
+
+![CleanShot 2023-08-02 at 18 52 40@2x](https://github.com/gridpoint-com/svg_island/assets/60719697/6598e0fb-b2d2-410a-8809-a1df2fa0e3ba)
+
 notes:
 Mark: The second big take away of this exercise is that I use my last known
 location to keep drawing more lines. The end of the previous line becomes the
-start of the next line. This let’s us algorithmically calculate coordinates to
-draw lines based of the data points in the the dataset that we want to
-represent.
+start of the next line. Here, you can see that the coordinate of 300x and 190y
+is both the end of the first line, and the start of the second line. This 
+let’s us algorithmically calculate coordinates to draw lines based on the data
+points in the the dataset that we want to represent.
 
 ---
 
