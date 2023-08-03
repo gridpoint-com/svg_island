@@ -183,7 +183,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             x: background_line_end_x,
             y: background_line_end_y
           },
-          class: "[stroke-width:1] stroke-slate-300"
+          class: "stroke-slate-300 [stroke-width:1]"
         }
       }
     ]
@@ -222,7 +222,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             x: background_line_end_x,
             y: background_line_end_y
           },
-          class: "[stroke-width:1] stroke-slate-300"
+          class: "stroke-slate-300 [stroke-width:1]"
         }
       }
       | y_labels
