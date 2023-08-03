@@ -267,6 +267,8 @@ can draw a straight line, it’s not so bad.
 
 ### Draw an “M”
 
+![CleanShot 2023-08-02 at 18 09 40](https://github.com/gridpoint-com/svg_island/assets/60719697/47b26db0-45d8-4b00-919d-031892b36853)
+
 notes:
 slow gif of drawing
 
@@ -282,6 +284,8 @@ the letter M with a slight slant to the right.
 ---
 
 ### Draw an “M”
+
+<img width="270" alt="CleanShot 2023-08-02 at 18 12 04@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b0f1440d-1a15-421c-8e5d-0c5be68a44b6">
 
 notes:
 image of “M“
