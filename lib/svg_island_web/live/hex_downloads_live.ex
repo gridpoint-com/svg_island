@@ -232,7 +232,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   def render(assigns) do
     ~H"""
     <div class="m-16">
-      <h1>Downloads</h1>
+      <h1 class="text-xl font-bold text-slate-900">Downloads</h1>
 
       <svg
         viewBox={"0 0 #{@chart.dimensions.viewbox_width} #{@chart.dimensions.viewbox_height}"}
