@@ -400,6 +400,95 @@ points in the the dataset that we want to represent.
 
 ### Jason Downloads
 
+notes: Meks
+
+image of official Jason Downloads chart
+
+Most of us are probably familiar with Hex packages and have seen their download charts. We built a small demo app with the aim of replicating the Jason downloads chart. This demo is available publically. For anyone interested in seeing the code in it’s completed form, we’ll provide the link at the end.
+
+---
+
+### Jason Downloads
+
+```Elixir
+<%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
+    <polyline
+      points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
+      stroke="black"
+    />
+<% end %>
+```
+
+notes:
+
+image of unstyled Jason Downloads demo
+
+What you see here on the screen is a hand built SVG replica. Every part was built using either polylines, or text elements. We took the data from the original chart, ran it through a transformation to create a list of structs that has the x and y coordinates for each line segment. The keys to this transformation lie in using the previous line’s end coordinates as the start of the current line and then using the dataset and dimensions of the SVG viewport to scale and determine the coordinates of the end of the line.
+
+---
+
+### Jason Downloads
+
+```HTML
+<polyline
+  points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
+  class={line.class}
+/>
+```
+
+`class: "#{color} [stroke-width:3] [stroke-linecap:round]"`
+
+notes:
+
+image of styled Jason Downloads demo
+
+Here is that same chart, but with Tailwind styling applied. For the colored lines we remove the stroke black attribute and replace it with Tailwind classes which we add to the Chart struct for each line segment. We adjust the line width, give it rounded edges, and change the color based of the percent of lines drawn to give it that color fade appearance.
+
+---
+
+### Jason Downloads
+
+```HTML
+<text x={label.x} y={label.y} class={label.class}>
+  <%= label.value %>
+</text>
+```
+
+```
+ %{
+   label: %{
+   x: label_x,
+   y: label_y,
+   value: y_label_value,
+   class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
+}
+```
+
+notes:
+
+The text elements for the y labels and the chart legend are similarly styled with Tailwind. A really helpful CSS trick is to use dominant-baseline and text-anchor attributes to position the text element relative to the coordinate. This allows us a bit more granularity with positioning the element without having to use magic numbers and adjust the coordinates themselves.
+
+---
+
+### Jason Downloads
+
+
+```Elixir
+<polyline
+  points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
+  class={line.class}
+  phx-click={JS.push("show-tooltip", value: line)}
+  phx-click-away="dismiss-tooltip"
+/>
+<.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
+```
+
+notes:
+
+gif of clicking on lines to show the tool tip
+
+If you recall, we constrained our polylines to only have 2 points. What this allows us to do is interact with each line. We can add phx-click and click-away events to each polyline. The event handlers set the tooltip assigns and will display or hide the value from the dataset at the line’s end point.
+
 ---
 
 ### How did we come up with this approach?
