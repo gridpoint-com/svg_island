@@ -9,7 +9,10 @@ Welcome everyone, happy to have you all here. Today we're going to take a trip t
 ### Intro Presenters 👯 
 notes:
 meks
-_Intro Mark, Meks, and teams, cross team collaboration_
+
+I’m Meks, they/them pronouns, and I have been working on the Commissioning & Installation team at GridPoint for a year.
+This is Mark, he has been on the Demand Response & Savings team at GridPoint for the past year.
+We both joined GridPoint when they were switching over their main product platform to Elixir and Phoenix. The goal is to use Elixir to accelerate a sustainable energy future through improving small business energy efficiency. Our teams all highly value collaboration which is why I was able to leave my domain for a bit to help Mark with a particular challenge.
 
 ---
 
@@ -42,12 +45,19 @@ We love our designers don't we.
 
 Rule Number 1 No Javascript 🔥 
 
+notes:
+meks
+First, let’s lay some ground rules. At the time, the only Javascript in the project was the Phoenix.LiveView.JS library. Since Javascript can be difficult to maintain over time, one of the constraints we were given was to do as much as possible with built in LiveView functionality. So, no Javascript.
+
+--- 
+
+### Let's build it 🚧 
+
 Rule Number 2 NO JAVASCRIPT 🔥 
 
 notes:
 meks
-
-consider breaking apart over many slides and ping pong back and forth
+Yeah, the higher ups were pretty serious about that.
 
 ---
 
@@ -104,13 +114,24 @@ I can't help but feel like I'm trying to fit a square peg in a round hole with t
 
 ### Technical limitations 
 
-- Both libraries ([Contex](https://github.com/mindok/contex), [GGity](https://github.com/srowley/ggity)) provide the charts we need but lack the customization we're looking for.
-- These libraries build data structures that in turn generate SVG charts.
-- To customize we'd have to either alter the data structures or overwrite the SVG they generate.
-- Our conclusion was that it would take more time and effort (in development and maintenance) to retrofit these charting libraries to our visualizations needs rather than simply doing it ourselves.
+- Both libraries ([Contex](https://github.com/mindok/contex), [GGity](https://github.com/srowley/ggity)) provide the charts we need.
+- Missing needed customization for our use case.
+- The libraries build data structures that in turn generate SVG charts.
+- Alter the data structures or overwrite the SVG they generate to customize.
 
 notes:
 meks
+What did we learn from spiking on these libraries? Both provide the charts we need, but lack the customization we would like to have for matching given designs. A commonality they have is that they build data structures to generate the SVG charts. Advanced customization would require use to alter the data structures or overwrite the generated SVGs, neither of which is ideal.
+
+---
+
+### Conclusion
+
+- Build it ourselves.
+
+notes:
+meks
+Our conclusion was that it would take more time and effort (in development and maintenance) to retrofit these charting libraries to our visualizations needs rather than simply doing it ourselves. Which brings us to...(flip to next slide) SVG Island! 
 
 ---
 
@@ -120,12 +141,14 @@ meks
 
 ### What is SVG? 🤔 
 - **[SVG](https://developer.mozilla.org/en-US/docs/Web/SVG)**: Markup language for describing two-dimensional based vector graphics.
+- **[Vector Graphic](https://en.wikipedia.org/wiki/Vector_graphics)**: Visual images created from geometric shapes on a Cartesian plane
 - **[Element](https://developer.mozilla.org/en-US/docs/Web/SVG/Element)**: Used to create drawings and images.
 - **[Attribute](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute)**: Used to modify how an element should be handled or rendered.
 - [An SVG Primer](https://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html) for the curious.
 
 notes:
 meks
+SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimensional vector graphics. Vector graphics is a form of computer graphics in which visual images are created directly from geometric shapes such as points, lines, curves and polygons. Elements such as polyline and text are used to create the actual images. And attributes such as fill and stroke modify those elements.
 
 ---
 
@@ -167,9 +190,9 @@ The IO.inspect of SVG
 
 notes:
 meks
-Recall the Cartesian coordinate system from Geometry
-The top right quadrant (positive x, positive y) is the applicable to SVG
-Note the origin (0, 0) is in the bottom left corner of quadrant 1
+Reaching back into the recesses of my brain, back in highschool we studied Geometry and studied the Cartesian coordinate system.
+The top right quadrant, positive x, positive y, is the quadrant applicable to SVG creation. This is how the vector graphics are created, by drawing shapes using a coordinate system.
+Note the origin (0, 0) is in the bottom left corner of quadrant 1.
 
 ---
 
@@ -178,7 +201,7 @@ Note the origin (0, 0) is in the bottom left corner of quadrant 1
 
 notes:
 meks
-The SVG coordinate system is similar to the Cartesian coordinate system (quadrant 1) expect the origin (0,0) is in the top left corner 
+The SVG coordinate system is similar to the Cartesian coordinate system (quadrant 1) except the origin (0,0) is in the top left corner. The y-axis is reversed compared to a normal graph coordinate system. As y increases in SVG, the points, shapes etc. move down, not up. This was hard for me to grasp at first, but turns out many computer graphics programs rely on this type of system, as it allows the origin to be at the top left of the browser screen.
 
 ---
 
