@@ -96,7 +96,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     current_line_start_x = previous_line.line_end.x
     current_line_start_y = previous_line.line_end.y
 
-    current_line_end_x = scale_x_line_value(previous_line, chart)
+    distance_between_lines = 23
+    current_line_end_x = current_line_start_x + distance_between_lines
     current_line_end_y = scale_y_line_value(number_of_downloads, chart)
 
     percent_of_lines_drawn = Enum.count(line_coordinates) / Enum.count(chart.dataset)
@@ -118,12 +119,6 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       }
       | line_coordinates
     ]
-  end
-
-  defp scale_x_line_value(previous_line, %Chart{dataset: dataset, dimensions: dimensions}) do
-    number_of_datapoints = Enum.count(dataset)
-    line_width = dimensions.chart_width / number_of_datapoints
-    previous_line.line_end.x + line_width
   end
 
   defp scale_y_line_value(value, %Chart{dataset: dataset, dimensions: dimensions}) do
