@@ -159,28 +159,26 @@ SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimension
 ### First we define a ViewBox
 **[ViewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)**: Defines the position and dimension, in user space, of an SVG viewport.
 ```html
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1174 429" xmlns="http://www.w3.org/2000/svg">
 </svg>
 ```
 ![empty_viewBox](https://user-images.githubusercontent.com/5237832/218849904-91f3d1f1-6140-48b8-9d47-dc5f6b0a7182.png)
-TODO upload image with sane dimensions
 
 notes:
 mark
 The viewbox is our playground and the space we'll work in to draw SVGs. 
-Here I've defined a viewbox with an origin point of 0,0 and a width and height of 100 pixels.
+Here I've defined a viewbox with an origin point of 0,0 and an arbitary width and height.
 I've used my browsers inspect here to outline the viewbox.
 
 ---
 
 ### Outline the ViewBox
 ```html
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1174 429" xmlns="http://www.w3.org/2000/svg">
   <rect x="0" y="0" width="100%" height="100%" fill="none" stroke="black" stroke-width="4" />
 </svg>
 ```
 ![viewbox_outline](https://user-images.githubusercontent.com/5237832/218851323-37e48f88-131c-4b25-9609-f6a333b43fb0.png)
-TODO upload image with sane dimensions
 
 notes:
 mark
@@ -219,7 +217,6 @@ The SVG coordinate system is similar to the Cartesian coordinate system (quadran
 <polyline points="100,429 100,0" fill="none" stroke="black" />
 ```
 ![polyline](https://user-images.githubusercontent.com/5237832/218853849-c169972a-25b3-4846-b6b3-10e20ac21405.png)
-TODO make polyline thicker and a different color than the viewbox outline
 
 notes:
 mark
@@ -227,7 +224,7 @@ mark
 Polyline is our main SVG element and what we'll use to draw the chart.
 Polyline works by accepting a list of x,y coordinates which it then connects together to form a line.
 Polyline accepts an arbitary number of points but more on that later.
-Here I'm using a Polyline to draw a line from the top of the viewbox to the bottom of the viewbox.
+Here I'm using a Polyline to draw a line from the bottom of the viewbox to the top of the viewbox.
 
 ---
 
@@ -238,13 +235,12 @@ Here I'm using a Polyline to draw a line from the top of the viewbox to the bott
 <text x="200" y="200" font-size="20px">Hello SVG</text>
 ```
 ![text_element](https://user-images.githubusercontent.com/5237832/219486890-92cdf1d4-a4c7-4285-8a4b-b8cee66e14ec.png)
-TODO make sure x,y still makes sense after previous image changes
 
 notes:
 mark
 
 We're also gonna need the text element in order to add labels or other text to our chart.
-Text works by adding a box of text at the x, y coordinate.
+Text works by adding a box of text at the given x, y coordinate.
 
 ---
 
@@ -434,7 +430,7 @@ points in the the dataset that we want to represent.
 
 ### Jason Downloads
 
-<img width="696" alt="CleanShot 2023-08-03 at 15 37 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b8d22084-2550-46cc-abea-c75093553c06">
+![Screen Shot 2023-07-27 at 2 41 59 PM](https://github.com/gridpoint-com/svg_island/assets/5237832/67dd7192-61e1-4cf3-81dc-c50bdd962939)
 
 notes: Meks
 
