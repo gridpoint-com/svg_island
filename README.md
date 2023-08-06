@@ -272,10 +272,9 @@ lift up your pen from the paper when the line is as long as you want.
 
 ### Draw a straight line
 
-![CleanShot 2023-08-02 at 18 00 19](https://github.com/gridpoint-com/svg_island/assets/60719697/21432ab7-09e6-4672-bb4d-e2da3316ef5d)
+![CleanShot 2023-08-06 at 15 16 26](https://github.com/gridpoint-com/svg_island/assets/60719697/09272d04-f787-470a-9040-b53904279521)
 
 notes:
-gif of drawing a line.
 
 Mark: Like this?
 Meks: Yeah, that’s a straight line.
@@ -297,12 +296,12 @@ can draw a straight line, it’s not so bad.
 
 ### Draw an “M”
 
-![CleanShot 2023-08-02 at 18 09 40](https://github.com/gridpoint-com/svg_island/assets/60719697/47b26db0-45d8-4b00-919d-031892b36853)
+![CleanShot 2023-08-06 at 15 09 35](https://github.com/gridpoint-com/svg_island/assets/60719697/01c113e1-8130-4da7-a995-d9db0aa67dbd)
 
 notes:
-slow gif of drawing
+meks 
 
-Meks: Pick a point to start at the bottom of the M. Extend the line to the
+Pick a point to start at the bottom of the M. Extend the line to the
 height of the M with a slight slant to the right.
 From the end of the previous line, draw a line downwards that's half the height
 of the previous line.
@@ -315,10 +314,10 @@ the letter M with a slight slant to the right.
 
 ### Draw an “M”
 
-<img width="270" alt="CleanShot 2023-08-02 at 18 12 04@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b0f1440d-1a15-421c-8e5d-0c5be68a44b6">
+<img width="340" alt="CleanShot 2023-08-06 at 15 12 15@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d256a9b8-dca6-419f-bf7e-5ea3442ef6d0">
 
 notes:
-image of “M“
+
 Mark: Like that?
 Meks: Yup! Looks like an M do me. Did you pick M because both our names start
 with that letter?
@@ -337,9 +336,9 @@ paper.
 
 ### Draw a line chart
 
-![CleanShot 2023-08-02 at 18 22 41](https://github.com/gridpoint-com/svg_island/assets/60719697/d8ca3ea0-5b9c-4145-80fb-3889a10b1d2e)
+![CleanShot 2023-08-06 at 15 23 37](https://github.com/gridpoint-com/svg_island/assets/60719697/719c243a-d0a1-4027-a5cf-7df4ff9ab857)
 
-notes: slow gif drawing the line chart
+notes:
 
 Meks: Let’s start the first line down where the 18k is. Put your pen to the
 paper at that point, and drag upward at a slight right angle and stop at around
@@ -352,7 +351,7 @@ line chart.
 
 ### Draw a line chart
 
-<img width="397" alt="CleanShot 2023-08-02 at 18 24 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/4a95a64e-65be-4739-8db1-e6527eb44851">
+<img width="833" alt="CleanShot 2023-08-06 at 15 25 59@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f9e8a441-19a0-481f-a5c5-efd0e386dfe4">
 
 notes: image of “line chart“
 
