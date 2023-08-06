@@ -25,7 +25,7 @@ For MSP, the DR / Savings team needs to showcase to our customers the value Grid
 ---
 
 ### Design...Do your magic 🪄 
-![figma_bar_chart](https://user-images.githubusercontent.com/5237832/215600262-3d994826-7b93-4a81-a6f1-0598381c487f.png)
+<img width="994" alt="CleanShot 2023-08-06 at 13 50 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/c182191b-3e1a-4fa9-8589-831a236b21dd">
 
 notes:
 mark
@@ -85,7 +85,7 @@ Here's a simple example of a multi-series bar chart built with Contex. This exam
 ---
 
 ### What was that design again? 🤔 
-![figma_bar_chart](https://user-images.githubusercontent.com/5237832/215600262-3d994826-7b93-4a81-a6f1-0598381c487f.png)
+<img width="994" alt="CleanShot 2023-08-06 at 13 50 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/c182191b-3e1a-4fa9-8589-831a236b21dd">
 
 notes:
 mark
