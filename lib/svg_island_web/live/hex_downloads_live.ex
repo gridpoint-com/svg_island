@@ -38,12 +38,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   end
 
   def handle_event("show-tooltip", params, socket) do
-    x_coor = params["line_end"]["x"]
-    y_coor = params["line_end"]["y"]
-
     tooltip = %{
-      x: x_coor,
-      y: y_coor,
+      x: params["x"],
+      y: params["y"],
       value: params["value"]
     }
 
@@ -52,6 +49,10 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
   def handle_event("dismiss-tooltip", _params, socket) do
     {:noreply, assign(socket, :tooltip, nil)}
+  end
+
+  def handle_event(_, _params, socket) do
+    {:noreply, socket}
   end
 
   defp put_chart_line_coordinates(%Chart{dataset: _dataset, dimensions: _dimensions} = chart) do
@@ -278,17 +279,23 @@ defmodule SvgIslandWeb.HexDownloadsLive do
           <text x={label.x} y={label.y} class={label.class}>
             <%= label.value %>
           </text>
-          <polyline
-            points={"#{background_line.line_start.x},#{background_line.line_start.y} #{background_line.line_end.x},#{background_line.line_end.y}"}
+          <.draw_monoline
+            line_start_x={background_line.line_start.x}
+            line_start_y={background_line.line_start.y}
+            line_end_x={background_line.line_end.x}
+            line_end_y={background_line.line_end.y}
             class={background_line.class}
           />
         <% end %>
         <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
-          <polyline
-            points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
+          <.draw_monoline
+            line_start_x={line_start.x}
+            line_start_y={line_start.y}
+            line_end_x={line_end.x}
+            line_end_y={line_end.y}
             class={line.class}
-            phx-click={JS.push("show-tooltip", value: line)}
-            phx-click-away="dismiss-tooltip"
+            on_click_event_name="show-tooltip"
+            on_click_event_params={%{value: line.value}}
           />
           <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
         <% end %>
@@ -356,6 +363,29 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   defp chart_legend(assigns) do
     ~H"""
     <text x={@x} y={@y} class={@class}><%= @value %></text>
+    """
+  end
+
+  attr :line_start_x, :integer, required: true
+  attr :line_start_y, :integer, required: true
+  attr :line_end_x, :integer, required: true
+  attr :line_end_y, :integer, required: true
+  attr :class, :string, required: true
+  attr :on_click_event_name, :string, default: ""
+  attr :on_click_event_params, :map, default: %{}
+
+  defp draw_monoline(assigns) do
+    ~H"""
+    <polyline
+      points={"#{@line_start_x},#{@line_start_y} #{@line_end_x},#{@line_end_y}"}
+      class={@class}
+      phx-click={
+        JS.push(@on_click_event_name,
+          value: Map.merge(@on_click_event_params, %{x: @line_end_x, y: @line_end_y})
+        )
+      }
+      phx-click-away="dismiss-tooltip"
+    />
     """
   end
 
