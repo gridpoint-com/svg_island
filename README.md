@@ -47,7 +47,7 @@ Rule Number 1 No Javascript 🔥
 
 notes:
 meks
-First, let’s lay some ground rules. At the time, the only Javascript in the project was the Phoenix.LiveView.JS library. Since Javascript can be difficult to maintain over time, one of the constraints we were given was to do as much as possible with built in LiveView functionality. So, no Javascript.
+First, let’s lay some ground rules. GridPoint is trying to build the product with as few dependencies as possible, relying on the tools provided by Elixir, Phoenix, and the BEAM. At the time, the only Javascript in the project came from the Phoenix.LiveView.JS library. One of the constraints we were given was to do as much as possible with the built in LiveView functionality. So, no Javascript.
 
 --- 
 
@@ -148,7 +148,7 @@ Our conclusion was that it would take more time and effort (in development and m
 
 notes:
 meks
-SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimensional vector graphics. Vector graphics is a form of computer graphics in which visual images are created directly from geometric shapes such as points, lines, curves and polygons. Elements such as polyline and text are used to create the actual images. And attributes such as fill and stroke modify those elements.
+SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimensional vector graphics. Vector graphics is a form of computer graphics in which visual images are created directly from geometric shapes such as points, lines, curves and polygons. Elements such as polyline and text are used together to create visuals. And attributes such as fill and stroke modify those elements.
 
 ---
 
@@ -195,8 +195,11 @@ This is the `IO.inspect` of SVG.
 
 notes:
 meks
+
 Reaching back into the recesses of my brain, back in highschool we studied Geometry and studied the Cartesian coordinate system.
+
 The top right quadrant, positive x, positive y, is the quadrant applicable to SVG creation. This is how the vector graphics are created, by drawing shapes using a coordinate system.
+
 Note the origin (0, 0) is in the bottom left corner of quadrant 1.
 
 ---
@@ -206,7 +209,12 @@ Note the origin (0, 0) is in the bottom left corner of quadrant 1.
 
 notes:
 meks
-The SVG coordinate system is similar to the Cartesian coordinate system (quadrant 1) except the origin (0,0) is in the top left corner. The y-axis is reversed compared to a normal graph coordinate system. As y increases in SVG, the points, shapes etc. move down, not up. This was hard for me to grasp at first, but turns out many computer graphics programs rely on this type of system, as it allows the origin to be at the top left of the browser screen.
+
+The SVG coordinate system is similar to quadrant 1 of the Cartesian coordinate system except the origin (0,0) is in the top left corner.
+The y-axis is reversed compared to a normal graph coordinate system. As y increases in SVG, the points, shapes etc. move down, not up.
+Many computer graphics programs rely on this type of system, as it allows the origin to be at the top left of the browser screen.
+This was one of the most challenging parts of building our own charts and I regularly had to stop and think about this.
+It really helped to pause and perform the mental gymnastics of visualizing what the chart needs to look like and inverting the y coordinates in relationship to the y values that needed to be displayed.
 
 ---
 
@@ -256,6 +264,7 @@ Text works by adding a box of text at the given x, y coordinate.
 ### Draw a straight line
 
 notes:
+
 Mark: Meks, I have a challenge for you.
 Meks: You do?
 Mark: Yeah.
@@ -285,6 +294,7 @@ Mark: Nice!
 ### Draw an “M”
 
 notes:
+
 Mark: I have another challenge.
 Meks: Bring it on.
 Mark: How would I draw a capital ”M“. Explain it to me like I’m 5,
@@ -378,26 +388,24 @@ Meks: Sorry, bad pun, I couldn’t help myself.
 
 * Constrain polyline to only accept 2 points
 
-  ```HTML
-      <svg viewBox={"0 0 800 210}"} width="800" height="210" xmlns="http://www.w3.org/2000/svg" >
-        <rect width="100%" height="100%" fill="none" stroke="black" />
-        <polyline points="0,0 300,190" stroke="black" />
-      </svg>
-  ```
-
-  ![CleanShot 2023-08-02 at 18 42 53@2x](https://github.com/gridpoint-com/svg_island/assets/60719697/28bfe951-10f5-4642-b57a-849a07e59b9b)
+```Elixir
+  defp draw_monoline(assigns) do
+    ~H"""
+    <polyline
+      points={"#{@line_start_x},#{@line_start_y} #{@line_end_x},#{@line_end_y}"}
+      stroke="black" 
+    />
+    """
+  end
+```
 
 notes:
 
-code snippet: a polyline with 2 points
-image: that specific polyline
 Meks: The crux is that we have two points, the start and the end of the line.
-We connect those points to create a line. This is important for our use case
-because we constraint the use of the polyline to only accept two points, ie two
-sets of x and y coordinates. This means when we use polyline, we create two
-points and connect them together with a straight line. In this example, the
-polyline starts at 0,0 and ends at 300x and 190y. This was a conscious choice 
-we made because then each line segment represents a piece of data that we can 
+This is important for our use case because we constrain the use of the polyline
+to only accept two points. We do this by creating a functional component that
+accepts exactly two sets of x and y coordinates. This was a conscious choice we
+made because then each line segment represents a piece of data that we can
 interact with.
 
 ---
@@ -407,23 +415,24 @@ interact with.
 * Side effect of point 1, constraining polyline to 2 points
 * Utilize last known location to keep drawing more lines
 
-```HTML
-      <svg viewBox={"0 0 800 210}"} width="800" height="210" xmlns="http://www.w3.org/2000/svg" >
-        <rect width="100%" height="100%" fill="none" stroke="black" />
-        <polyline points="0,0 300,190" stroke="black" />
-        <polyline points="300,190 500,80" stroke="green" />
-      </svg>
-```
+```elixir
+  defp calculate_line_coordinate(number_of_downloads, [previous_line | _] = line_coordinates, %Chart{} = chart) do
+    current_line_start_x = previous_line.line_end.x
+    current_line_start_y = previous_line.line_end.y
 
-![CleanShot 2023-08-02 at 18 52 40@2x](https://github.com/gridpoint-com/svg_island/assets/60719697/6598e0fb-b2d2-410a-8809-a1df2fa0e3ba)
+    current_line_end_x = scale_x_line_value(previous_line, chart)
+    current_line_end_y = scale_y_line_value(number_of_downloads, chart)
+
+    ...
+  end
+```
 
 notes:
 Mark: The second big take away of this exercise is that I use my last known
 location to keep drawing more lines. The end of the previous line becomes the
-start of the next line. Here, you can see that the coordinate of 300x and 190y
-is both the end of the first line, and the start of the second line. This 
-let’s us algorithmically calculate coordinates to draw lines based on the data
-points in the the dataset that we want to represent.
+start of the next line. This let’s us algorithmically calculate coordinates to
+draw lines based on the data points in the the dataset that we want to
+represent.
 
 ---
 
@@ -445,10 +454,12 @@ Most of us are probably familiar with Hex packages and have seen their download 
 
 ```Elixir
 <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
-    <polyline
-      points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
-      stroke="black"
-    />
+  <.draw_monoline
+    line_start_x={line_start.x}
+    line_start_y={line_start.y}
+    line_end_x={line_end.x}
+    line_end_y={line_end.y}
+  />
 <% end %>
 ```
 
@@ -466,18 +477,16 @@ What you see here on the screen is a hand built SVG replica. Every part was buil
 
 ```HTML
 <polyline
-  points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
-  class={line.class}
+  points={...}
+  class="stroke-indigo-700 [stroke-width:3] [stroke-linecap:round]"
 />
 ```
-
-`class: "#{color} [stroke-width:3] [stroke-linecap:round]"`
 
 notes:
 
 image of styled Jason Downloads demo
 
-Here is that same chart, but with Tailwind styling applied. For the colored lines we remove the stroke black attribute and replace it with Tailwind classes which we add to the Chart struct for each line segment. We adjust the line width, give it rounded edges, and change the color based of the percent of lines drawn to give it that color fade appearance.
+Here is that same chart, but with styling applied. All this is done with just the required points attribute for the polyline and Tailwind classes! One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. This helped significantly with code readability and maintainability since we were able to exclusively use Tailwind for styling.
 
 ---
 
@@ -511,9 +520,8 @@ The text elements for the y labels and the chart legend are similarly styled wit
 
 ```Elixir
 <polyline
-  points={"#{line_start.x},#{line_start.y} #{line_end.x},#{line_end.y}"}
-  class={line.class}
-  phx-click={JS.push("show-tooltip", value: line)}
+  ...
+  phx-click={JS.push("show-tooltip", value: %{x: 331, y: 150, value: 18000})}
   phx-click-away="dismiss-tooltip"
 />
 <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
