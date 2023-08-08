@@ -43,6 +43,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       socket
       |> assign(:chart, chart)
       |> assign(:tooltip, nil)
+      |> stream(:line_coordinates, chart.line_coordinates)
 
     {:ok, socket}
   end
@@ -57,6 +58,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
               |> Map.put(:dataset, chart.dataset ++ [update])
               |> put_chart_line_coordinates()
             end)
+
+          latest_line = List.first(socket.assigns.chart.line_coordinates)
+          socket = stream_insert(socket, :line_coordinates, latest_line)
 
           Process.send_after(self(), {:chart_update, remaining}, @chart_update_interval)
 
@@ -321,19 +325,21 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             class={background_line.class}
           />
         <% end %>
-        <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
-          <.draw_monoline
-            id={line.id}
-            line_start_x={line_start.x}
-            line_start_y={line_start.y}
-            line_end_x={line_end.x}
-            line_end_y={line_end.y}
-            class={line.class}
-            on_click_event_name="show-tooltip"
-            on_click_event_params={%{value: line.value}}
-          />
-          <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
-        <% end %>
+        <g id="hex-downloads-line" phx-update="stream">
+          <%= for {id, %{line_start: line_start, line_end: line_end} = line} <- @streams.line_coordinates do %>
+            <.draw_monoline
+              id={id}
+              line_start_x={line_start.x}
+              line_start_y={line_start.y}
+              line_end_x={line_end.x}
+              line_end_y={line_end.y}
+              class={line.class}
+              on_click_event_name="show-tooltip"
+              on_click_event_params={%{value: line.value}}
+            />
+            <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
+          <% end %>
+        </g>
       </svg>
     </div>
     """
