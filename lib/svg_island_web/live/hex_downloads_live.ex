@@ -8,7 +8,17 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   alias SvgIsland.Chart
   alias Phoenix.LiveView.JS
 
+  @chart_update_interval 2_000
+
   def mount(_params, _session, socket) do
+    if connected?(socket),
+      do:
+        Process.send_after(
+          self(),
+          {:chart_update, [20_000, 22_000, 80_000, 75_000, 70_000, 22_000]},
+          @chart_update_interval
+        )
+
     dimensions = %{
       viewbox_height: 210,
       viewbox_width: 800,
@@ -35,6 +45,10 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       |> assign(:tooltip, nil)
 
     {:ok, socket}
+  end
+
+  def handle_info({:chart_update, _updates}, socket) do
+    {:noreply, socket}
   end
 
   def handle_event("show-tooltip", params, socket) do
