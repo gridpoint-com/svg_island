@@ -535,6 +535,33 @@ If you recall, we constrained our polylines to only have 2 points. What this all
 
 ---
 
+### Updating the Chart with Assigns
+
+TODO insert gif here
+
+notes:
+
+Updating the chart can be accomplished simply by adding a new datapoint into our socket assigns.
+In this example we're receiving a message that contains our new datapoint and it's being assigned to the socket.
+LiveView knows our data has changed so it redraws our chart and we see the new datapoint.
+It's hard to tell but the entire chart is being redrawn on each message we receive.
+I wonder if there's a way we could prevent an entire redraw on each message.
+
+---
+
+### Updating the Chart with Streams
+
+TODO insert gif here
+
+notes:
+
+Here we have the same example but we're using LiveView Streams to update the chart instead of assigns.
+On mount we add our existing data to the stream and on each message we insert the new datapoint into the stream.
+Based on individual line IDs the stream is able to tell if it has drawn the line before or not.
+What we end up with here is an live updating chart that only draws the new datapoint on each message it receives.
+
+---
+
 ### How did we come up with this approach?
 
 * Bottom up approach
