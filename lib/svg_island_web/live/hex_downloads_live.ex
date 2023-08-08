@@ -47,7 +47,25 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     {:ok, socket}
   end
 
-  def handle_info({:chart_update, _updates}, socket) do
+  def handle_info({:chart_update, updates}, socket) do
+    socket =
+      case updates do
+        [update | remaining] ->
+          socket =
+            update(socket, :chart, fn chart ->
+              chart
+              |> Map.put(:dataset, chart.dataset ++ [update])
+              |> put_chart_line_coordinates()
+            end)
+
+          Process.send_after(self(), {:chart_update, remaining}, @chart_update_interval)
+
+          socket
+
+        [] ->
+          socket
+      end
+
     {:noreply, socket}
   end
 
