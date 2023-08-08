@@ -87,6 +87,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
     [
       %{
+        id:
+          "line-#{number_of_downloads}-#{first_line_start_x}-#{first_line_start_y}-#{first_line_end_x}-#{first_line_end_y}",
         line_start: %{
           x: first_line_start_x,
           y: first_line_start_y
@@ -120,6 +122,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
     [
       %{
+        id:
+          "line-#{number_of_downloads}-#{current_line_start_x}-#{current_line_start_y}-#{current_line_end_x}-#{current_line_end_y}",
         line_start: %{
           x: current_line_start_x,
           y: current_line_start_y
@@ -301,6 +305,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
         <% end %>
         <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
           <.draw_monoline
+            id={line.id}
             line_start_x={line_start.x}
             line_start_y={line_start.y}
             line_end_x={line_end.x}
@@ -378,6 +383,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     """
   end
 
+  attr :id, :string, default: ""
   attr :line_start_x, :integer, required: true
   attr :line_start_y, :integer, required: true
   attr :line_end_x, :integer, required: true
@@ -387,8 +393,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   attr :on_click_event_params, :map, default: %{}
 
   defp draw_monoline(assigns) do
+    dbg(assigns.id)
+
     ~H"""
     <polyline
+      id={@id}
       points={"#{@line_start_x},#{@line_start_y} #{@line_end_x},#{@line_end_y}"}
       class={@class}
       phx-click={
