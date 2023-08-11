@@ -414,7 +414,7 @@ represent.
 
 ### Jason Downloads
 
-![Screen Shot 2023-07-27 at 2 41 59 PM](https://github.com/gridpoint-com/svg_island/assets/5237832/67dd7192-61e1-4cf3-81dc-c50bdd962939)
+![jason_downloads_official](https://github.com/gridpoint-com/svg_island/assets/5237832/a263bf04-d378-410a-b030-a6e7f35d547d)
 
 notes: Meks
 
@@ -511,7 +511,7 @@ What we end up with here is an live updating chart that only draws the new datap
 * Hand crafted an SVG to match design
 * Abstracted chart elements piece by piece
 
-![bar_chart_component](https://github.com/gridpoint-com/svg_island/assets/5237832/1847c210-6476-4edc-a4f4-40266d68cc45)
+TODO bar_chart_component
 
 notes:
 Now that you know our approach, you're probably wondering how we came up with it
@@ -532,7 +532,7 @@ After all this we had a fully abstracted bar chart comonent that we could pass d
 * Access to the coordinates
 * Elements of the chart drawn independently
 
-![bar_chart_tooltip](https://github.com/gridpoint-com/svg_island/assets/5237832/35192551-e3b7-478b-885b-adba98275dbf)
+![bar_chart_tooltip](https://github.com/gridpoint-com/svg_island/assets/5237832/30dbae86-891d-4ef2-8731-385d72ace694)
 
 notes:
 So we have built this component such that it accepts a certain set of data and abstracted away a lot of the complexity
@@ -594,5 +594,5 @@ such that they are maintainable and easy for other devs to understand will be an
 
 Slides / example project: https://github.com/gridpoint-com/svg_island
 
-![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/7891fd00-aea4-4ce1-967d-bf4baea95a24)
+![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
 
