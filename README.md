@@ -158,10 +158,9 @@ SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimension
 
 ### First we define a ViewBox
 **[ViewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)**: Defines the position and dimension, in user space, of an SVG viewport.
-```html
-<svg viewBox="0 0 1174 429" xmlns="http://www.w3.org/2000/svg">
-</svg>
-```
+
+<img width="730" alt="CleanShot 2023-08-11 at 10 00 06@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/4055ee34-2571-4dae-96d1-91fa1931feb4">
+
 ![empty_viewBox](https://user-images.githubusercontent.com/5237832/218849904-91f3d1f1-6140-48b8-9d47-dc5f6b0a7182.png)
 
 notes:
@@ -173,11 +172,9 @@ I've used my browsers inspect here to outline the viewbox.
 ---
 
 ### Outline the ViewBox
-```html
-<svg viewBox="0 0 1174 429" xmlns="http://www.w3.org/2000/svg">
-  <rect x="0" y="0" width="100%" height="100%" fill="none" stroke="black" stroke-width="4" />
-</svg>
-```
+
+<img width="726" alt="CleanShot 2023-08-11 at 10 00 58@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/22ce1192-0067-4d44-9567-1212f9cec0e1">
+
 ![viewbox_outline](https://user-images.githubusercontent.com/5237832/218851323-37e48f88-131c-4b25-9609-f6a333b43fb0.png)
 
 notes:
@@ -221,9 +218,8 @@ It really helped to pause and perform the mental gymnastics of visualizing what 
 ### Our bread and butter 🧈
 **[Polyline](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline)**: Creates straight lines connecting several points.
 
-```
-<polyline points="100,429 100,0" fill="none" stroke="black" />
-```
+<img width="735" alt="CleanShot 2023-08-11 at 10 01 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3ef229f6-37eb-4e50-9903-989e63098b0c">
+
 ![polyline](https://user-images.githubusercontent.com/5237832/218853849-c169972a-25b3-4846-b6b3-10e20ac21405.png)
 
 notes:
@@ -239,9 +235,8 @@ Here I'm using a Polyline to draw a line from the bottom of the viewbox to the t
 ### The other element
 **[Text](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text)**: draws a graphics element consisting of text.
 
-```
-<text x="200" y="200" font-size="20px">Hello SVG</text>
-```
+<img width="671" alt="CleanShot 2023-08-11 at 10 02 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/ec8a75e2-1188-4928-b20e-8aa3c2b0b6de">
+
 ![text_element](https://user-images.githubusercontent.com/5237832/219486890-92cdf1d4-a4c7-4285-8a4b-b8cee66e14ec.png)
 
 notes:
@@ -388,16 +383,7 @@ Meks: Sorry, bad pun, I couldn’t help myself.
 
 * Constrain polyline to only accept 2 points
 
-```Elixir
-  defp draw_monoline(assigns) do
-    ~H"""
-    <polyline
-      points={"#{@line_start_x},#{@line_start_y} #{@line_end_x},#{@line_end_y}"}
-      stroke="black" 
-    />
-    """
-  end
-```
+<img width="844" alt="CleanShot 2023-08-11 at 10 03 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/e6b3368e-c697-4fde-8b25-33a311ce1c78">
 
 notes:
 
@@ -415,17 +401,7 @@ interact with.
 * Side effect of point 1, constraining polyline to 2 points
 * Utilize last known location to keep drawing more lines
 
-```elixir
-  defp calculate_line_coordinate(number_of_downloads, [previous_line | _] = line_coordinates, %Chart{} = chart) do
-    current_line_start_x = previous_line.line_end.x
-    current_line_start_y = previous_line.line_end.y
-
-    current_line_end_x = scale_x_line_value(previous_line, chart)
-    current_line_end_y = scale_y_line_value(number_of_downloads, chart)
-
-    ...
-  end
-```
+<img width="892" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/be8da5f3-0c51-4675-a7c9-e017009bdbf9">
 
 notes:
 Mark: The second big take away of this exercise is that I use my last known
@@ -452,16 +428,7 @@ Most of us are probably familiar with Hex packages and have seen their download 
 
 <img width="846" alt="Screenshot 2023-08-03 at 11 37 58 AM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/ae7ce9f3-44ac-46f5-8616-aa9bcb296225">
 
-```Elixir
-<%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
-  <.draw_monoline
-    line_start_x={line_start.x}
-    line_start_y={line_start.y}
-    line_end_x={line_end.x}
-    line_end_y={line_end.y}
-  />
-<% end %>
-```
+<img width="525" alt="CleanShot 2023-08-11 at 10 07 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5d0e2f33-bb28-490f-839a-3450db772e38">
 
 notes:
 
@@ -475,12 +442,7 @@ What you see here on the screen is a hand built SVG replica. Every part was buil
 
 <img width="831" alt="CleanShot 2023-08-03 at 15 40 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/30e3c631-ba10-41c4-82d2-6f169bdaba6e">
 
-```HTML
-<polyline
-  points={...}
-  class="stroke-indigo-700 [stroke-width:3] [stroke-linecap:round]"
-/>
-```
+<img width="718" alt="CleanShot 2023-08-11 at 10 08 04@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/e5bfd5b3-b6b7-4a71-a688-3bd2f5fb4921">
 
 notes:
 
@@ -492,21 +454,9 @@ Here is that same chart, but with styling applied. All this is done with just th
 
 ### Jason Downloads
 
-```HTML
-<text x={label.x} y={label.y} class={label.class}>
-  <%= label.value %>
-</text>
-```
+<img width="553" alt="CleanShot 2023-08-11 at 10 08 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/fb91e7ee-eb05-45ea-bd7e-1a60dc12e749">
 
-```
- %{
-   label: %{
-   x: label_x,
-   y: label_y,
-   value: y_label_value,
-   class: "fill-slate-400 text-xs [dominant-baseline:auto] [text-anchor:start]"
-}
-```
+<img width="886" alt="CleanShot 2023-08-11 at 10 10 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3f94f30a-c755-4d87-88ed-5b29e64ba03f">
 
 notes:
 
@@ -518,14 +468,7 @@ The text elements for the y labels and the chart legend are similarly styled wit
 
 ![CleanShot 2023-08-03 at 15 50 58](https://github.com/gridpoint-com/svg_island/assets/60719697/0b60c0ad-1cc9-45a1-b968-05067ef39b6b)
 
-```Elixir
-<polyline
-  ...
-  phx-click={JS.push("show-tooltip", value: %{x: 331, y: 150, value: 18000})}
-  phx-click-away="dismiss-tooltip"
-/>
-<.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
-```
+<img width="858" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b3674064-bda1-4a30-84f0-8c726aadc8fa">
 
 notes:
 
