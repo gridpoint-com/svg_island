@@ -1,5 +1,8 @@
 # <img src="https://user-images.githubusercontent.com/5237832/219489376-631bbccf-5a21-40d0-9dfa-7d026a17fa17.gif" width="150" height="150" />SVG Island <img src="https://user-images.githubusercontent.com/5237832/219489376-631bbccf-5a21-40d0-9dfa-7d026a17fa17.gif" width="150" height="150" />
 
+![Screenshot 2023-08-11 at 11 45 24 AM](https://github.com/gridpoint-com/svg_island/assets/5237832/991d1252-e571-4e07-891f-8d7162d6cb73)
+
+
 notes:
 mark
 Welcome everyone, happy to have you all here. Today we're going to take a trip to SVG Island. This presentation won't be focused on a specific Elixir topic but don't fret there will be some Elixir code. This presentation will be very visual, kinda fast, and a bit silly. Let's get started. 
