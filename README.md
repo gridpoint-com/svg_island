@@ -480,7 +480,7 @@ If you recall, we constrained our polylines to only have 2 points. What this all
 
 ### Updating the Chart with Assigns
 
-https://github.com/gridpoint-com/svg_island/assets/60719697/9d591fe3-2b05-4399-9633-5026a7a19497
+![CleanShot 2023-08-11 at 09 54 36](https://github.com/gridpoint-com/svg_island/assets/60719697/08a5fd13-b1b4-416c-9d56-e803e270853a)
 
 notes:
 
@@ -494,7 +494,7 @@ I wonder if there's a way we could prevent an entire redraw on each message.
 
 ### Updating the Chart with Streams
 
-https://github.com/gridpoint-com/svg_island/assets/60719697/44d1af16-57c2-4f21-8556-0614f427487f
+![CleanShot 2023-08-11 at 09 52 29](https://github.com/gridpoint-com/svg_island/assets/60719697/08056873-8d49-41a3-a914-aaa219f1da60)
 
 notes:
 
