@@ -510,8 +510,8 @@ What we end up with here is an live updating chart that only draws the new datap
 * Bottom up approach
 * Hand crafted an SVG to match design
 * Abstracted chart elements piece by piece
-
-TODO bar_chart_component
+  
+<img width="340" alt="CleanShot 2023-08-14 at 13 57 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/bf52ae19-6be5-4a06-a308-4fb628ed069d">
 
 notes:
 Now that you know our approach, you're probably wondering how we came up with it
