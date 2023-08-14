@@ -25,7 +25,7 @@ For MSP, the DR / Savings team needs to showcase to our customers the value Grid
 ---
 
 ### Design...Do your magic 🪄 
-<img width="994" alt="CleanShot 2023-08-06 at 13 50 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/c182191b-3e1a-4fa9-8589-831a236b21dd">
+<img width="992" alt="CleanShot 2023-08-06 at 13 51 17@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dabb5784-68c7-466e-8726-28735b22ba69">
 
 notes:
 mark
@@ -85,7 +85,7 @@ Here's a simple example of a multi-series bar chart built with Contex. This exam
 ---
 
 ### What was that design again? 🤔 
-<img width="994" alt="CleanShot 2023-08-06 at 13 50 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/c182191b-3e1a-4fa9-8589-831a236b21dd">
+<img width="992" alt="CleanShot 2023-08-06 at 13 51 17@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dabb5784-68c7-466e-8726-28735b22ba69">
 
 notes:
 mark
@@ -173,7 +173,7 @@ I've used my browsers inspect here to outline the viewbox.
 
 ### Outline the ViewBox
 
-<img width="726" alt="CleanShot 2023-08-11 at 10 00 58@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/22ce1192-0067-4d44-9567-1212f9cec0e1">
+<img width="726" alt="CleanShot 2023-08-11 at 10 00 58@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1a9e8d78-22b6-4747-b641-f4ae2160f5c4">
 
 ![viewbox_outline](https://user-images.githubusercontent.com/5237832/218851323-37e48f88-131c-4b25-9609-f6a333b43fb0.png)
 
@@ -218,7 +218,7 @@ It really helped to pause and perform the mental gymnastics of visualizing what 
 ### Our bread and butter 🧈
 **[Polyline](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline)**: Creates straight lines connecting several points.
 
-<img width="735" alt="CleanShot 2023-08-11 at 10 01 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3ef229f6-37eb-4e50-9903-989e63098b0c">
+<img width="735" alt="CleanShot 2023-08-11 at 10 01 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b15061cc-90f6-425b-aebd-d2c85d63cc16">
 
 ![polyline](https://user-images.githubusercontent.com/5237832/218853849-c169972a-25b3-4846-b6b3-10e20ac21405.png)
 
@@ -235,7 +235,7 @@ Here I'm using a Polyline to draw a line from the bottom of the viewbox to the t
 ### The other element
 **[Text](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text)**: draws a graphics element consisting of text.
 
-<img width="671" alt="CleanShot 2023-08-11 at 10 02 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/ec8a75e2-1188-4928-b20e-8aa3c2b0b6de">
+<img width="671" alt="CleanShot 2023-08-11 at 10 02 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/a24e7758-2e50-461d-b147-0a99a7f6b1d4">
 
 ![text_element](https://user-images.githubusercontent.com/5237832/219486890-92cdf1d4-a4c7-4285-8a4b-b8cee66e14ec.png)
 
@@ -276,7 +276,7 @@ lift up your pen from the paper when the line is as long as you want.
 
 ### Draw a straight line
 
-![CleanShot 2023-08-06 at 15 16 26](https://github.com/gridpoint-com/svg_island/assets/60719697/09272d04-f787-470a-9040-b53904279521)
+![CleanShot 2023-08-06 at 15 16 26](https://github.com/gridpoint-com/svg_island/assets/60719697/a8003230-1ddc-41e8-b92e-2789457e115c)
 
 notes:
 
@@ -301,7 +301,7 @@ can draw a straight line, it’s not so bad.
 
 ### Draw an “M”
 
-![CleanShot 2023-08-06 at 15 09 35](https://github.com/gridpoint-com/svg_island/assets/60719697/01c113e1-8130-4da7-a995-d9db0aa67dbd)
+![CleanShot 2023-08-06 at 15 09 35](https://github.com/gridpoint-com/svg_island/assets/60719697/39ec0c40-e67d-4321-b23a-8faaa8d04a0d)
 
 notes:
 meks 
@@ -319,7 +319,7 @@ the letter M with a slight slant to the right.
 
 ### Draw an “M”
 
-<img width="340" alt="CleanShot 2023-08-06 at 15 12 15@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d256a9b8-dca6-419f-bf7e-5ea3442ef6d0">
+<img width="340" alt="CleanShot 2023-08-06 at 15 12 15@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/a6832f63-5b3a-44ba-a440-9ca596767af6">
 
 notes:
 
@@ -341,7 +341,7 @@ paper.
 
 ### Draw a line chart
 
-![CleanShot 2023-08-06 at 15 23 37](https://github.com/gridpoint-com/svg_island/assets/60719697/719c243a-d0a1-4027-a5cf-7df4ff9ab857)
+![CleanShot 2023-08-06 at 15 23 37](https://github.com/gridpoint-com/svg_island/assets/60719697/e7515a9b-08dd-424b-b827-a420d3454361)
 
 notes:
 
@@ -356,7 +356,7 @@ line chart.
 
 ### Draw a line chart
 
-<img width="833" alt="CleanShot 2023-08-06 at 15 25 59@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f9e8a441-19a0-481f-a5c5-efd0e386dfe4">
+<img width="833" alt="CleanShot 2023-08-06 at 15 25 59@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f2464b61-cbd6-484a-ace6-61da7aa415d6">
 
 notes: image of “line chart“
 
@@ -383,7 +383,7 @@ Meks: Sorry, bad pun, I couldn’t help myself.
 
 * Constrain polyline to only accept 2 points
 
-<img width="844" alt="CleanShot 2023-08-11 at 10 03 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/e6b3368e-c697-4fde-8b25-33a311ce1c78">
+<img width="844" alt="CleanShot 2023-08-11 at 10 03 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/48bd84eb-1989-4328-a5af-6250c9f7d557">
 
 notes:
 
@@ -400,8 +400,8 @@ interact with.
 
 * Side effect of point 1, constraining polyline to 2 points
 * Utilize last known location to keep drawing more lines
-
-<img width="892" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/be8da5f3-0c51-4675-a7c9-e017009bdbf9">
+  
+<img width="892" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/06666f01-312e-4c8d-9a9d-22439b1c249b">
 
 notes:
 Mark: The second big take away of this exercise is that I use my last known
@@ -426,9 +426,9 @@ Most of us are probably familiar with Hex packages and have seen their download 
 
 ### Jason Downloads
 
-<img width="846" alt="Screenshot 2023-08-03 at 11 37 58 AM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/ae7ce9f3-44ac-46f5-8616-aa9bcb296225">
+<img width="525" alt="CleanShot 2023-08-11 at 10 07 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/967efda6-d575-4958-9ddd-c98d600f0146">
 
-<img width="525" alt="CleanShot 2023-08-11 at 10 07 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5d0e2f33-bb28-490f-839a-3450db772e38">
+<img width="846" alt="Screenshot 2023-08-03 at 11 37 58 AM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/13ae1af7-5cf3-40dc-9019-ee83a866827b">
 
 notes:
 
@@ -440,9 +440,9 @@ What you see here on the screen is a hand built SVG replica. Every part was buil
 
 ### Jason Downloads
 
-<img width="831" alt="CleanShot 2023-08-03 at 15 40 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/30e3c631-ba10-41c4-82d2-6f169bdaba6e">
+<img width="718" alt="CleanShot 2023-08-11 at 10 08 04@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3d22bf8f-cee5-42b9-bb54-366efbe9228e">
 
-<img width="718" alt="CleanShot 2023-08-11 at 10 08 04@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/e5bfd5b3-b6b7-4a71-a688-3bd2f5fb4921">
+<img width="831" alt="CleanShot 2023-08-03 at 15 40 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5b442340-41b4-4add-8d66-6e3f4dfeb5c9">
 
 notes:
 
@@ -454,9 +454,9 @@ Here is that same chart, but with styling applied. All this is done with just th
 
 ### Jason Downloads
 
-<img width="553" alt="CleanShot 2023-08-11 at 10 08 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/fb91e7ee-eb05-45ea-bd7e-1a60dc12e749">
+<img width="553" alt="CleanShot 2023-08-11 at 10 08 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5e6d1702-873f-4072-b228-394e415ac384">
 
-<img width="886" alt="CleanShot 2023-08-11 at 10 10 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3f94f30a-c755-4d87-88ed-5b29e64ba03f">
+<img width="886" alt="CleanShot 2023-08-11 at 10 10 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/33856a82-820c-4921-adc1-8b000318e230">
 
 notes:
 
@@ -466,9 +466,9 @@ The text elements for the y labels and the chart legend are similarly styled wit
 
 ### Jason Downloads
 
-![CleanShot 2023-08-03 at 15 50 58](https://github.com/gridpoint-com/svg_island/assets/60719697/0b60c0ad-1cc9-45a1-b968-05067ef39b6b)
+![CleanShot 2023-08-03 at 15 50 58](https://github.com/gridpoint-com/svg_island/assets/60719697/a7c3be78-a4eb-4c99-bc97-be43c7c58ffa)
 
-<img width="858" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b3674064-bda1-4a30-84f0-8c726aadc8fa">
+<img width="858" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1b45fdbe-096f-4a8f-af2d-d2990637e91d">
 
 notes:
 
@@ -480,7 +480,7 @@ If you recall, we constrained our polylines to only have 2 points. What this all
 
 ### Updating the Chart with Assigns
 
-https://github.com/gridpoint-com/svg_island/assets/60719697/40c51fc1-a3da-4b84-897c-ba0d6ce694fa
+https://github.com/gridpoint-com/svg_island/assets/60719697/9d591fe3-2b05-4399-9633-5026a7a19497
 
 notes:
 
@@ -494,7 +494,7 @@ I wonder if there's a way we could prevent an entire redraw on each message.
 
 ### Updating the Chart with Streams
 
-https://github.com/gridpoint-com/svg_island/assets/60719697/97556769-fa4e-4331-bece-9daa9870d9d2
+https://github.com/gridpoint-com/svg_island/assets/60719697/44d1af16-57c2-4f21-8556-0614f427487f
 
 notes:
 
