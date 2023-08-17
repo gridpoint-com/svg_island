@@ -448,19 +448,60 @@ notes:
 
 image of styled Jason Downloads demo
 
-Here is that same chart, but with styling applied. All this is done with just the required points attribute for the polyline and Tailwind classes! One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. This helped significantly with code readability and maintainability since we were able to exclusively use Tailwind for styling.
+Here is that same chart, but with styling applied. All this is done with just the required points svg attribute for the polyline and Tailwind CSS classes! Just an FYI, Tailwind is a utility-first CSS framework for x building websites without ever leaving your HTML. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements.
 
 ---
 
-### Jason Downloads
+### Tailwind CSS
 
-<img width="553" alt="CleanShot 2023-08-11 at 10 08 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5e6d1702-873f-4072-b228-394e415ac384">
+- JIT: “just-in-time” compiler
+- Add arbitrary values `stroke-[3]`
+- Add additional CSS attributes `[stroke-linecap:round]`
 
-<img width="886" alt="CleanShot 2023-08-11 at 10 10 54@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/33856a82-820c-4921-adc1-8b000318e230">
+notes: Meks
 
-notes:
+The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke attribute, but only values of 0-2px, we can use the square bracket notation to tell it to be 3px. The stroke-linecap attribute gives us that nice connection between the polylines but since it doesn’t exist in the Tailwind library, we can again use the square bracket notation to inline additional CSS.
 
-The text elements for the y labels and the chart legend are similarly styled with Tailwind. A really helpful CSS trick is to use dominant-baseline and text-anchor attributes to position the text element relative to the coordinate. This allows us a bit more granularity with positioning the element without having to use magic numbers and adjust the coordinates themselves.
+---
+
+### Tailwind CSS
+
+
+notes: Meks
+
+Here you can see how straight forward it is to just switch out a few values to change the line width, opacity, and linecaps. A big advantage with this is that we didn’t have to leave the LiveView to go and write vanilla CSS in another file. This helped significantly with code readability and maintainability since we were able to exclusively use inline Tailwind for styling. It also helped us as developers to be responsive to changes requested by design.
+
+---
+
+### Positioning Text Elements
+
+notes: Meks
+
+So we have pretty well established how to draw lines in relation to each other and the dimensions of the viewbox and how to style them, but what about the text elements like the labels and the legend? Let’s look at legend to see how we can position that. We’ll use the chart width and height to determine its placement. Remember, SVG charts are upside down, so to place it in the upper portion of the chart, we just use y=0. We can pass x={@chart.dimensions.chart_width} for its x coordinate.
+
+---
+
+### Positioning Text Elements
+
+notes: Meks
+
+But…what happened? We can see here that with our debug mode on and using inspect, the legend is outside the bounds of the viewbox. When you set coordinates to position SVG text, you’re setting the location of the left edge of the text and you’re setting the location of the baseline of the font. So that means the bottom of the text is at y=0 and the left edge is at the width of the viewbox. We can fix this by giving it some magic numbers and make its origin not the full width of the viewbox and increase its y value to move down.
+
+---
+
+### Positioning Text Elements
+
+notes: Meks
+
+While this works, it’s not ideal since that position will need to change based on the contents of the text element. I wonder if we can do away with these magic numbers?
+
+---
+
+### Positioning Text Elements with Tailwind
+
+notes: Meks
+
+Well. With Tailwind, we can! Once again, we rely on the just-in-time compiler and add some SVG attribute references that the Tailwind library doesn’t contain; dominant-baseline and text-anchor. We can change these locations relative to the coordinate with a few SVG specific attributes. By setting the dominant-baseline attribute to hanging, we move the text below the baseline which is at y=0. Then to move the text to the left and back inside our viewport we can use text-anchor which lets us align the text horizontally. By giving it “end”, we’re telling it to align the end of the text with the coordinate we gave it. For any other CSS nerds, the end of the presentation will have links to an excellent blog series that gets into the specifics of how this works and the many different values these attributes accept.
 
 ---
 
@@ -470,11 +511,11 @@ The text elements for the y labels and the chart legend are similarly styled wit
 
 <img width="858" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1b45fdbe-096f-4a8f-af2d-d2990637e91d">
 
-notes:
+notes: Meks
 
 gif of clicking on lines to show the tool tip
 
-If you recall, we constrained our polylines to only have 2 points. What this allows us to do is interact with each line. We can add phx-click and click-away events to each polyline. The event handlers set the tooltip assigns and will display or hide the value from the dataset at the line’s end point.
+Going back to our download chart, if you recall, we constrained our polylines to only have 2 points. What this allows us to do is interact with each line. We can add phx-click and click-away events to each polyline. The event handlers set the tooltip assigns and will display or hide the value from the dataset at the line’s end point.
 
 ---
 
@@ -482,7 +523,7 @@ If you recall, we constrained our polylines to only have 2 points. What this all
 
 ![CleanShot 2023-08-11 at 09 54 36](https://github.com/gridpoint-com/svg_island/assets/60719697/08a5fd13-b1b4-416c-9d56-e803e270853a)
 
-notes:
+notes: Mark
 
 Updating the chart can be accomplished simply by adding a new datapoint into our socket assigns.
 In this example we're receiving a message that contains our new datapoint and it's being assigned to the socket.
@@ -496,7 +537,7 @@ I wonder if there's a way we could prevent an entire redraw on each message.
 
 ![CleanShot 2023-08-11 at 09 52 29](https://github.com/gridpoint-com/svg_island/assets/60719697/08056873-8d49-41a3-a914-aaa219f1da60)
 
-notes:
+notes: Mark
 
 Here we have the same example but we're using LiveView Streams to update the chart instead of assigns.
 On mount we add our existing data to the stream and on each message we insert the new datapoint into the stream.
