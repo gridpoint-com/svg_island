@@ -452,15 +452,21 @@ Here is that same chart, but with styling applied. All this is done with just th
 
 ### Tailwind CSS
 
-<img width="504" alt="CleanShot 2023-08-17 at 20 48 35@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d3bae18f-96ea-4e6d-ae64-0d16835a0920">
-
 - JIT: “just-in-time” compiler
 - Add arbitrary values `stroke-[3]`
 - Add additional CSS attributes `[stroke-linecap:round]`
 
 notes: Meks
 
- A brief intro to Tailwind, it is a utility-first CSS framework for building websites without ever leaving your HTML, or in our case our HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke width attribute, notated as stroke, but only values of 0-2px, we can use the square bracket notation to tell it to have an arbitrary value of 3px. Stroke-linecap is an svg attribute that describes how the end of the line should look. A value of round gives us that nice connection between the polylines. But, stroke-linecap doesn’t exist in the Tailwind library, so we can again use the square bracket notation to inline additional CSS.
+ A brief intro to Tailwind, it is a utility-first CSS framework for building websites without ever leaving your HTML, or in our case our HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. 
+ 
+---
+
+### Tailwind CSS
+
+<img width="504" alt="CleanShot 2023-08-17 at 20 48 35@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d3bae18f-96ea-4e6d-ae64-0d16835a0920">
+
+For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke width attribute, notated as stroke, but only values of 0-2px, we can use the square bracket notation to tell it to have an arbitrary value of 3px. Stroke-linecap is an svg attribute that describes how the end of the line should look. A value of round gives us that nice connection between the polylines. But, stroke-linecap doesn’t exist in the Tailwind library, so we can again use the square bracket notation to inline additional CSS.
 
 ---
 
