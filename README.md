@@ -621,9 +621,9 @@ In essence a chart is a client side collection as it manifests as a visualizatio
 ---
 ### Implementing LiveView Streams
 
-TODO implement_streams_1
-TODO implement_streams_2
-TODO implement_streams_3
+![implement_streams_1](https://github.com/gridpoint-com/svg_island/assets/5237832/d615800f-0e7c-466a-a3c0-6c8a8d543c7d)
+![implement_streams_2](https://github.com/gridpoint-com/svg_island/assets/5237832/4e810b95-473e-4dcd-b09e-64284909fe7d)
+![implement_streams_3](https://github.com/gridpoint-com/svg_island/assets/5237832/37a97893-95c1-40c5-a2df-8f6418078127)
 
 notes:
 
