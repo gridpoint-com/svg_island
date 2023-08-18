@@ -49,11 +49,10 @@ notes:
 meks
 First, let’s lay some ground rules. GridPoint is trying to build the product with as few dependencies as possible, relying on the tools provided by Elixir, Phoenix, and the BEAM. At the time, the only Javascript in the project came from the Phoenix.LiveView.JS library. One of the constraints we were given was to do as much as possible with the built in LiveView functionality. So, no Javascript.
 
---- 
-
+---
 ### Let's build it 🚧 
 
-Rule Number 2 NO JAVASCRIPT 🔥 
+Rule Number 2 No Javascript 🔥 
 
 notes:
 meks
@@ -137,6 +136,10 @@ Our conclusion was that it would take more time and effort (in development and m
 
 ## ✈️ 🌴 SVG Island 🌴 
 
+notes:
+mark
+Look at the cool airplane
+
 ---
 
 ### What is SVG? 🤔 
@@ -153,6 +156,9 @@ SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimension
 ---
 
 ### Let's go over the basics 🧐 
+
+notes:
+here are some notes
 
 ---
 
@@ -249,10 +255,16 @@ Text works by adding a box of text at the given x, y coordinate.
 
 ![success_kid](https://user-images.githubusercontent.com/5237832/218855240-832a8182-b91a-4053-b400-674466f375b3.jpeg)
 
+notes:
+success kid
+
 ---
 
 ### Now that we got the basics down :muscle:
 ### Let's build a line chart 🏗️ 
+
+notes:
+notes
 
 ---
 
@@ -456,9 +468,10 @@ Here is that same chart, but with styling applied. All this is done with just th
 - Add arbitrary values `stroke-[3]`
 - Add additional CSS attributes `[stroke-linecap:round]`
 
-notes: Meks
+notes:
 
- A brief intro to Tailwind, it is a utility-first CSS framework for building websites without ever leaving your HTML, or in our case our HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. 
+Meks
+A brief intro to Tailwind, it is a utility-first CSS framework for building websites without ever leaving your HTML, or in our case our HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. 
  
 ---
 
@@ -466,6 +479,9 @@ notes: Meks
 
 <img width="504" alt="CleanShot 2023-08-17 at 20 48 35@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d3bae18f-96ea-4e6d-ae64-0d16835a0920">
 
+notes:
+
+Meks
 For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke width attribute, notated as stroke, but only values of 0-2px, we can use the square bracket notation to tell it to have an arbitrary value of 3px. Stroke-linecap is an svg attribute that describes how the end of the line should look. A value of round gives us that nice connection between the polylines. But, stroke-linecap doesn’t exist in the Tailwind library, so we can again use the square bracket notation to inline additional CSS.
 
 ---
@@ -661,4 +677,6 @@ Slides / example project: https://github.com/gridpoint-com/svg_island
 [How to work with SVG text](https://vanseodesign.com/web-design/how-to-work-with-svg-text/)
 
 ![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
+notes:
+mark
 
