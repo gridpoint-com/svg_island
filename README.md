@@ -440,19 +440,19 @@ What you see here on the screen is a hand built SVG replica. Every part was buil
 
 ### Jason Downloads
 
-<img width="718" alt="CleanShot 2023-08-11 at 10 08 04@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3d22bf8f-cee5-42b9-bb54-366efbe9228e">
-
 <img width="831" alt="CleanShot 2023-08-03 at 15 40 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5b442340-41b4-4add-8d66-6e3f4dfeb5c9">
 
-notes:
+notes: Meks
 
 image of styled Jason Downloads demo
 
-Here is that same chart, but with styling applied. All this is done with just the required points svg attribute for the polyline and Tailwind CSS classes! Just an FYI, Tailwind is a utility-first CSS framework for x building websites without ever leaving your HTML. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements.
+Here is that same chart, but with styling applied. All this is done with just the required points svg attribute for the polyline and Tailwind CSS classes!
 
 ---
 
 ### Tailwind CSS
+
+<img width="504" alt="CleanShot 2023-08-17 at 20 48 35@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d3bae18f-96ea-4e6d-ae64-0d16835a0920">
 
 - JIT: “just-in-time” compiler
 - Add arbitrary values `stroke-[3]`
@@ -460,12 +460,15 @@ Here is that same chart, but with styling applied. All this is done with just th
 
 notes: Meks
 
-The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke attribute, but only values of 0-2px, we can use the square bracket notation to tell it to be 3px. The stroke-linecap attribute gives us that nice connection between the polylines but since it doesn’t exist in the Tailwind library, we can again use the square bracket notation to inline additional CSS.
+ A brief intro to Tailwind, it is a utility-first CSS framework for building websites without ever leaving your HTML, or in our case our HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand as templates are authored instead of generating everything in advance at initial build time. Since styles are generated on demand, we can add arbitrary styles without writing custom CSS using the square bracket notation. For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke width attribute, notated as stroke, but only values of 0-2px, we can use the square bracket notation to tell it to have an arbitrary value of 3px. Stroke-linecap is an svg attribute that describes how the end of the line should look. A value of round gives us that nice connection between the polylines. But, stroke-linecap doesn’t exist in the Tailwind library, so we can again use the square bracket notation to inline additional CSS.
 
 ---
 
 ### Tailwind CSS
 
+<img width="683" alt="CleanShot 2023-08-17 at 20 49 26@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/8eba22ae-8662-4301-b8ca-7fcbc9c0ab81">
+
+<img width="860" alt="CleanShot 2023-08-17 at 16 29 09@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/62914bc1-00e4-4191-ade7-52bb724c81b9">
 
 notes: Meks
 
@@ -475,33 +478,47 @@ Here you can see how straight forward it is to just switch out a few values to c
 
 ### Positioning Text Elements
 
+<img width="771" alt="CleanShot 2023-08-17 at 15 25 16@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/99f191a0-c364-4812-a869-e4eac7cccf2f">
+
+<img width="487" alt="CleanShot 2023-08-17 at 15 24 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dab6f7f9-9a03-4ec2-84f2-82923572b91f">
+
 notes: Meks
 
-So we have pretty well established how to draw lines in relation to each other and the dimensions of the viewbox and how to style them, but what about the text elements like the labels and the legend? Let’s look at legend to see how we can position that. We’ll use the chart width and height to determine its placement. Remember, SVG charts are upside down, so to place it in the upper portion of the chart, we just use y=0. We can pass x={@chart.dimensions.chart_width} for its x coordinate.
+So we have pretty well established how to draw lines in relation to each other and the dimensions of the viewbox. We also know how to style them, but what about the text elements like the labels and the legend? Let’s look at the legend to see how we can position that. Here we have a small functional component where we can pass it the coordinates and value of the text for the legend. We’ll use the chart width and height to determine its placement. Remember, SVG charts are upside down, so to place it in the upper most part of the chart, we just use y=0. We can pass x={@chart.dimensions.chart_width} for its x coordinate.
 
 ---
 
 ### Positioning Text Elements
 
+<img width="566" alt="Screenshot 2023-08-17 at 3 21 00 PM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/95c9a476-3303-4aa9-ad5b-372eb3dec27b">
+
 notes: Meks
 
-But…what happened? We can see here that with our debug mode on and using inspect, the legend is outside the bounds of the viewbox. When you set coordinates to position SVG text, you’re setting the location of the left edge of the text and you’re setting the location of the baseline of the font. So that means the bottom of the text is at y=0 and the left edge is at the width of the viewbox. We can fix this by giving it some magic numbers and make its origin not the full width of the viewbox and increase its y value to move down.
+But…what happened? This is where turning on debug mode to see the outline of the viewbox in tandem with the browser inspect comes in handy. The legend is outside the bounds of the viewbox. When you set coordinates to position SVG text, you’re setting the location of the left edge of the text and the baseline of the font, so the bottom. So that means the bottom of the text is at y=0 and the left edge is at the width of the viewbox. We can fix this by giving it some magic numbers and make its origin not the full width of the viewbox and remembering that to move it down we need to increase its y value.
 
 ---
 
 ### Positioning Text Elements
 
+<img width="569" alt="CleanShot 2023-08-17 at 15 12 18@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f7594857-6cc0-4efb-b78b-1964164216e5">
+
+<img width="420" alt="CleanShot 2023-08-17 at 15 28 47@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/6db72464-3aec-46ff-8f0f-b15f98f71e2f">
+
 notes: Meks
 
-While this works, it’s not ideal since that position will need to change based on the contents of the text element. I wonder if we can do away with these magic numbers?
+While this works, it’s not ideal since that position will need to change based on the contents of the text element. And we would like this to be a bit more flexible. I wonder if we can do away with these magic numbers?
 
 ---
 
 ### Positioning Text Elements with Tailwind
 
+<img width="799" alt="CleanShot 2023-08-17 at 15 33 00@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3d835f7b-3949-4de8-a4fb-15c56be203ca">
+
+<img width="424" alt="CleanShot 2023-08-17 at 15 32 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/771077b8-dc7e-4467-a99a-c623a1a79ae9">
+
 notes: Meks
 
-Well. With Tailwind, we can! Once again, we rely on the just-in-time compiler and add some SVG attribute references that the Tailwind library doesn’t contain; dominant-baseline and text-anchor. We can change these locations relative to the coordinate with a few SVG specific attributes. By setting the dominant-baseline attribute to hanging, we move the text below the baseline which is at y=0. Then to move the text to the left and back inside our viewport we can use text-anchor which lets us align the text horizontally. By giving it “end”, we’re telling it to align the end of the text with the coordinate we gave it. For any other CSS nerds, the end of the presentation will have links to an excellent blog series that gets into the specifics of how this works and the many different values these attributes accept.
+Well. With Tailwind, we can! Once again, we rely on the just-in-time compiler and add some SVG attribute references that the Tailwind library doesn’t contain; dominant-baseline and text-anchor. We can change the text location relative to the coordinate with these SVG specific attributes. By setting the dominant-baseline attribute to hanging, we move the text below the baseline which is at y=0. Then to move the text to the left and back inside our viewport we can use text-anchor which lets us align the text horizontally. By giving it “end”, we’re telling it to align the end of the text with the coordinate we gave it. For any other CSS nerds, the end of the presentation will have links to an excellent blog series that gets into the specifics of how this works and the many different values these attributes accept.
 
 ---
 
@@ -634,6 +651,8 @@ such that they are maintainable and easy for other devs to understand will be an
 ### That's all folks
 
 Slides / example project: https://github.com/gridpoint-com/svg_island
+
+[How to work with SVG text](https://vanseodesign.com/web-design/how-to-work-with-svg-text/)
 
 ![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
 
