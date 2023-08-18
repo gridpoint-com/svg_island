@@ -77,62 +77,60 @@ Yeah, the higher ups were pretty serious about that.
 notes:
 mark
 
-Given the no JavaScript constraint we're only considering pure elixir solutions. Unfortunately there's no D3 equivalent in the Elixir community. The most popular pure Elixir library is Contex. It supports bar charts, line plots, and even plays nicely with LiveView. Another interesting option is GGity as it's based on R's ggplot2 which provides a clean API for visualizations. Another library I looked at was VegaLite. If you're familiar with Livebook you've probably it seen it can draw some snazzy visualizations. However, VegaLite does have a JS dependency so let's take a closer look at Contex and GGity.
+Given the no JavaScript constraint we're only considering pure elixir solutions. Unfortunately there's no D3.js equivalent in the Elixir community. After looking around to see what's our there we decided to try out Contex and GGity. VegaLite was another one and if you're familiar with LiveBook you've probably seen its snazzy visualizations. VegaLite only works with LiveBook and does have a JS dependency so let's take a close look at our other options.
 
 ---
 
-### Let's try Contex 🤞 
-![Screen Shot 2023-01-30 at 4 41 56 PM](https://user-images.githubusercontent.com/5237832/215601888-98cb37be-2c49-4e06-8892-1899a0b02d2a.png)
+### Contex 🤔 
 
-notes:
-mark
+#### Pros
+* Most popular pure Elixir charting library
+* Works well with LiveView
+* Support for many chart types
 
-Here's a simple example of a multi-series bar chart built with Contex. This example was fairly easy to put together. Contex works by taking a dataset and some specific configuration about the chart then creates a chart struct. Once you have a struct you can use a Contex provided function to generate SVG based on the configuration of that struct. Let's see how our Contex spike lines up with design.
-
----
-
-### What was that design again? 🤔 
-<img width="992" alt="CleanShot 2023-08-06 at 13 51 17@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dabb5784-68c7-466e-8726-28735b22ba69">
-
-notes:
-mark
-
-Hmmmmm. Flip back to previous slide then back to this one. While it was pretty easy to get a bar chart from Contex the design is waaaay off.
-
----
-
-### Ok.....Let's try GGity 🤞 
-![Screen Shot 2023-01-30 at 4 42 11 PM](https://user-images.githubusercontent.com/5237832/215602696-32490af1-9cb3-456a-9dae-6d03450fab61.png)
+#### Cons
+* Documentation
+* Output SVG is complex
+* No clear way to meet our design goals
 
 
 notes:
 mark
 
-GGity works is much the same way as Contex. It takes a dataset and some specific configuration about the chart then creates a chart struct. Once you have a struct you can call a function that generates SVG. While have a more well rounded API, GGity suffers from the same constraints as Contex.
+Contex is the most popular pure Elixir charting library. It supports bar chart, line plots, and even plays nicely with LiveView. It supported multi-series chart which was a requirement for us. The downsides were the documentation, complexity of the output SVG, and no clear way to meet our design goals.
 
 ---
 
-### 🙄 
-![square_peg_round_hole](https://user-images.githubusercontent.com/5237832/215603097-28b2c26d-a61b-4768-898c-8adb2f09ee04.jpeg)
+### GGity 🤔 
+
+#### Pros
+* Based on R's ggplot2 API with great documentation
+* Works well with LiveView
+* Support for many chart types
+
+#### Cons
+* API is less intuitive an Contex's
+* Styling is more "scientific" looking
+* No clear way to meet our design goals
+
 
 notes:
 mark
 
-I can't help but feel like I'm trying to fit a square peg in a round hole with these libraries. It's pretty straightforward to put a chart together but the customization and long term maintainability isn't there.
+GGity is quite interesting as it's based on R's ggplot2 which folks in the scientific community might be aware of. Like Contex works with LiveView and has support of the chart types we need. Still though there was no clear way to meet our design goals with this library.
 
 ---
 
 ### Technical limitations 
 
-- Both libraries ([Contex](https://github.com/mindok/contex), [GGity](https://github.com/srowley/ggity)) provide the charts we need.
-- Missing needed customization for our use case.
-- The libraries build data structures that in turn generate SVG charts.
-- Alter the data structures or overwrite the SVG they generate to customize.
+- Both libraries build data structures that in turn generate SVG charts
+- We could alter data structures to meet our goals
+- We could overwrite the output SVG to meet our goals
 
 notes:
 meks
 
-What did we learn from spiking on these libraries? Both provide the charts we need, but lack the customization we would like to have for matching given designs. A commonality they have is that they build data structures to generate the SVG charts. Advanced customization would require use to alter the data structures or overwrite the generated SVGs, neither of which is ideal.
+What did we learn from spiking on these libraries? Both provide the charts we need but lack the customization needed to achieve our design goals. A commonality they have is that they build data structures that SVG is generated from. Advanced customization would require use to alter the data structures or overwrite the generated SVGs, neither of which is ideal.
 
 ---
 
@@ -150,9 +148,6 @@ Our conclusion was that it would take more time and effort (in development and m
 ## ✈️ 🌴 SVG Island 🌴 
 
 notes:
-mark
-
-Look at the cool airplane
 
 ---
 
