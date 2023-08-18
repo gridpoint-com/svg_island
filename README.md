@@ -594,11 +594,42 @@ notes:
 
 Mark
 
-Updating the chart can be accomplished simply by adding a new datapoint into our socket assigns.
-In this example we're receiving a message that contains our new datapoint and it's being assigned to the socket.
-LiveView knows our data has changed so it redraws our chart and we see the new datapoint.
-It's hard to tell but the entire chart is being redrawn on each message we receive.
-I wonder if there's a way we could prevent an entire redraw on each message.
+Next you might be wondering, what about updating the chart with new data? Well updating a chart is no different than other updates we'd do with LiveView. The above example is showing what it looks like to update the chart with socket assigns. When we receive a new datapoint the coordinates are generated for it then added to the socket assigns. It's quite hard to tell but on each update there's a roundtrip to the server and an entire redraw of the chart. I wonder if there's a way we could prevent this?
+
+---
+###  Intro LiveView Streams
+* Streams are a mechanism for managing large collections on the client without keeping the resources on the server
+
+notes:
+Mark
+
+Here come LiveView Streams to the rescue. If you haven't heard streams are a new mechanism for managing large collections on the client without keeping the resources on the server. Streams has an elegant interface to insert and delete items from a client side collection.
+
+
+---
+### Why LiveView Streams
+
+* Chart is a client-side collection
+* Avoid round-trips to the server
+* Avoid redrawing the entire chart
+
+notes:
+
+Mark
+In essence a chart is a client side collection as it manifests as a visualization. Pushing the chart coordinates into a stream allows us to insert new datapoints without having to roundtrip to the server or redraw the entire chart.
+
+---
+### Implementing LiveView Streams
+
+TODO implement_streams_1
+TODO implement_streams_2
+TODO implement_streams_3
+
+notes:
+
+Mark
+Well given all these benefits for our use this must be super hard to implement. Actually in 3 simple steps we can take our existing functionality and get it working with streams. First, we add our chart line coordinates to a stream on our LiveView's mount. Second, we use stream_insert to add the latest_line into our stream. Third, we change our comprehension to iterate over the stream instead of socket assigns.
+
 
 ---
 
@@ -610,10 +641,7 @@ notes:
 
 Mark
 
-Here we have the same example but we're using LiveView Streams to update the chart instead of assigns.
-On mount we add our existing data to the stream and on each message we insert the new datapoint into the stream.
-Based on individual line IDs the stream is able to tell if it has drawn the line before or not.
-What we end up with here is an live updating chart that only draws the new datapoint on each message it receives.
+TADA we now have our chart updating with LiveView streams! In the image above you can see that we're assign a unique ID to each with its datapoint and coordinates. You can see in the logs that only the new datapoint is shown in the logs. Streams is able to use these unique IDs to determine if it has drawn the line before or not. Pretty neat!
 
 ---
 
