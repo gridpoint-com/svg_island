@@ -35,3 +35,5 @@ svg_island-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# hide obsidian files
+.obsidian
