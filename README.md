@@ -168,7 +168,6 @@ SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimension
 ### Let's go over the basics 🧐 
 
 notes:
-here are some notes
 
 ---
 
@@ -262,13 +261,6 @@ mark
 
 We're also gonna need the text element in order to add labels or other text to our chart.
 Text works by adding a box of text at the given x, y coordinate.
-
----
-
-![success_kid](https://user-images.githubusercontent.com/5237832/218855240-832a8182-b91a-4053-b400-674466f375b3.jpeg)
-
-notes:
-success kid
 
 ---
 
