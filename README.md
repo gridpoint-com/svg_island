@@ -2,6 +2,7 @@
 
 notes:
 mark
+
 Welcome everyone, happy to have you all here. Today we're going to take a trip to SVG Island. This presentation won't be focused on a specific Elixir topic but don't fret there will be some Elixir code. This presentation will be very visual, kinda fast, and a bit silly. Let's get started. 
 
 ---
@@ -20,6 +21,7 @@ We both joined GridPoint when they were switching over their main product platfo
 
 notes:
 mark
+
 For MSP, the DR / Savings team needs to showcase to our customers the value GridPoint brings. This challenge brings us the opportunity to give our customers more insights into their consumption and savings while driving engagement to the platform. Let's see what design thinks.
 
 ---
@@ -29,6 +31,7 @@ For MSP, the DR / Savings team needs to showcase to our customers the value Grid
 
 notes:
 mark
+
 What a beauty. Here we see a chart with three bars for each month. The first bar shows how much this customer would have spent had they never signed up for GridPoint. The second bar shows how much this customer is currently spending while using the GridPoint service. The third bar is how much money the customer is savings because the signed up with GridPoint, or the difference between the first bar and the second.
 
 ---
@@ -37,6 +40,7 @@ What a beauty. Here we see a chart with three bars for each month. The first bar
 
 notes:
 meks
+
 We love our designers don't we.
 
 ---
@@ -47,6 +51,7 @@ Rule Number 1 No Javascript 🔥
 
 notes:
 meks
+
 First, let’s lay some ground rules. GridPoint is trying to build the product with as few dependencies as possible, relying on the tools provided by Elixir, Phoenix, and the BEAM. At the time, the only Javascript in the project came from the Phoenix.LiveView.JS library. One of the constraints we were given was to do as much as possible with the built in LiveView functionality. So, no Javascript.
 
 ---
@@ -56,6 +61,7 @@ Rule Number 2 No Javascript 🔥
 
 notes:
 meks
+
 Yeah, the higher ups were pretty serious about that.
 
 ---
@@ -70,6 +76,7 @@ Yeah, the higher ups were pretty serious about that.
 
 notes:
 mark
+
 Given the no JavaScript constraint we're only considering pure elixir solutions. Unfortunately there's no D3 equivalent in the Elixir community. The most popular pure Elixir library is Contex. It supports bar charts, line plots, and even plays nicely with LiveView. Another interesting option is GGity as it's based on R's ggplot2 which provides a clean API for visualizations. Another library I looked at was VegaLite. If you're familiar with Livebook you've probably it seen it can draw some snazzy visualizations. However, VegaLite does have a JS dependency so let's take a closer look at Contex and GGity.
 
 ---
@@ -79,6 +86,7 @@ Given the no JavaScript constraint we're only considering pure elixir solutions.
 
 notes:
 mark
+
 Here's a simple example of a multi-series bar chart built with Contex. This example was fairly easy to put together. Contex works by taking a dataset and some specific configuration about the chart then creates a chart struct. Once you have a struct you can use a Contex provided function to generate SVG based on the configuration of that struct. Let's see how our Contex spike lines up with design.
 
 ---
@@ -88,6 +96,7 @@ Here's a simple example of a multi-series bar chart built with Contex. This exam
 
 notes:
 mark
+
 Hmmmmm. Flip back to previous slide then back to this one. While it was pretty easy to get a bar chart from Contex the design is waaaay off.
 
 ---
@@ -98,6 +107,7 @@ Hmmmmm. Flip back to previous slide then back to this one. While it was pretty e
 
 notes:
 mark
+
 GGity works is much the same way as Contex. It takes a dataset and some specific configuration about the chart then creates a chart struct. Once you have a struct you can call a function that generates SVG. While have a more well rounded API, GGity suffers from the same constraints as Contex.
 
 ---
@@ -107,6 +117,7 @@ GGity works is much the same way as Contex. It takes a dataset and some specific
 
 notes:
 mark
+
 I can't help but feel like I'm trying to fit a square peg in a round hole with these libraries. It's pretty straightforward to put a chart together but the customization and long term maintainability isn't there.
 
 ---
@@ -120,6 +131,7 @@ I can't help but feel like I'm trying to fit a square peg in a round hole with t
 
 notes:
 meks
+
 What did we learn from spiking on these libraries? Both provide the charts we need, but lack the customization we would like to have for matching given designs. A commonality they have is that they build data structures to generate the SVG charts. Advanced customization would require use to alter the data structures or overwrite the generated SVGs, neither of which is ideal.
 
 ---
@@ -130,6 +142,7 @@ What did we learn from spiking on these libraries? Both provide the charts we ne
 
 notes:
 meks
+
 Our conclusion was that it would take more time and effort (in development and maintenance) to retrofit these charting libraries to our visualizations needs rather than simply doing it ourselves. Which brings us to...(flip to next slide) SVG Island! 
 
 ---
@@ -138,6 +151,7 @@ Our conclusion was that it would take more time and effort (in development and m
 
 notes:
 mark
+
 Look at the cool airplane
 
 ---
@@ -151,6 +165,7 @@ Look at the cool airplane
 
 notes:
 meks
+
 SVG, or Scalable Vector Graphic, is a markup language for describing 2 dimensional vector graphics. Vector graphics is a form of computer graphics in which visual images are created directly from geometric shapes such as points, lines, curves and polygons. Elements such as polyline and text are used together to create visuals. And attributes such as fill and stroke modify those elements.
 
 ---
@@ -171,6 +186,7 @@ here are some notes
 
 notes:
 mark
+
 The viewbox is our playground and the space we'll work in to draw SVGs. 
 Here I've defined a viewbox with an origin point of 0,0 and an arbitary width and height.
 I've used my browsers inspect here to outline the viewbox.
@@ -185,6 +201,7 @@ I've used my browsers inspect here to outline the viewbox.
 
 notes:
 mark
+
 While working with SVGs it can be helpful to use rectangles to outline the space you're working in.
 
 Here I've used the rectangle element with 100% width and height to actually SEE the viewbox.
@@ -345,6 +362,7 @@ Mark: Moving on...
 ### Draw a line chart
 
 notes:
+
 Mark: I have a final challenge. Last one I promise. Explain to me how to draw a
 line chart. I’m 5 years old, have only drawn an M before, and I’m using pen and
 paper.
@@ -370,7 +388,7 @@ line chart.
 
 <img width="833" alt="CleanShot 2023-08-06 at 15 25 59@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f2464b61-cbd6-484a-ace6-61da7aa415d6">
 
-notes: image of “line chart“
+notes: 
 
 Mark: Like so?
 Meks: Yup! That’s a line chart! I think I see where you are going with this.
@@ -385,6 +403,7 @@ can translate that into Elixir code.
 * We have many points! And we connect them!
 
 notes:
+
 Meks: So what was the point of that exercise? Well we have many points, and we connect them!
 Mark: Really?
 Meks: Sorry, bad pun, I couldn’t help myself.
@@ -416,6 +435,7 @@ interact with.
 <img width="892" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/06666f01-312e-4c8d-9a9d-22439b1c249b">
 
 notes:
+
 Mark: The second big take away of this exercise is that I use my last known
 location to keep drawing more lines. The end of the previous line becomes the
 start of the next line. This let’s us algorithmically calculate coordinates to
@@ -428,11 +448,11 @@ represent.
 
 ![jason_downloads_official](https://github.com/gridpoint-com/svg_island/assets/5237832/a263bf04-d378-410a-b030-a6e7f35d547d)
 
-notes: Meks
+notes: 
 
-image of official Jason Downloads chart
+Meks
 
-Most of us are probably familiar with Hex packages and have seen their download charts. We built a small demo app with the aim of replicating the Jason downloads chart. This demo is available publically. For anyone interested in seeing the code in it’s completed form, we’ll provide the link at the end.
+Most of us are probably familiar with Hex packages and have seen their download charts. We built a small demo app with the aim of replicating the Jason downloads chart. This demo is available publicly. For anyone interested in seeing the code in it’s completed form, we’ll provide the link at the end.
 
 ---
 
@@ -444,7 +464,7 @@ Most of us are probably familiar with Hex packages and have seen their download 
 
 notes:
 
-image of unstyled Jason Downloads demo
+Meks
 
 What you see here on the screen is a hand built SVG replica. Every part was built using either polylines, or text elements. We took the data from the original chart, ran it through a transformation to create a list of structs that has the x and y coordinates for each line segment. The keys to this transformation lie in using the previous line’s end coordinates as the start of the current line and then using the dataset and dimensions of the SVG viewport to scale and determine the coordinates of the end of the line.
 
@@ -455,8 +475,6 @@ What you see here on the screen is a hand built SVG replica. Every part was buil
 <img width="831" alt="CleanShot 2023-08-03 at 15 40 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5b442340-41b4-4add-8d66-6e3f4dfeb5c9">
 
 notes: Meks
-
-image of styled Jason Downloads demo
 
 Here is that same chart, but with styling applied. All this is done with just the required points svg attribute for the polyline and Tailwind CSS classes!
 
@@ -492,7 +510,9 @@ For the lines of the chart, we use this feature to style the SVG attributes of s
 
 <img width="860" alt="CleanShot 2023-08-17 at 16 29 09@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/62914bc1-00e4-4191-ade7-52bb724c81b9">
 
-notes: Meks
+notes: 
+
+Meks
 
 Here you can see how straight forward it is to just switch out a few values to change the line width, opacity, and linecaps. A big advantage with this is that we didn’t have to leave the LiveView to go and write vanilla CSS in another file. This helped significantly with code readability and maintainability since we were able to exclusively use inline Tailwind for styling. It also helped us as developers to be responsive to changes requested by design.
 
@@ -504,7 +524,9 @@ Here you can see how straight forward it is to just switch out a few values to c
 
 <img width="487" alt="CleanShot 2023-08-17 at 15 24 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dab6f7f9-9a03-4ec2-84f2-82923572b91f">
 
-notes: Meks
+notes: 
+
+Meks
 
 So we have pretty well established how to draw lines in relation to each other and the dimensions of the viewbox. We also know how to style them, but what about the text elements like the labels and the legend? Let’s look at the legend to see how we can position that. Here we have a small functional component where we can pass it the coordinates and value of the text for the legend. We’ll use the chart width and height to determine its placement. Remember, SVG charts are upside down, so to place it in the upper most part of the chart, we just use y=0. We can pass x={@chart.dimensions.chart_width} for its x coordinate.
 
@@ -514,7 +536,9 @@ So we have pretty well established how to draw lines in relation to each other a
 
 <img width="566" alt="Screenshot 2023-08-17 at 3 21 00 PM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/95c9a476-3303-4aa9-ad5b-372eb3dec27b">
 
-notes: Meks
+notes: 
+
+Meks
 
 But…what happened? This is where turning on debug mode to see the outline of the viewbox in tandem with the browser inspect comes in handy. The legend is outside the bounds of the viewbox. When you set coordinates to position SVG text, you’re setting the location of the left edge of the text and the baseline of the font, so the bottom. So that means the bottom of the text is at y=0 and the left edge is at the width of the viewbox. We can fix this by giving it some magic numbers and make its origin not the full width of the viewbox and remembering that to move it down we need to increase its y value.
 
@@ -526,7 +550,9 @@ But…what happened? This is where turning on debug mode to see the outline of t
 
 <img width="420" alt="CleanShot 2023-08-17 at 15 28 47@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/6db72464-3aec-46ff-8f0f-b15f98f71e2f">
 
-notes: Meks
+notes: 
+
+Meks
 
 While this works, it’s not ideal since that position will need to change based on the contents of the text element. And we would like this to be a bit more flexible. I wonder if we can do away with these magic numbers?
 
@@ -538,7 +564,9 @@ While this works, it’s not ideal since that position will need to change based
 
 <img width="424" alt="CleanShot 2023-08-17 at 15 32 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/771077b8-dc7e-4467-a99a-c623a1a79ae9">
 
-notes: Meks
+notes: 
+
+Meks
 
 Well. With Tailwind, we can! Once again, we rely on the just-in-time compiler and add some SVG attribute references that the Tailwind library doesn’t contain; dominant-baseline and text-anchor. We can change the text location relative to the coordinate with these SVG specific attributes. By setting the dominant-baseline attribute to hanging, we move the text below the baseline which is at y=0. Then to move the text to the left and back inside our viewport we can use text-anchor which lets us align the text horizontally. By giving it “end”, we’re telling it to align the end of the text with the coordinate we gave it. For any other CSS nerds, the end of the presentation will have links to an excellent blog series that gets into the specifics of how this works and the many different values these attributes accept.
 
@@ -550,9 +578,9 @@ Well. With Tailwind, we can! Once again, we rely on the just-in-time compiler an
 
 <img width="858" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1b45fdbe-096f-4a8f-af2d-d2990637e91d">
 
-notes: Meks
+notes: 
 
-gif of clicking on lines to show the tool tip
+Meks
 
 Going back to our download chart, if you recall, we constrained our polylines to only have 2 points. What this allows us to do is interact with each line. We can add phx-click and click-away events to each polyline. The event handlers set the tooltip assigns and will display or hide the value from the dataset at the line’s end point.
 
@@ -562,7 +590,9 @@ Going back to our download chart, if you recall, we constrained our polylines to
 
 ![CleanShot 2023-08-11 at 09 54 36](https://github.com/gridpoint-com/svg_island/assets/60719697/08a5fd13-b1b4-416c-9d56-e803e270853a)
 
-notes: Mark
+notes: 
+
+Mark
 
 Updating the chart can be accomplished simply by adding a new datapoint into our socket assigns.
 In this example we're receiving a message that contains our new datapoint and it's being assigned to the socket.
@@ -576,7 +606,9 @@ I wonder if there's a way we could prevent an entire redraw on each message.
 
 ![CleanShot 2023-08-11 at 09 52 29](https://github.com/gridpoint-com/svg_island/assets/60719697/08056873-8d49-41a3-a914-aaa219f1da60)
 
-notes: Mark
+notes: 
+
+Mark
 
 Here we have the same example but we're using LiveView Streams to update the chart instead of assigns.
 On mount we add our existing data to the stream and on each message we insert the new datapoint into the stream.
@@ -594,6 +626,9 @@ What we end up with here is an live updating chart that only draws the new datap
 <img width="340" alt="CleanShot 2023-08-14 at 13 57 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/bf52ae19-6be5-4a06-a308-4fb628ed069d">
 
 notes:
+
+Mark 
+
 Now that you know our approach, you're probably wondering how we came up with it
 
 Our first chart was a Bar Chart and we took a bottom up approach to building it
@@ -615,6 +650,9 @@ After all this we had a fully abstracted bar chart comonent that we could pass d
 ![bar_chart_tooltip](https://github.com/gridpoint-com/svg_island/assets/5237832/30dbae86-891d-4ef2-8731-385d72ace694)
 
 notes:
+
+Mark
+
 So we have built this component such that it accepts a certain set of data and abstracted away a lot of the complexity
 We did run into a few minor problems when we plugged real data into it
 
@@ -640,6 +678,9 @@ fixing these alignment issues lead to a few "magic" numbers to get everything li
 * Made use of SVG attributes for alignment
 
 notes:
+
+Mark
+
 Start with a top down, data driven approach. 
 This way you build only what you need to display the data and nothing more
 
@@ -659,6 +700,9 @@ These SVG attributes can be applied the same way we apply tailwind clases
 * Great power, great responsibility
 
 notes:
+
+Mark
+
 Learning SVG isn't too bad but you do need to understand the basics to be proficient.
 The hardest part is learning to think and visualize upside down.
 
