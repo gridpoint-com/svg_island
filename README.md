@@ -750,5 +750,7 @@ Slides / example project: https://github.com/gridpoint-com/svg_island
 
 ![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
 notes:
-mark
 
+Mark
+
+That's all folks. You can find these slides and an example project at the link above. And oh yeah, here's a photo of me on SVG Island. Thanks for attending.
