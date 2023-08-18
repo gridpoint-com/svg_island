@@ -8,7 +8,17 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   alias SvgIsland.Chart
   alias Phoenix.LiveView.JS
 
+  @chart_update_interval 2_000
+
   def mount(_params, _session, socket) do
+    if connected?(socket),
+      do:
+        Process.send_after(
+          self(),
+          {:chart_update, [20_000, 22_000, 80_000, 75_000, 70_000, 22_000]},
+          @chart_update_interval
+        )
+
     dimensions = %{
       viewbox_height: 210,
       viewbox_width: 800,
@@ -33,8 +43,34 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       socket
       |> assign(:chart, chart)
       |> assign(:tooltip, nil)
+      |> stream(:line_coordinates, chart.line_coordinates)
 
     {:ok, socket}
+  end
+
+  def handle_info({:chart_update, updates}, socket) do
+    socket =
+      case updates do
+        [update | remaining] ->
+          socket =
+            update(socket, :chart, fn chart ->
+              chart
+              |> Map.put(:dataset, chart.dataset ++ [update])
+              |> put_chart_line_coordinates()
+            end)
+
+          latest_line = List.first(socket.assigns.chart.line_coordinates)
+          socket = stream_insert(socket, :line_coordinates, latest_line)
+
+          Process.send_after(self(), {:chart_update, remaining}, @chart_update_interval)
+
+          socket
+
+        [] ->
+          socket
+      end
+
+    {:noreply, socket}
   end
 
   def handle_event("show-tooltip", params, socket) do
@@ -73,6 +109,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
     [
       %{
+        id:
+          "line-#{number_of_downloads}-#{first_line_start_x}-#{first_line_start_y}-#{first_line_end_x}-#{first_line_end_y}",
         line_start: %{
           x: first_line_start_x,
           y: first_line_start_y
@@ -96,7 +134,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     current_line_start_x = previous_line.line_end.x
     current_line_start_y = previous_line.line_end.y
 
-    current_line_end_x = scale_x_line_value(previous_line, chart)
+    distance_between_lines = 23
+    current_line_end_x = current_line_start_x + distance_between_lines
     current_line_end_y = scale_y_line_value(number_of_downloads, chart)
 
     percent_of_lines_drawn = Enum.count(line_coordinates) / Enum.count(chart.dataset)
@@ -105,6 +144,8 @@ defmodule SvgIslandWeb.HexDownloadsLive do
 
     [
       %{
+        id:
+          "line-#{number_of_downloads}-#{current_line_start_x}-#{current_line_start_y}-#{current_line_end_x}-#{current_line_end_y}",
         line_start: %{
           x: current_line_start_x,
           y: current_line_start_y
@@ -118,12 +159,6 @@ defmodule SvgIslandWeb.HexDownloadsLive do
       }
       | line_coordinates
     ]
-  end
-
-  defp scale_x_line_value(previous_line, %Chart{dataset: dataset, dimensions: dimensions}) do
-    number_of_datapoints = Enum.count(dataset)
-    line_width = dimensions.chart_width / number_of_datapoints
-    previous_line.line_end.x + line_width
   end
 
   defp scale_y_line_value(value, %Chart{dataset: dataset, dimensions: dimensions}) do
@@ -290,18 +325,21 @@ defmodule SvgIslandWeb.HexDownloadsLive do
             class={background_line.class}
           />
         <% end %>
-        <%= for %{line_start: line_start, line_end: line_end} = line <- @chart.line_coordinates do %>
-          <.draw_monoline
-            line_start_x={line_start.x}
-            line_start_y={line_start.y}
-            line_end_x={line_end.x}
-            line_end_y={line_end.y}
-            class={line.class}
-            on_click_event_name="show-tooltip"
-            on_click_event_params={%{value: line.value}}
-          />
-          <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
-        <% end %>
+        <g id="hex-downloads-line" phx-update="stream">
+          <%= for {id, %{line_start: line_start, line_end: line_end} = line} <- @streams.line_coordinates do %>
+            <.draw_monoline
+              id={id}
+              line_start_x={line_start.x}
+              line_start_y={line_start.y}
+              line_end_x={line_end.x}
+              line_end_y={line_end.y}
+              class={line.class}
+              on_click_event_name="show-tooltip"
+              on_click_event_params={%{value: line.value}}
+            />
+            <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
+          <% end %>
+        </g>
       </svg>
     </div>
     """
@@ -369,6 +407,7 @@ defmodule SvgIslandWeb.HexDownloadsLive do
     """
   end
 
+  attr :id, :string, default: ""
   attr :line_start_x, :integer, required: true
   attr :line_start_y, :integer, required: true
   attr :line_end_x, :integer, required: true
@@ -378,8 +417,11 @@ defmodule SvgIslandWeb.HexDownloadsLive do
   attr :on_click_event_params, :map, default: %{}
 
   defp draw_monoline(assigns) do
+    dbg(assigns.id)
+
     ~H"""
     <polyline
+      id={@id}
       points={"#{@line_start_x},#{@line_start_y} #{@line_end_x},#{@line_end_y}"}
       class={@class}
       phx-click={
