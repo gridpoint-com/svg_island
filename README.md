@@ -3,7 +3,7 @@
 notes:
 mark
 
-Welcome everyone, happy to have you all here. Today we're going to take a trip to SVG Island. This presentation won't be focused on a specific Elixir topic but don't fret there will be some Elixir code. This presentation will be very visual, kinda fast, and a bit silly. Let's get started. 
+Welcome everyone, happy to have you all here. By the dancing trees you can see we're about to take a trip to SVG Island. This presentation isn't focused on a specific Elixir topic but instead takes you on our journey of developing custom SVG charts for use in Phoenix LiveViews. Let's get started.
 
 ---
 
@@ -22,7 +22,7 @@ We both joined GridPoint when they were switching over their main product platfo
 notes:
 mark
 
-For MSP, the DR / Savings team needs to showcase to our customers the value GridPoint brings. This challenge brings us the opportunity to give our customers more insights into their consumption and savings while driving engagement to the platform. Let's see what design thinks.
+One of GridPoint's big selling points is that it actually saves you money. The savings team needed a way to showcase to our customers the value GridPoint brings. This challenge brings us the opportunity to give insights into energy consumption and savings data. Let's see what design thinks about this problem.
 
 ---
 
@@ -32,7 +32,7 @@ For MSP, the DR / Savings team needs to showcase to our customers the value Grid
 notes:
 mark
 
-What a beauty. Here we see a chart with three bars for each month. The first bar shows how much this customer would have spent had they never signed up for GridPoint. The second bar shows how much this customer is currently spending while using the GridPoint service. The third bar is how much money the customer is savings because the signed up with GridPoint, or the difference between the first bar and the second.
+Wow, what a beauty. This bar chart gives our customers insights into how much they're savings by using GridPoint. The blue line represents how much this customer would have spent had they never signed up for GridPoint. The teal line shows how much the customer is currently spending. The green line shows how much the customer is saving.
 
 ---
 
