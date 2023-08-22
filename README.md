@@ -58,9 +58,9 @@ Before we get started, let’s lay some ground rules. GridPoint is trying to bui
 Rule Number 2 No Javascript 🔥 
 
 notes:
-meks
 
-Rule number 2, no JavaScript! Yeah, the higher ups were pretty serious about that.
+meks: Rule number 2, no JavaScript!
+mark: Ok, point taken.
 
 ---
 
@@ -148,7 +148,7 @@ Our conclusion was that it would take more time and effort (in development and m
 notes:
 Meks
 
- SVG Island! This is where Mark and I journeyed together to see what visualization treasures we could find.
+SVG Island! This is where Mark and I journeyed together to see what visualization treasures we could find.
 
 ---
 
@@ -232,11 +232,11 @@ meks
 
 The SVG coordinate system is similar to quadrant 1 of the Cartesian coordinate system except the origin (0,0) is in the top left corner.
 
-The y-axis is reversed compared to a normal graph coordinate system. As y increases in SVG, the points, shapes etc. move down, not up.
+The y-axis is reversed compared to a normal graphs. As y increases in SVG, the points, shapes etc. move down, not up.
 
 This was one of the most challenging parts of building our own charts and I regularly had to stop and think about this.
 
-It really helped to pause and perform the mental gymnastics of visualizing what the chart needs to look like and flipping it upside down.
+It really helped to pause and perform the mental gymnastics of visualizing what the chart needed to look like and flipping it upside down.
 
 ---
 
@@ -479,7 +479,7 @@ Most of us are probably familiar with Hex packages and have seen their download 
 notes:
 meks
 
-What you see here on the screen is a hand built SVG replica. Every part was built using either polylines, or text elements. We took the data from the original chart, ran it through a transformation to create a list of structs that has the x and y coordinates for each line segment. The keys to this transformation lie in using important takeaway #2 of our line drawing exercise: using the previous line’s end coordinates as the start of the current line. We use the dimensions of the SVG viewport to scale and determine the coordinates of the end of the line.
+What you see here on the screen is a hand built SVG replica. Every part was built using either polylines, or text elements. We took the data from the original chart, ran it through a transformation to create a list of structs that has the x and y coordinates for each line segment. To genereate the coordinates we rely on important takeaway #2 of our line drawing exercise: using the previous line’s end coordinates as the start of the current line. We also use the dimensions of the SVG viewport to scale and determine the coordinates of the end of the line.
 
 ---
 
@@ -503,7 +503,7 @@ Here is that same chart, but with styling applied. All this is done with just th
 notes:
 meks
 
-As a brief intro to Tailwind, it is a utility-first CSS framework that can be used without leaving your HTML, or in our case our HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand instead of generating everything in advance at initial build time. This allows us to add arbitrary values and styles without writing custom CSS using the square bracket notation. 
+As a brief intro to Tailwind, it is a utility-first CSS framework that can be used without leaving your HTML or Phoenix HEEX templates. One of Tailwind's newer features is the "just-in-time" compiler which we take advantage of here to style SVG elements. The JIT generates styles on-demand instead of generating everything in advance at initial build time. This allows us to add arbitrary values and styles without writing custom CSS. 
  
 ---
 
@@ -514,7 +514,7 @@ As a brief intro to Tailwind, it is a utility-first CSS framework that can be us
 notes:
 meks
 
-For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke width attribute, notated as stroke, we can use the square bracket notation to tell it to have an arbitrary value of 3px. Stroke-linecap is an svg attribute that describes how the end of the line should look. A value of round gives us that nice connection between the polylines. But, stroke-linecap doesn’t exist in the Tailwind library, so we can again use the square bracket notation to inline additional CSS.
+For the lines of the chart, we use this feature to style the SVG attributes of stroke width and the stroke linecap. Since Tailwind has the stroke width attribute, we can use the square bracket notation to tell it to have an arbitrary value of 3px. Stroke-linecap describes how the end of the line should look. A value of round gives us that nice connection between the polylines. But, stroke-linecap doesn’t exist in the Tailwind library, so we can again use the square bracket notation to inline additional CSS.
 
 ---
 
@@ -603,9 +603,9 @@ Now that we have a better understanding of how the line chart was built and styl
 notes: 
 mark
 
-Next you might be wondering, what about updating the chart with new data? Well updating a chart is no different than other updates we'd do with LiveView. The above example is showing what it looks like to update the chart with socket assigns. When we receive a new datapoint the coordinates are generated for it then added to the socket assigns. It's quite hard to tell but on each update there's a roundtrip to the server and an entire redraw of the chart.
+Next you might be wondering, what about updating the chart with new data? Well updating a chart is no different than other updates we'd do with LiveView. The above example is showing what it looks like to update the chart with socket assigns. When we receive a new datapoint the coordinates are generated for it then added to the socket assigns.
 
-Meks: Mark, is there a way we could just add the new data point without redrawing the whole chart?
+Meks: It's quite hard to tell but on each update there's a roundtrip to the server and an entire redraw of the chart. Mark, is there a way we could just add the new data point without redrawing the whole chart?
 
 ---
 ###  Intro LiveView Streams
@@ -733,16 +733,15 @@ These SVG attributes can be applied the same way we apply tailwind clases
 * Great power, great responsibility
 
 notes:
-Mark
 
-Learning SVG isn't too bad but you do need to understand the basics to be proficient.
+Meks: Overall would we recommend doing this? Well, it depends on your needs and use case. Learning SVG isn't too bad but you do need to understand the basics to be proficient.
 The hardest part is learning to think and visualize upside down.
 
-We didn't have to add any new dependencies to our project and we're free to be creative
+Mark: We didn't have to add any new dependencies to our project and we're free to be creative
 with our solutions.
 
-We feel we can make our designers dreams come true but building these components in a way
-such that they are maintainable and easy for other devs to understand will be an ongoing effort
+Meks: We feel we can make our designers dreams come true but building these components in a way
+so that they are maintainable and easy for other devs to understand will be an ongoing effort
 
 ---
 
