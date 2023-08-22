@@ -79,43 +79,50 @@ Given the no JavaScript constraint we're only considering pure elixir solutions.
 
 ---
 
-### Contex 🤔 
+### Contex Pros 🤔 
 
 #### Pros
 * Most popular pure Elixir charting library
-* Works well with LiveView
 * Support for many chart types
+* Works well with LiveView
 
-#### Cons
+notes:
+
+MARK: Contex is the most popular pure Elixir charting library. It supports bar chart, line plots, and even plays nicely with LiveView. It supports multi-series charts which was a requirement for us.
+
+---
+
+### Contex Cons 🤔 
 * Documentation
 * Output SVG is complex
 * No clear way to meet our design goals
 
-
 notes:
-mark
 
-Contex is the most popular pure Elixir charting library. It supports bar chart, line plots, and even plays nicely with LiveView. It supported multi-series chart which was a requirement for us. The downsides were the documentation, complexity of the output SVG, and no clear way to meet our design goals.
+MARK: The downsides were the documentation, complexity of the output SVG, and there was no clear way to meet our design goals.
 
 ---
 
-### GGity 🤔 
+### GGity Pros 🤔 
 
-#### Pros
 * Based on R's ggplot2 API with great documentation
 * Works well with LiveView
 * Support for many chart types
 
-#### Cons
+notes:
+
+MARK: GGity is quite interesting as it's based on R's ggplot2 which folks in the scientific community might be aware of. It has great documentation, works well with LiveView and has support for the chart types we need.
+
+---
+
+### GGity Cons 🤔 
 * API is less intuitive an Contex's
 * Styling is more "scientific" looking
 * No clear way to meet our design goals
 
-
 notes:
-mark
 
-GGity is quite interesting as it's based on R's ggplot2 which folks in the scientific community might be aware of. Like Contex works with LiveView and has support of the chart types we need. Still though there was no clear way to meet our design goals with this library.
+MARK: The downsides were the API is a bit difficult to comprehend, the charts are very scientific looking, and there was no clear way to meet our design goals.
 
 ---
 
@@ -443,19 +450,14 @@ interact with.
 
 ### Important Point 2 
 
-* Side effect of point 1, constraining polyline to 2 points
 * Utilize last known location to keep drawing more lines
   
 <img width="892" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/06666f01-312e-4c8d-9a9d-22439b1c249b">
 
 notes:
-mark
 
-The second big take away of this exercise is that I use my last known
-location to keep drawing more lines. The end of the previous line becomes the
-start of the next line. This let’s us algorithmically calculate coordinates to
-draw lines based on the data points in the the dataset that we want to
-represent.
+MARK: The second important take away is that we utilize the end of the previous line to start the next line. In the code example above you can see that we iterate over our dataset and generate coordinates for each data point. We use the end of the previous line as the start of the next line. While the end of the next line is a product of scaling the new datapoint to the chart dimensions. 
+The result is we calculate a list of line coordinates were each line represents a datapoint in our dataset.
 
 ---
 
@@ -662,17 +664,14 @@ TADA we now have our chart updating with LiveView streams! In the image above yo
 <img width="340" alt="CleanShot 2023-08-14 at 13 57 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/bf52ae19-6be5-4a06-a308-4fb628ed069d">
 
 notes:
-Mark 
 
-Now that you know our approach, you're probably wondering how we came up with it
+MARK: Now that you've seen how we built SVG charts, you're probably wondering how we came up with this approach.
 
-Our first chart was a Bar Chart and we took a bottom up approach to building it
-By bottom up I mean we had a design and hand crafted an SVG to match it
+We started by building a Bar Chart with a bottom up approach. By bottom up I mean we had a given design to match and we hand crafted the markup for an SVG to match it. 
 
-Once we had a styled, hard coded SVG, we began to abstract the chart piece by piece 
-Abstract the background lines, abstract the labels, abstract the bar lines
+Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by automating the drawing of the background lines. Then the we automated the labels, then finally the Bar Lines.
 
-After all this we had a fully abstracted bar chart comonent that we could pass data into
+After all this abstracting we had a simply Bar Chart component that we could pass data into and it would draw a bar chart that visualized that data.
 
 ---
 
@@ -685,44 +684,32 @@ After all this we had a fully abstracted bar chart comonent that we could pass d
 ![bar_chart_tooltip](https://github.com/gridpoint-com/svg_island/assets/5237832/30dbae86-891d-4ef2-8731-385d72ace694)
 
 notes:
-Mark
 
-So we have built this component such that it accepts a certain set of data and abstracted away a lot of the complexity
-We did run into a few minor problems when we plugged real data into it
+MARK: So what didn't go well? Well we have built a component such that it abstracted away a lot of the complexity and could easily added to a LiveView.
 
-The first issue was that we had to scale the data such lines were the proper length 
-and didn't go outside the bounds of the chart
+The first problem we ran into was when we starting plugging various datasets into the chart. We realized that we needed to scale the input data such that the data look right relative to the dimensions of the chart and the overall size of the chart. With some datasets we saw lines shoot right up outside the top and the chart and through the bottom of the chart.
 
-The second issue we had was in regards to click events, 
-when a user clicks on a line the coordinates of line are pushed to the LV
+The second problem was in regards to click events and the positioning of the tooltip. When a user clicks on a line the coordinates of that line are pushed to the LiveView. When we went to the display the tooltip we could only place the tooltip relative to the line that was clicked. In the screenshot above you can see that the tooltip obstructs some of the other lines as it's placed directly on the line that was clicked.
 
-When we went to display the tooltip we could only place the tooltip relative to the line that was clicked
-We were not able to place the tooltip where design wanted and it brought up a bigger issue with the overall component
-The coordinates were generated on render and were not stored or accessible to the user of component
-
-All aspects of the chart were drawn indepently, causing alignment issues among the various elements of the chart
-fixing these alignment issues lead to a few "magic" numbers to get everything lined up perfectly
+The third problem was that we drew each element of the chart independently. This was the simplest approach at the time but lead to some alignment issues were labels wouldn't line up with the data that they were supposed to represent. The quick fix here was to add a few "magic" numbers but a lot of the alignment issues are best addressed by drawing related elements together and utilizing SVG attributes in the right places. 
 
 ---
 
 ### What would we do differently?
 
 * Start top-down with the data
-* Stateful component with access to coordinates
-* Made use of SVG attributes for alignment
+* User access to coordinates
+* Draw related elements together
 
 notes:
-Mark
 
-Start with a top down, data driven approach. 
-This way you build only what you need to display the data and nothing more
+MARK: Hindsight is 20-20 and if we did it again we'd make a few different decisions.
 
-Have the coordinates accessible to the user of the component, potentailly a stateful LV component
-This would allow you complete flexible when adding, changing, or reacting to events
+First we'd start with a top down, data driven approach and drive the implementation based on real input data. We believe this approach would lead to only building what you need to display the data and nothing more.
 
-There are a few SVG attributes that solve a lot of the alignment issues we ran into.
-For example, move the positioning of a label relative to other elements
-These SVG attributes can be applied the same way we apply tailwind clases
+Second give the user access to all the coordinates on events. With the Bar Chart the coordinates were generated then immediately used to draw the chart. The user had no way to access the coordinates. If we had given the user access to the coordinates then they'd have complete flexible when reacting to chart events.
+
+Finally we'd draw related elements together. We ended up with a few "magic" numbers to get everything to align perfectly  but a lot of these issues are best addressed by drawing related elements together and utilizing SVG attributes in the right places.
 
 ---
 
@@ -737,11 +724,9 @@ notes:
 Meks: Overall would we recommend doing this? Well, it depends on your needs and use case. Learning SVG isn't too bad but you do need to understand the basics to be proficient.
 The hardest part is learning to think and visualize upside down.
 
-Mark: We didn't have to add any new dependencies to our project and we're free to be creative
-with our solutions.
+MARK: We didn't have to add any new dependencies to our project to accomplish this feat and we now have complete freedom to improve and iterate on our chart building process.
 
-Meks: We feel we can make our designers dreams come true but building these components in a way
-so that they are maintainable and easy for other devs to understand will be an ongoing effort
+Meks: We feel we can make our designers dreams come true but building these components in a way so that they are maintainable and easy for other devs to understand will be an ongoing effort
 
 ---
 
@@ -751,6 +736,5 @@ Slides / example project: https://github.com/gridpoint-com/svg_island
 
 ![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
 notes:
-Mark
 
-That's all folks. You can find these slides and an example project at the link above. And oh yeah, here's a photo of me on SVG Island. Thanks for attending.
+MARK: That's all folks. You can find these slides and an example project at the link above. And oh yeah, here's a photo of me on SVG Island. Thanks for attending.
