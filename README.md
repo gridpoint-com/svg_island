@@ -660,7 +660,7 @@ The first problem we ran into was when we starting plugging various datasets int
 
 The second problem was in regards to click events and the positioning of the tooltip. When a user clicks on a line the coordinates of that line are pushed to the LiveView. When we went to the display the tooltip we could only place the tooltip relative to the line that was clicked. In the screenshot above you can see that the tooltip obstructs some of the other lines as it's placed directly on the line that was clicked.
 
-The third problem was that we drew each element of the chart independently. This was the simplest approach at the time but lead to some alignment issues were labels wouldn't line up with the data that they were supposed to represent. The quick fix here was to add a few "magic" numbers but a lot of the alignment issues are best addressed by drawing related elements together and utilizing SVG attributes in the right places. 
+The third problem was that we drew each element of the chart independently. This was the simplest approach at the time but lead to some alignment issues where labels wouldn't line up with the data that they were supposed to represent.
 
 ---
 
