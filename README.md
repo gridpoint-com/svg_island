@@ -69,7 +69,7 @@ MARK: Ok, point taken.
 
 notes:
 
-MARK: Given the no JavaScript constraint we're only considering pure elixir solutions. Unfortunately there's no D3.js equivalent in the Elixir community. After looking around to see what's our there we decided to try out Contex and GGity. VegaLite was another one and if you're familiar with LiveBook you've probably seen its snazzy visualizations. VegaLite only works with LiveBook and does have a JS dependency so let's take a close look at our other options.
+MARK: Given the no JavaScript constraint we're only considering pure elixir solutions. Unfortunately there's no D3.js equivalent in the Elixir community. After looking around to see what's our there we decided to try out Contex and GGity. VegaLite was another one and if you're familiar with LiveBook you've probably seen its snazzy visualizations. VegaLite only works with LiveBook and does have a JS dependency so let's take a closer look at our other options.
 
 ---
 
@@ -116,7 +116,7 @@ MARK: GGity is quite interesting as it's based on R's ggplot2 which folks in the
 
 notes:
 
-MARK: The downsides were the API is a bit difficult to comprehend, the charts are very scientific looking, and there was no clear way to meet our design goals.
+MARK: The downsides were the API is a bit difficult to comprehend, the charts are very "scientific" looking, and there was no clear way to meet our design goals.
 
 ---
 
@@ -198,7 +198,7 @@ notes:
 
 MARK: While working with SVGs it can be helpful to use rectangles to outline the space you're working in.
 
-Here I've used the rectangle element with 100% width and height to actually SEE the viewbox.
+Here I've used the rectangle element with 100% width and height to actually SEE the viewbox. Internally we called this "debug mode" and used this outlining strategy as we added elements to the SVG.
 
 This is the `IO.inspect` of SVG.
 
@@ -348,7 +348,7 @@ MARK: Like that?
 
 MEKS: Yup! Looks like an M do me. Did you pick M because both our names start with that letter?
 
-MARK: Moving on...
+MARK: Next slide...
 
 ---
 
@@ -425,8 +425,8 @@ made because then each line segment represents a piece of data that we can inter
 
 notes:
 
-MARK: The second important take away is that we utilize the end of the previous line to start the next line. In the code example above you can see that we iterate over our dataset and generate coordinates for each data point. We use the end of the previous line as the start of the next line. While the end of the next line is a product of scaling the new datapoint to the chart dimensions. 
-The result is we calculate a list of line coordinates were each line represents a datapoint in our dataset.
+MARK: The second important take away is that we utilize the end of the previous line to start the next line. In the code example above you can see that we iterate over our dataset and generate coordinates for each data point. We use the end of the previous line as the start of the next line. While the end of the next line is a product of scaling the new data point to the chart dimensions. 
+The result is we calculate a list of line coordinates were each line represents a data point in our dataset.
 
 ---
 
@@ -576,7 +576,7 @@ MEKS: Now that we have a better understanding of how the line chart was built an
 
 notes: 
 
-MARK: Next you might be wondering, what about updating the chart with new data? Well updating a chart is no different than other updates we'd do with LiveView. The above example is showing what it looks like to update the chart with socket assigns. When we receive a new datapoint the coordinates are generated for it then added to the socket assigns.
+MARK: Next you might be wondering, what about updating the chart with new data? Well updating a chart is no different than any other update we'd do with LiveView. The above example is showing what it looks like to update the chart with socket assigns. When we receive a new data point the coordinates are generated for it then added to the socket assigns.
 
 MEKS: It's quite hard to tell but on each update there's a roundtrip to the server and an entire redraw of the chart. Mark, is there a way we could just add the new data point without redrawing the whole chart?
 
@@ -586,7 +586,7 @@ MEKS: It's quite hard to tell but on each update there's a roundtrip to the serv
 
 notes:
 
-MARK: Here come LiveView Streams to the rescue. If you haven't heard streams are a new mechanism for managing large collections on the client without keeping the resources on the server. Streams has an elegant interface to insert and delete items from a client side collection.
+MARK: Here come LiveView Streams to the rescue. If you haven't heard streams are a new mechanism for managing large collections on the client side without keeping the resources on the server. Streams has an elegant interface to insert and delete items from a client side collection.
 
 ---
 ### Why LiveView Streams
@@ -597,7 +597,7 @@ MARK: Here come LiveView Streams to the rescue. If you haven't heard streams are
 
 notes:
 
-MARK: In essence a chart is a client side collection as it manifests as a visualization. Pushing the chart coordinates into a stream allows us to insert new datapoints without having to roundtrip to the server or redraw the entire chart.
+MARK: In essence a chart is a client side collection as it manifests itself as a visualization. Pushing the chart coordinates into a stream allows us to insert new data points without having to roundtrip to the server or redraw the entire chart.
 
 ---
 ### Implementing LiveView Streams
@@ -610,7 +610,7 @@ notes:
 
 MEKS: Well given all these benefits for our use case this must be super hard to implement.
 
-Mark: Actually in 3 simple steps we can take our existing functionality and get it working with streams. First, we add our chart line coordinates to a stream on our LiveView's mount. Second, we use stream_insert to add the latest_line into our stream. Third, we change our comprehension to iterate over the stream instead of socket assigns.
+Mark: Actually in 3 simple steps we can take our existing functionality and get it working with streams. First, we add our chart line coordinates to a stream on our LiveView's mount. Second, we use stream_insert to add the latest_line into the stream. Third, we change our comprehension to iterate over the stream instead of socket assigns.
 
 ---
 
@@ -620,7 +620,7 @@ Mark: Actually in 3 simple steps we can take our existing functionality and get 
 
 notes: 
 
-MARK: TADA we now have our chart updating with LiveView streams! In the image above you can see that we assign a unique ID to each line with its datapoint and coordinates. You can see in the logs that only the new datapoint is shown. Streams is able to use these unique IDs to determine if it has drawn the line before or not. Pretty neat!
+MARK: TADA we now have our chart updating with LiveView streams! In the image above you can see that we assign a unique ID to each line which is its datapoint and coordinates. You can see in the logs that only the new data point is shown. Streams is able to use these unique IDs to determine if it has drawn the line before or not. Thus we're updating our chart without going to the server or redrawing previous lines. Pretty neat!
 
 ---
 
@@ -638,9 +638,9 @@ MARK: Now that you've seen how we built SVG charts, you're probably wondering ho
 
 We started by building a Bar Chart with a bottom up approach. By bottom up I mean we had a given design to match and we hand crafted the markup for an SVG to match it. 
 
-Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by automating the drawing of the background lines. Then the we automated the labels, then finally the Bar Lines.
+Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by automating the drawing of the background lines. Then we automated the labels, then finally the Bar Lines.
 
-After all this abstracting we had a simply Bar Chart component that we could pass data into and it would draw a bar chart that visualized that data.
+After all this abstracting was done we had a simple Bar Chart component that we could pass data into and it would draw a bar chart that visualized that data.
 
 ---
 
@@ -654,9 +654,9 @@ After all this abstracting we had a simply Bar Chart component that we could pas
 
 notes:
 
-MARK: So what didn't go well? Well we have built a component such that it abstracted away a lot of the complexity and could easily added to a LiveView.
+MARK: So what didn't go well? Well we have built a component such that it abstracted away a lot of the complexity and could easily be added to a LiveView.
 
-The first problem we ran into was when we starting plugging various datasets into the chart. We realized that we needed to scale the input data such that the data look right relative to the dimensions of the chart and the overall size of the chart. With some datasets we saw lines shoot right up outside the top and the chart and through the bottom of the chart.
+The first problem we ran into was when we starting plugging various datasets into the chart. We realized that we needed to scale the input data such that the data look right relative to the dimensions of the chart and the overall size of the chart. With some datasets we saw lines shoot right up outside the top of the chart or through the bottom of the chart.
 
 The second problem was in regards to click events and the positioning of the tooltip. When a user clicks on a line the coordinates of that line are pushed to the LiveView. When we went to the display the tooltip we could only place the tooltip relative to the line that was clicked. In the screenshot above you can see that the tooltip obstructs some of the other lines as it's placed directly on the line that was clicked.
 
@@ -672,7 +672,7 @@ The third problem was that we drew each element of the chart independently. This
 
 notes:
 
-MARK: Hindsight is 20-20 and if we did it again we'd make a few different decisions.
+MARK: What would we do differently? Well hindsight is 20-20 and if we did it again we'd make a few different decisions.
 
 First we'd start with a top down, data driven approach and drive the implementation based on real input data. We believe this approach would lead to only building what you need to display the data and nothing more.
 
