@@ -11,7 +11,7 @@ MARK: Welcome everyone, happy to have you all here. By the dancing trees you can
 | Mark Keele | Meks McClure |
 | -- | -- |
 | he/him | they/them |
-| TODO pic | TODO pic |
+| <img width="457" alt="CleanShot 2023-08-25 at 14 23 49@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/a41c9dad-a569-4369-9753-dde1e68c790d"> | <img width="457" alt="CleanShot 2023-08-25 at 14 24 32@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b60ba373-38b7-4064-b7ff-62d185cf9d74"> |
 | https://keele.codes/ | https://github.com/MMcClure11 |
 
 notes:
@@ -228,7 +228,8 @@ Note the origin (0, 0) is in the bottom left corner of quadrant 1.
 ---
 
 ### SVG Coordinate System 🙃
-![svg_coordinate_system](https://user-images.githubusercontent.com/5237832/218846599-b12d28d7-7e40-4c89-b41e-29968878eb2f.png)
+
+<img width="506" alt="CleanShot 2023-08-25 at 14 16 18@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/c5ac96a0-c0df-44c0-8bd3-36313d3c21b2">
 
 notes:
 
