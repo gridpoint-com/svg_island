@@ -7,9 +7,16 @@ MARK: Welcome everyone, happy to have you all here. By the dancing trees you can
 ---
 
 ### Intro Presenters 👯 
+
+| Mark Keele | Meks McClure |
+| -- | -- |
+| he/him | they/them |
+| TODO pic | TODO pic |
+| https://keele.codes/ | https://github.com/MMcClure11 |
+
 notes:
 
-MEKS: Hello all! I’m Meks. I use they/them pronouns and my counterpart here is Mark (he/him). We both started working at GridPoint about a year ago when the company was switching over their main product platform to Elixir and Phoenix, which is focused on creating a sustainable energy future. Mark and I work on different teams, but because collaboration is highly valued, that didn’t stop me from leaving my domain for a bit to help him out with exploring SVG Island.
+MEKS: Hello all! I’m Meks. I use they/them pronouns and my counterpart here is Mark (he/him). We are both software engineers at GridPoint working on separate teams, but partnered up to explore SVG island together.
 
 ---
 
@@ -40,16 +47,20 @@ MEKS: We love our designers don't we.
 
 ### Let's build it 🚧 
 
-Rule Number 1 No Javascript 🔥 
+Rule Number 1 No JavaScript 🔥
+
+- Avoid adding node dependency
+- Simplify deployments
+- Hooks can become complicated
 
 notes:
 
-MEKS: Before we get started, let’s lay some ground rules. GridPoint is trying to build the product with as few dependencies as possible, relying on the tools provided by Elixir, Phoenix, and the BEAM. At the time, the only Javascript in the project came from the Phoenix.LiveView.JS library. One of the constraints we were given was to do as much as possible with the built in LiveView functionality. So, no Javascript.
+MEKS: Before starting, let’s lay some ground rules. Our project has no JS dependencies outside of the built in LiveView JS library. Adding a JS dependency would mean that we need to include node as part of our release process. Ideally, we want to stick to erlang and the BEAM without having to add anything else to our servers. This helps simplify deployments. Drawing on prior experience, writing JS hooks for use in Phoenix can become very complicated, very quickly. We want to avoid that as well, sticking with what we know best, Elixir. So our first rule is, no JavaScript!
 
 ---
 ### Let's build it 🚧 
 
-Rule Number 2 No Javascript 🔥 
+Rule Number 2 No JavaScript 🔥
 
 notes:
 
@@ -98,7 +109,6 @@ MARK: The downsides were the documentation, complexity of the output SVG, and th
 ---
 
 ### GGity Pros 🤔 
-
 * Based on R's ggplot2 API with great documentation
 * Works well with LiveView
 * Support for many chart types
@@ -169,7 +179,7 @@ MEKS: At a high level, SVG, or Scalable Vector Graphic, is a markup language for
 
 notes:
 
-MEKS: Now that we we’ve looked at a high level map of SVG Island, let’s start exploring its geography in closer detail and see how they are put together.
+MEKS: Now that we we’ve looked at a high level map of SVG Island, let’s start exploring its geography in closer detail and see how SVGs are put together.
 
 ---
 
@@ -436,7 +446,7 @@ The result is we calculate a list of line coordinates were each line represents 
 
 notes:
 
-MEKS: Most of us are probably familiar with Hex packages and have seen their download charts. We built a small demo app with the aim of replicating the Jason downloads chart. This demo is available publicly so those interested can check out the code in more detail.
+MEKS: Most of us are probably familiar with Hex packages and have seen their download charts. We built a small demo app with the aim of replicating the Jason downloads chart. This demo is available publicly and we’ll provide the link at the end of the presentation so interested parties can peruse the code. It’s ReadMe has a copy of this slide deck as well.
 
 ---
 
@@ -550,7 +560,7 @@ MARK: While this works, it’s not ideal since that position will need to change
 
 <img width="424" alt="CleanShot 2023-08-17 at 15 32 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/771077b8-dc7e-4467-a99a-c623a1a79ae9">
 
-[How to work with SVG text](https://vanseodesign.com/web-design/how-to-work-with-svg-text/): Interesting blog series for CSS nerds.
+https://bit.ly/3PbPTqH: Interesting blog series for CSS nerds on SVG text.
 
 notes: 
 
@@ -686,16 +696,17 @@ Finally we'd draw related elements together. We ended up with a few "magic" numb
 
 * Learning SVG isn't too bad
 * We didn't introduce a JS dependency
+* Design dream makers
 * Great power, great responsibility
 
 notes:
 
 MEKS: Overall would we recommend doing this? Well, it depends on your needs and use case. Learning SVG isn't too bad but you do need to understand the basics to be proficient.
-The hardest part is learning to think and visualize upside down.
+The hardest part for us was learning to think and visualize upside down.
 
 MARK: We didn't have to add any new dependencies to our project to accomplish this feat and we now have complete freedom to improve and iterate on our chart building process.
 
-MEKS: We feel we can make our designers dreams come true but building these components in a way so that they are maintainable and easy for other devs to understand will be an ongoing effort
+MEKS: We can come really close to making all of our designer’s dreams come true. But building these components so that they are maintainable and easy for other devs to understand and use will be an ongoing effort.
 
 ---
 
@@ -706,4 +717,4 @@ Slides / example project: https://github.com/gridpoint-com/svg_island
 ![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
 notes:
 
-MARK: That's all folks. You can find these slides and an example project at the link above. And oh yeah, here's a photo of me on SVG Island. Thanks for attending.
+MARK: That's all folks. You can find these slides and the example project at the link above. And oh yeah, here's a photo of me on SVG Island. Thanks for attending.
