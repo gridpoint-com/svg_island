@@ -12,7 +12,7 @@ MARK: Welcome everyone, happy to have you all here. By the dancing trees you can
 | -- | -- |
 | he/him | they/them |
 | <img width="457" alt="CleanShot 2023-08-25 at 14 23 49@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/a41c9dad-a569-4369-9753-dde1e68c790d"> | <img width="457" alt="CleanShot 2023-08-25 at 14 24 32@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b60ba373-38b7-4064-b7ff-62d185cf9d74"> |
-| https://keele.codes/ | https://github.com/MMcClure11 |
+| https://keele.codes/ | github: MMcClure11 |
 
 notes:
 
@@ -85,8 +85,6 @@ MARK: Given the no JavaScript constraint we're only considering pure elixir solu
 ---
 
 ### Contex Pros 🤔 
-
-#### Pros
 * Most popular pure Elixir charting library
 * Support for many chart types
 * Works well with LiveView
