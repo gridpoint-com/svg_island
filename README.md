@@ -638,7 +638,7 @@ MARK: Now that you've seen how we built SVG charts, you're probably wondering ho
 
 We started by building a Bar Chart with a bottom up approach. By bottom up I mean we had a given design to match and we hand crafted the markup for an SVG to match it. 
 
-Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by automating the drawing of the background lines. Then we automated the labels, then finally the Bar Lines.
+Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by dynamically drawing of the background lines. Then we automated the labels, then finally the Bar Lines.
 
 After all this abstracting was done we had a simple Bar Chart component that we could pass data into and it would draw a bar chart that visualized that data.
 
