@@ -648,20 +648,41 @@ After all this abstracting was done we had a simple Bar Chart component that we 
 ### What didn't go well with this approach?
 
 * Scaling the chart data
-* Access to the coordinates
-* Elements of the chart drawn independently
 
-![bar_chart_tooltip](https://github.com/gridpoint-com/svg_island/assets/5237832/30dbae86-891d-4ef2-8731-385d72ace694)
+![bar_chart_off_viewbox](https://github.com/gridpoint-com/svg_island/assets/5237832/b678e3cf-5fd4-4a5a-b442-ca051cfb6adf)
 
 notes:
 
-MARK: So what didn't go well? Well we have built a component such that it abstracted away a lot of the complexity and could easily be added to a LiveView.
+MARK:
+So what didn't go well?
 
-The first problem we ran into was when we starting plugging various datasets into the chart. We realized that we needed to scale the input data such that the data look right relative to the dimensions of the chart and the overall size of the chart. With some datasets we saw lines shoot right up outside the top of the chart or through the bottom of the chart.
+The first problem we ran into was when we starting plugging various datasets into the chart. We realized that we needed to scale the input data such that the data look correct relative to the dimensions of the chart. Here's a funny image of how we saw lines shoot right up off the top of the chart and through the bottom of the chart.
 
-The second problem was in regards to click events and the positioning of the tooltip. When a user clicks on a line the coordinates of that line are pushed to the LiveView. When we went to the display the tooltip we could only place the tooltip relative to the line that was clicked. In the screenshot above you can see that the tooltip obstructs some of the other lines as it's placed directly on the line that was clicked.
+---
 
-The third problem was that we drew each element of the chart independently. This was the simplest approach at the time but lead to some alignment issues where labels wouldn't line up with the data that they were supposed to represent.
+### What didn't go well with this approach?
+
+* Access to the coordinates
+
+![bar_chart_tooltip_placement](https://github.com/gridpoint-com/svg_island/assets/5237832/ac72dafa-27eb-4884-b318-0fcd1eb7e796)
+
+notes:
+
+MARK: 
+The second problem was in regards to click events and the positioning of the tooltip. When a user clicks on a line the coordinates of that line are pushed to the LiveView. When we went to the display the tooltip we could only place the tooltip relative to the line that was clicked. In this image you can see that the tooltip was placed right on top of the line that was clicked and obstructs other lines from view.
+
+---
+
+### What didn't go well with this approach?
+
+* Elements of the chart drawn independently
+
+![bar_chart_aligment](https://github.com/gridpoint-com/svg_island/assets/5237832/1fb88972-ae15-4cc3-aa96-20b1be137bee)
+
+notes:
+
+MARK:
+The third problem was that we drew each element of the chart independently. This was the simplest approach at the time but lead to some alignment issues where labels wouldn't line up with the data that they were supposed to represent. In this image you can see that the x labels do not align with the bar lines and the y labels do not align with the background lines.
 
 ---
 
