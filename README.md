@@ -20,11 +20,11 @@ MEKS: Hello all! I’m Meks. I use they/them pronouns and my counterpart here is
 
 ---
 
-### Why? :palm_tree: SVG Island :palm_tree:
+### Why explore :palm_tree: SVG Island :palm_tree:
 
 notes:
 
-MARK: Why SVG Island? Well we have a lot of data that we need to visualize. We have top notch designers and they have dreamed up several creative ways to best inform our customers. With these design challenges we need a robust charting solution to bring these visualizations to life.
+MARK: Why explore SVG Island? Well we have a lot of data that we need to visualize. We have top notch designers and they have dreamed up several creative ways to best inform our customers. With these design challenges we need a robust charting solution to bring these visualizations to life.
 
 ---
 
@@ -174,12 +174,11 @@ MEKS: Now that we we’ve looked at a high level map of SVG Island, let’s star
 ---
 
 ### First we define a ViewBox
-**[ViewBox](https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox)**: Defines the position and dimension, in user space, of an SVG viewport.
+Defines the position and dimension of an SVG viewport.
 
-<img width="730" alt="CleanShot 2023-08-11 at 10 00 06@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5f8f4458-0a3d-4336-929b-1715f4c84cad">
+<img width="700" alt="CleanShot 2023-08-11 at 10 00 06@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5f8f4458-0a3d-4336-929b-1715f4c84cad">
 
-![empty_viewBox](https://user-images.githubusercontent.com/5237832/218849904-91f3d1f1-6140-48b8-9d47-dc5f6b0a7182.png)
-
+<img src="https://user-images.githubusercontent.com/5237832/218849904-91f3d1f1-6140-48b8-9d47-dc5f6b0a7182.png" width="700" />
 notes:
 
 MARK: The viewbox is our playground and the space we'll work in to draw SVGs. 
@@ -653,9 +652,10 @@ After all this abstracting was done we had a simple Bar Chart component that we 
 
 notes:
 
-MARK:
+MEKS:
 So what didn't go well?
 
+MARK:
 The first problem we ran into was when we starting plugging various datasets into the chart. We realized that we needed to scale the input data such that the data look correct relative to the dimensions of the chart. Here's a funny image of how we saw lines shoot right up off the top of the chart and through the bottom of the chart.
 
 ---
@@ -698,7 +698,7 @@ MARK: What would we do differently? Well hindsight is 20-20 and if we did it aga
 
 First we'd start with a top down, data driven approach and drive the implementation based on real input data. We believe this approach would lead to only building what you need to display the data and nothing more.
 
-Second give the developer access to all the coordinates on events. With the Bar Chart the coordinates were generated then immediately used to draw the chart. The developer had no way to access the coordinates. If we had given the developer access to the coordinates then they'd have complete flexible when reacting to chart events.
+Second give the developer access to all the coordinates on events. With the Bar Chart the coordinates were generated then immediately used to draw the chart. The developer had no way to access the coordinates. If we had given the developer access to the coordinates then they'd have complete flexibility when reacting to chart events.
 
 Finally we'd draw related elements together. We ended up with a few "magic" numbers to get everything to align perfectly  but a lot of these issues are best addressed by drawing related elements together and utilizing SVG attributes in the right places.
 
@@ -726,7 +726,7 @@ MEKS: We can come really close to making all of our designer’s dreams come tru
 
 Slides / example project: https://github.com/gridpoint-com/svg_island
 
-![cast_away_svg](https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0)
+<img src="https://github.com/gridpoint-com/svg_island/assets/5237832/19862d2c-2555-4b49-b5e4-b0108cf133c0" width="700" />
 notes:
 
 MARK: That's all folks. You can find these slides and the example project at the link above. And oh yeah, here's a photo of me on SVG Island. Thanks for attending.
