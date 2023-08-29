@@ -24,7 +24,7 @@ MEKS: Hello all! I’m Meks. I use they/them pronouns and my counterpart here is
 
 notes:
 
-MARK: One of GridPoint's big selling points is that it actually saves you money. The savings team needed a way to showcase to our customers the value GridPoint brings. This challenge brings us the opportunity to give insights into energy consumption and savings data. Let's see what design thinks about this problem.
+MARK: Why SVG Island? Well we have a lot of data that we need to visualize. We have top notch designers and they have dreamed up several creative ways to best inform our customers. With these design challenges we need a robust charting solution to bring these visualizations to life.
 
 ---
 
@@ -33,15 +33,7 @@ MARK: One of GridPoint's big selling points is that it actually saves you money.
 
 notes:
 
-MARK: Wow, what a beauty. This bar chart gives our customers insights into how much they're savings by using GridPoint. The blue line represents how much this customer would have spent had they never signed up for GridPoint. The teal line shows how much the customer is currently spending. The green line shows how much the customer is saving.
-
----
-
-# 😍 
-
-notes:
-
-MEKS: We love our designers don't we.
+MARK: Here's an example of a bar chart from design. Wow, what a beauty. I'm going to break down this chart and try to convey its complexity. First off we have a multi-series chart meaning that for every x value we have several y values. These are colored bars you see which need to be colored individually and have the ability to swap color palettes for different datasets. We also need to support gaps in our dataset which you can see by the greyed out months. The final elements are the y labels and the corresponding background line for each. To top it off this is just one chart type we need to support.
 
 ---
 
@@ -102,7 +94,7 @@ MARK: Contex is the most popular pure Elixir charting library. It supports bar c
 
 notes:
 
-MARK: The downsides were the documentation, complexity of the output SVG, and there was no clear way to meet our design goals.
+MARK: The downsides were the sparse documentation, complexity of the output SVG, and there was no clear way to meet our design goals.
 
 ---
 
@@ -676,7 +668,7 @@ The third problem was that we drew each element of the chart independently. This
 ### What would we do differently?
 
 * Start top-down with the data
-* User access to coordinates
+* Developer access to coordinates
 * Draw related elements together
 
 notes:
@@ -685,7 +677,7 @@ MARK: What would we do differently? Well hindsight is 20-20 and if we did it aga
 
 First we'd start with a top down, data driven approach and drive the implementation based on real input data. We believe this approach would lead to only building what you need to display the data and nothing more.
 
-Second give the user access to all the coordinates on events. With the Bar Chart the coordinates were generated then immediately used to draw the chart. The user had no way to access the coordinates. If we had given the user access to the coordinates then they'd have complete flexible when reacting to chart events.
+Second give the developer access to all the coordinates on events. With the Bar Chart the coordinates were generated then immediately used to draw the chart. The developer had no way to access the coordinates. If we had given the developer access to the coordinates then they'd have complete flexible when reacting to chart events.
 
 Finally we'd draw related elements together. We ended up with a few "magic" numbers to get everything to align perfectly  but a lot of these issues are best addressed by drawing related elements together and utilizing SVG attributes in the right places.
 
