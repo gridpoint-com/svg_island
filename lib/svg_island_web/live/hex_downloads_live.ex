@@ -337,9 +337,9 @@ defmodule SvgIslandWeb.HexDownloadsLive do
               on_click_event_name="show-tooltip"
               on_click_event_params={%{value: line.value}}
             />
-            <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
           <% end %>
         </g>
+        <.tooltip :if={@tooltip} x={@tooltip.x} y={@tooltip.y} value={@tooltip.value} />
       </svg>
     </div>
     """
