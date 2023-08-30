@@ -1,7 +1,6 @@
 # <img src="https://user-images.githubusercontent.com/5237832/219489376-631bbccf-5a21-40d0-9dfa-7d026a17fa17.gif" width="150" height="150" />SVG Island <img src="https://user-images.githubusercontent.com/5237832/219489376-631bbccf-5a21-40d0-9dfa-7d026a17fa17.gif" width="150" height="150" />
 
-notes:
-
+note:
 MARK: Welcome everyone, happy to have you all here. By the dancing trees you can see we're about to take a trip to SVG Island. This presentation isn't focused on a specific Elixir topic but instead takes you on our journey of developing custom SVG charts for use in Phoenix LiveViews. Let's get started.
 
 ---
@@ -638,7 +637,7 @@ MARK: Now that you've seen how we built SVG charts, you're probably wondering ho
 
 We started by building a Bar Chart with a bottom up approach. By bottom up I mean we had a given design to match and we hand crafted the markup for an SVG to match it. 
 
-Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by dynamically drawing of the background lines. Then we automated the labels, then finally the Bar Lines.
+Once we had the markup for a Bar Chart, we began to abstract the chart piece by piece. We started by dynamically drawing the background lines, then the labels, then finally the Bar Lines.
 
 After all this abstracting was done we had a simple Bar Chart component that we could pass data into and it would draw a bar chart that visualized that data.
 
