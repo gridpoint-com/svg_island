@@ -175,7 +175,7 @@ MEKS: Now that we we’ve looked at a high level map of SVG Island, let’s star
 ### First we define a ViewBox
 Defines the position and dimension of an SVG viewport.
 
-<img width="700" alt="CleanShot 2023-08-11 at 10 00 06@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5f8f4458-0a3d-4336-929b-1715f4c84cad">
+<img width="1000" alt="CleanShot 2023-08-11 at 10 00 06@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/5f8f4458-0a3d-4336-929b-1715f4c84cad">
 
 <img src="https://user-images.githubusercontent.com/5237832/218849904-91f3d1f1-6140-48b8-9d47-dc5f6b0a7182.png" width="700" />
 notes:
@@ -188,7 +188,7 @@ I've used my browsers inspect here to outline the viewbox.
 
 ### Outline the ViewBox
 
-<img width="726" alt="CleanShot 2023-08-11 at 10 00 58@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1a9e8d78-22b6-4747-b641-f4ae2160f5c4">
+<img width="1000" alt="CleanShot 2023-08-11 at 10 00 58@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1a9e8d78-22b6-4747-b641-f4ae2160f5c4">
 
 ![viewbox_outline](https://user-images.githubusercontent.com/5237832/218851323-37e48f88-131c-4b25-9609-f6a333b43fb0.png)
 
@@ -232,7 +232,7 @@ This was one of the most challenging parts of building our own charts and I regu
 ### Our bread and butter 🧈
 **[Polyline](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polyline)**: Creates straight lines connecting several points.
 
-<img width="735" alt="CleanShot 2023-08-11 at 10 01 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b15061cc-90f6-425b-aebd-d2c85d63cc16">
+<img width="1000" alt="CleanShot 2023-08-11 at 10 01 36@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/b15061cc-90f6-425b-aebd-d2c85d63cc16">
 
 ![polyline](https://user-images.githubusercontent.com/5237832/218853849-c169972a-25b3-4846-b6b3-10e20ac21405.png)
 
@@ -248,7 +248,7 @@ Here I'm using a Polyline to draw a line from the bottom of the viewbox to the t
 ### The other element
 **[Text](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/text)**: draws a graphics element consisting of text.
 
-<img width="671" alt="CleanShot 2023-08-11 at 10 02 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/a24e7758-2e50-461d-b147-0a99a7f6b1d4">
+<img width="1000" alt="CleanShot 2023-08-11 at 10 02 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/a24e7758-2e50-461d-b147-0a99a7f6b1d4">
 
 ![text_element](https://user-images.githubusercontent.com/5237832/219486890-92cdf1d4-a4c7-4285-8a4b-b8cee66e14ec.png)
 
@@ -405,7 +405,7 @@ Meks: Sorry, bad pun, I couldn’t help myself.
 
 * Constrain polyline to only accept 2 points
 
-<img width="844" alt="CleanShot 2023-08-11 at 10 03 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/48bd84eb-1989-4328-a5af-6250c9f7d557">
+<img width="1000" alt="CleanShot 2023-08-11 at 10 03 12@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/48bd84eb-1989-4328-a5af-6250c9f7d557">
 
 notes:
 
@@ -420,7 +420,7 @@ made because then each line segment represents a piece of data that we can inter
 
 * Utilize last known location to keep drawing more lines
   
-<img width="892" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/06666f01-312e-4c8d-9a9d-22439b1c249b">
+<img width="1000" alt="CleanShot 2023-08-11 at 10 04 46@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/06666f01-312e-4c8d-9a9d-22439b1c249b">
 
 notes:
 
@@ -441,7 +441,7 @@ MEKS: Most of us are probably familiar with Hex packages and have seen their dow
 
 ### Jason Downloads
 
-<img width="525" alt="CleanShot 2023-08-11 at 10 07 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/967efda6-d575-4958-9ddd-c98d600f0146">
+<img width="700" alt="CleanShot 2023-08-11 at 10 07 28@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/967efda6-d575-4958-9ddd-c98d600f0146">
 
 <img width="846" alt="Screenshot 2023-08-03 at 11 37 58 AM" src="https://github.com/gridpoint-com/svg_island/assets/60719697/13ae1af7-5cf3-40dc-9019-ee83a866827b">
 
@@ -475,7 +475,7 @@ MEKS: As a brief intro to Tailwind, it is a utility-first CSS framework that can
 
 ### Tailwind CSS
 
-<img width="504" alt="CleanShot 2023-08-17 at 20 48 35@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d3bae18f-96ea-4e6d-ae64-0d16835a0920">
+<img width="1000" alt="CleanShot 2023-08-17 at 20 48 35@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/d3bae18f-96ea-4e6d-ae64-0d16835a0920">
 
 notes:
 
@@ -485,7 +485,7 @@ MEKS: For the lines of the chart, we use this feature to style the SVG attribute
 
 ### Tailwind CSS
 
-<img width="683" alt="CleanShot 2023-08-17 at 20 49 26@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/8eba22ae-8662-4301-b8ca-7fcbc9c0ab81">
+<img width="1000" alt="CleanShot 2023-08-17 at 20 49 26@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/8eba22ae-8662-4301-b8ca-7fcbc9c0ab81">
 
 <img width="860" alt="CleanShot 2023-08-17 at 16 29 09@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/62914bc1-00e4-4191-ade7-52bb724c81b9">
 
@@ -497,9 +497,9 @@ MEKS: Here you can see how straight forward it is to just switch out a few value
 
 ### Positioning Text Elements
 
-<img width="771" alt="CleanShot 2023-08-17 at 15 25 16@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/99f191a0-c364-4812-a869-e4eac7cccf2f">
+<img width="1500" alt="CleanShot 2023-08-17 at 15 25 16@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/99f191a0-c364-4812-a869-e4eac7cccf2f">
 
-<img width="487" alt="CleanShot 2023-08-17 at 15 24 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dab6f7f9-9a03-4ec2-84f2-82923572b91f">
+<img width="700" alt="CleanShot 2023-08-17 at 15 24 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/dab6f7f9-9a03-4ec2-84f2-82923572b91f">
 
 notes: 
 
@@ -533,7 +533,7 @@ We can fix this by giving it some magic numbers and make its origin not the full
 
 ### Positioning Text Elements
 
-<img width="569" alt="CleanShot 2023-08-17 at 15 12 18@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f7594857-6cc0-4efb-b78b-1964164216e5">
+<img width="1000" alt="CleanShot 2023-08-17 at 15 12 18@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/f7594857-6cc0-4efb-b78b-1964164216e5">
 
 <img width="420" alt="CleanShot 2023-08-17 at 15 28 47@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/6db72464-3aec-46ff-8f0f-b15f98f71e2f">
 
@@ -544,12 +544,9 @@ MARK: While this works, it’s not ideal since that position will need to change
 ---
 
 ### Positioning Text Elements with Tailwind
-
-<img width="799" alt="CleanShot 2023-08-17 at 15 33 00@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3d835f7b-3949-4de8-a4fb-15c56be203ca">
-
+<img width="1000" alt="CleanShot 2023-08-17 at 15 33 00@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3d835f7b-3949-4de8-a4fb-15c56be203ca">
 <img width="424" alt="CleanShot 2023-08-17 at 15 32 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/771077b8-dc7e-4467-a99a-c623a1a79ae9">
-
-https://bit.ly/3PbPTqH: Interesting blog series for CSS nerds on SVG text.
+https://bit.ly/3PbPTqH: Blog series on SVG text.
 
 notes: 
 
@@ -559,9 +556,9 @@ MEKS: Well, Mark. With Tailwind, we can! Once again, we rely on the just-in-time
 
 ### Jason Downloads
 
-![CleanShot 2023-08-03 at 15 50 58](https://github.com/gridpoint-com/svg_island/assets/60719697/a7c3be78-a4eb-4c99-bc97-be43c7c58ffa)
+<img width="1000" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1b45fdbe-096f-4a8f-af2d-d2990637e91d">
 
-<img width="858" alt="CleanShot 2023-08-11 at 10 11 27@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/1b45fdbe-096f-4a8f-af2d-d2990637e91d">
+![CleanShot 2023-08-03 at 15 50 58](https://github.com/gridpoint-com/svg_island/assets/60719697/a7c3be78-a4eb-4c99-bc97-be43c7c58ffa)
 
 notes: 
 
@@ -629,7 +626,7 @@ MARK: TADA we now have our chart updating with LiveView streams! In the image ab
 * Hand crafted an SVG to match design
 * Abstracted chart elements piece by piece
   
-<img width="340" alt="CleanShot 2023-08-14 at 13 57 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/bf52ae19-6be5-4a06-a308-4fb628ed069d">
+<img width="700" alt="CleanShot 2023-08-14 at 13 57 11@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/bf52ae19-6be5-4a06-a308-4fb628ed069d">
 
 notes:
 
