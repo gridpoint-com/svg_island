@@ -495,6 +495,16 @@ MEKS: Here you can see how straight forward it is to just switch out a few value
 
 ---
 
+### Labels and Legend
+
+![CleanShot 2023-09-01 at 14 09 13@2x](https://github.com/gridpoint-com/svg_island/assets/60719697/805f1d22-2587-4f84-be4e-9b4417cb4a41)
+
+notes: 
+
+MEKS: So we have pretty well established how to draw lines in relation to each other and the dimensions of the viewbox. We also know how to style them, but what about the text elements like the labels and the legend? Let’s look at the legend to see how we can position that.
+
+---
+
 ### Positioning Text Elements
 
 <img width="1500" alt="CleanShot 2023-08-17 at 15 25 16@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/99f191a0-c364-4812-a869-e4eac7cccf2f">
@@ -503,9 +513,7 @@ MEKS: Here you can see how straight forward it is to just switch out a few value
 
 notes: 
 
-MEKS: So we have pretty well established how to draw lines in relation to each other and the dimensions of the viewbox. We also know how to style them, but what about the text elements like the labels and the legend? Let’s look at the legend to see how we can position that. 
-
-Here we have a small functional component where we can pass it the coordinates and value of the text for the legend. We’ll use the chart width and height to determine its placement. 
+MEKS: Here we have a small functional component where we can pass it the coordinates and value of the text for the legend. We’ll use the chart width and height to determine its placement. 
 
 Remember, SVG charts are upside down, so to place it in the upper most part of the chart, we just use y=0. We can pass x={@chart.dimensions.chart_width} for its x coordinate.
 
@@ -544,8 +552,10 @@ MARK: While this works, it’s not ideal since that position will need to change
 ---
 
 ### Positioning Text Elements with Tailwind
+
 <img width="1000" alt="CleanShot 2023-08-17 at 15 33 00@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/3d835f7b-3949-4de8-a4fb-15c56be203ca">
 <img width="424" alt="CleanShot 2023-08-17 at 15 32 13@2x" src="https://github.com/gridpoint-com/svg_island/assets/60719697/771077b8-dc7e-4467-a99a-c623a1a79ae9">
+
 https://bit.ly/3PbPTqH: Blog series on SVG text.
 
 notes: 
@@ -577,12 +587,21 @@ MARK: Next you might be wondering, what about updating the chart with new data? 
 MEKS: It's quite hard to tell but on each update there's a roundtrip to the server and an entire redraw of the chart. Mark, is there a way we could just add the new data point without redrawing the whole chart?
 
 ---
+### LiveView Streams
+
+<img src="https://media.giphy.com/media/35H0uxVaX2egKLWlRF/giphy.gif" width="480" height="270"/>
+
+notes:
+
+MARK: Here come LiveView Streams to the rescue.
+
+---
 ###  Intro LiveView Streams
 * Streams are a mechanism for managing large collections on the client without keeping the resources on the server
 
 notes:
 
-MARK: Here come LiveView Streams to the rescue. If you haven't heard streams are a new mechanism for managing large collections on the client side without keeping the resources on the server. Streams has an elegant interface to insert and delete items from a client side collection.
+MARK: If you haven't heard streams are a new mechanism for managing large collections on the client side without keeping the resources on the server. Streams has an elegant interface to insert and delete items from a client side collection.
 
 ---
 ### Why LiveView Streams
